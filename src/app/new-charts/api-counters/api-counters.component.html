@@ -1,0 +1,24 @@
+<mat-grid-list cols="4" rowHeight="100px" *ngFor = "let summary of showApiSummary">
+  <mat-grid-tile [colspan]=4 [rowspan]=1 >
+    <mat-card class="dashboard-card counter-card">
+      <mat-card-content class="dashboard-card-content" class="headerContent">
+      <!-- <div class="dateDiv"><mat-icon>insert_invitation</mat-icon><strong>{{ summary.reportDate }}</strong></div> -->
+      <div class="dateDiv"><mat-icon>insert_invitation</mat-icon><strong>{{ apiReportDate |  date:'dd/MM/yyyy'}}</strong></div>
+        <mat-chip-list>
+          <mat-chip>Total Vulnerabilities : <span class="count">{{ summary.totalVulnerabilities }}</span></mat-chip>
+          <mat-chip color="primary">External API's Pending for Pen Test: <span class="count">{{ summary.extApiPenTestPending }}</span></mat-chip>
+          <mat-chip color="primary">External API's Pending for Veracode Scan: <span class="count">{{ summary.extApiVeracodeScanPending }}</span></mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<!-- <div *ngIf="resonse">
+  <h2>{{ resonse['totalVulnerabilities'] }}</h2>
+</div> -->
+<!-- 
+<div *ngFor = "let summary of showApiSummary">
+  <h2>{{ summary.totalVulnerabilities }}</h2>
+</div> -->
+

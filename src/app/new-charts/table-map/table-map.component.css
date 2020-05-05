@@ -1,0 +1,30 @@
+table {
+    width: 100%;
+  }
+th {
+  border: none;
+  border-bottom: 1px solid #f5f5f5;
+  text-align: left;
+  padding: 10px;
+  }
+tbody td {
+    border: none;
+    text-align: left;
+    padding: 5px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+  .holisticMapTable .firstHeader {
+    background-color: #dddddd;
+    font-weight: bold;
+  }
+  .holisticMapTable .firstHeader th:nth-child(3),
+  .holisticMapTable .firstHeader th:nth-child(4) {
+    text-align: center;
+  }
+  .holisticMapTable tfoot {
+    background-color: #dddddd;
+    font-weight: bold !important;
+  }

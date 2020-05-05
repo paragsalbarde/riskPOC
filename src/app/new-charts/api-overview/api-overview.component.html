@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <canvas id="apiOverviewChart" class="chartCanvas"></canvas>
+</div>
+<div class="wrapper overviewChartStyle">
+  <div class="riskScoreDiv" *ngIf = "riskScoreVar">
+    <h1>{{ riskScoreVar }}</h1>
+    <span>{{ riskScoreLevel }}</span>
+  </div>
+</div>

@@ -10,17 +10,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./donutchart.component.css']
 })
 export class DonutchartComponent implements OnInit {
-  @Input() root3;
+  @Input() chartData;
   public chart:any;
   constructor(private _getReport: NewDataService ) { }
 
   ngOnInit() {
-    console.log(this.root3);
-    var width = 500;
-    var height = 500;
+    console.log(this.chartData);
+    var width = 700;
+    var height = 700;
     var radius = Math.min(width, height) / 2;
     var color = d3.scaleOrdinal(d3.schemeCategory10);
-    
+    console.log(radius);
     /*var color = d3.scaleLinear()
     .domain([10, 100])
     .range(["brown", "steelblue"])
@@ -53,7 +53,7 @@ export class DonutchartComponent implements OnInit {
     return d.size;
 });*/
     
-    var root = d3.hierarchy(this.root3, function(d) { return d.children })
+    var root = d3.hierarchy(this.chartData, function(d) { return d.children })
         .sum( function(d) { 			
                     if(d.children) {
                         return 0
@@ -155,7 +155,7 @@ export class DonutchartComponent implements OnInit {
         .attr("dy", ".35em") // vertical-align*/
         .text(function (d) {
           //console.log(d);
-            return `${d.data.name}\n\r(${d.data.size})`;
+            return `${d.data.name}\n\r(${(d.data.size) ? d.data.size : ''})`;
             //return `${d.data.name}`;
         });
        

@@ -4,7 +4,7 @@
     <!-- <p>{{ summary.reportDate }}</p> -->
   </div>
   <app-api-counters></app-api-counters>
-  <app-donutchart [root3]="root"></app-donutchart>
+  <app-donutchart *ngIf="root.name !== undefined" [chartData]="root"></app-donutchart>
   <!-- <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">

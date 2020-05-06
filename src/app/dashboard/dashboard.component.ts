@@ -16,16 +16,43 @@ export class DashboardComponent {
   
 
   constructor(private _riskReport:ApiRiskReportDataService) {}
+  groupBy(data, column) {
+    let groupData = data.reduce((r, a) => {
+      r[a[column]] = [...r[a[column]] || [], a];
+      return r;
+     }, {});
+     return groupData;
+  }
   ngOnInit() {
     this._riskReport.riskReport().subscribe(riskData => {
-      console.log(riskData['list']);
+      //console.log(riskData['list']);
 
-      let group = riskData['list'].reduce((r, a) => {
-        r[a.apiType] = [...r[a.apiType] || [], a];
-        return r;
-       }, {});
-       console.log("group", group);
-
+     let riskGroup = this.groupBy(riskData['list'], 'apiType');
+       //console.log("group", riskGroup);
+       let chartData = {};
+       chartData['name'] = 'API risk';
+       chartData['children'] = Object.keys(riskGroup).map((column) => {
+        //console.log(riskGroup[column])
+       // riskGroup[column].map((data) => {
+          //  console.log(data);
+            let  groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassification');
+            //console.log(groupCritical);
+            let chartChildData = [];
+            chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
+              return {
+                name : column1,
+                size : groupCritical[column1].length
+              }
+            })
+       // })
+          return {
+            name : column,
+            size : riskGroup[column].length,
+            children : chartChildData['children']
+          }
+       });
+       console.log(chartData)
+this.root = chartData;
 
       let apiNames = riskData['list'].map(i => i.apiName)
       let apiScores = riskData['list'].map(i => i.riskScore)
@@ -79,7 +106,7 @@ export class DashboardComponent {
     })
 
     
-    this.root = {
+    let pp = {
       "name": "Mobile Strategy",
           "children": [{
           "name": "Differentiator",

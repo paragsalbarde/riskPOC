@@ -11,12 +11,14 @@ import { PendingApiComponent } from './api-app-dashboard/charts/pending-api/pend
 //START: New Dashboard
 import { NewDashboardComponent } from './new-dashboard/new-dashboard.component';
 import { D3DashboardComponent } from './d3-dashboard/d3-dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: NewDashboardComponent},
   { path: 'old-dashboard', component: ApiAppDashboardComponent},
   { path: 'new-dashboard', component: NewDashboardComponent},
   { path: 'd3-dashboard', component: D3DashboardComponent},
+  { path: 'dashboard', component: DashboardComponent},
   
   
   { path: 'api-risk-report-json', component: ApiRiskReportJsonComponent },

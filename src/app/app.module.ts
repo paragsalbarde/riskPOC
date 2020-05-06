@@ -30,9 +30,12 @@ import { TableMapComponent } from './new-charts/table-map/table-map.component';
 import { MapDataTableComponent } from './new-charts/map-data-table/map-data-table.component';
 import { D3DashboardComponent } from './d3-dashboard/d3-dashboard.component';
 import { OverviewComponent } from './d3-charts/overview/overview.component';
+import { DonutchartComponent } from './d3-charts/donutchart/donutchart.component';
 import { SunburstComponent } from './d3-charts/sunburst/sunburst.component';
 import { ApiSecurityComponent } from './new-charts/api-security/api-security.component';
-
+//
+import { DashboardComponent } from './dashboard/dashboard.component';
+//import { sunburst } from 'angular-d3-sunburst';
 
 @NgModule({
   declarations: [
@@ -54,8 +57,9 @@ import { ApiSecurityComponent } from './new-charts/api-security/api-security.com
     D3DashboardComponent,
     OverviewComponent,
     SunburstComponent,
-    ApiSecurityComponent
-    
+    ApiSecurityComponent,
+    DonutchartComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

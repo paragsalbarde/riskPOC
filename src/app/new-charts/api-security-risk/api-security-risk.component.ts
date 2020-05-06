@@ -3,7 +3,7 @@ import { NewDataService } from '../../shared/new-data-service.service';
 import { ChartsModule } from 'ng2-charts';
 import { Chart, ChartType, ChartOptions, Labels } from 'chart.js';
 //import ChartDataLabels from 'chartjs-plugin-datalabels';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+//import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 
 import 'rxjs/add/operator/map';
@@ -52,7 +52,7 @@ export class ApiSecurityRiskComponent implements OnInit {
               backgroundColor: colors,
               data: securityRiskData,
               label: 'Risk',
-              labels: ['Low Risk', 'Medium Risk', 'High Risk', 'Critical Risk','No Risk'],
+              labels: ['Low Risk', 'Medium Risk', 'High Risk', 'Critical Risk', 'No Risk'],
             }
             ]
           },
@@ -73,7 +73,7 @@ export class ApiSecurityRiskComponent implements OnInit {
             tooltip: false,
             //plugins: [pluginDataLabels],
             plugins: {
-              pluginDataLabels,
+              //pluginDataLabels,
               datalabels: {
                 align: function (context) {
                   var index = context.dataIndex;

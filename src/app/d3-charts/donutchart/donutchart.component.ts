@@ -16,8 +16,8 @@ export class DonutchartComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.root3);
-    var width = 600;
-    var height = 600;
+    var width = 500;
+    var height = 500;
     var radius = Math.min(width, height) / 2;
     var color = d3.scaleOrdinal(d3.schemeCategory10);
     
@@ -100,10 +100,24 @@ export class DonutchartComponent implements OnInit {
       .outerRadius(function (d) {
       return Math.max(0, y(d.y + d.dy));
   });*/
+  var div = d3.select("#container")
+  .append("div") 
+  .attr("class", "d3-tip n");
 
     var path1 = svg.selectAll('g')
         .data(root.descendants())
         .enter().append("g")
+        .on("mousemove",function(d){
+          var mouseVal = d3.mouse(this);
+          div.style("display","none");
+          div
+          .html("name:"+d.data.name+"</br>"+"size:"+d.data.size)
+          .style("left", (d3.event.pageX-220) + "px")
+          .style("top", (d3.event.pageY+120) + "px")
+          .style("opacity", 1)
+          .style("position", 'absolute')
+          .style("display","block");
+      })
         
         path1.append('path')
             .attr("display", function(d) { return d.depth ? null : "none"; })
@@ -112,35 +126,50 @@ export class DonutchartComponent implements OnInit {
             .style('stroke', '#fff')
             .style("fill", function(d) { return color((d.children ? d : d.parent).data.name); })
   
+          
+
         var text = path1.append("text")
         .attr("fill", "white")
-        .attr("transform", function (d) {
+       
+        .attr("title", function(d) {
+          return `${d.data.name}`;
+        })
+        .attr("style", "font-size:12px")
+        /*.attr("transform", function (d) {
+          console.log(arc.centroid(d))
           return "translate(" + arc.centroid(d) + ")";
-      })
+      })*/
+    
       
-      /*  .attr("x", function (d) {
+       .attr("x", function (d) {
              // console.log(d);
-              return d.y1;
+              return arc.centroid(d)[0]-30;
             //return y(d.y);
-        })*/
+        })
+        .attr("y", function (d) {
+          // console.log(d);
+           return arc.centroid(d)[1];
+         //return y(d.y);
+     })
           /*  .attr("dx", "6") // margin
         .attr("dy", ".35em") // vertical-align*/
         .text(function (d) {
           //console.log(d);
-            return d.data.name;
+            return `${d.data.name}\n\r(${d.data.size})`;
+            //return `${d.data.name}`;
         });
        
 
           function computeTextRotation(d) {
             //console.log(d);
-           var angle = x(d.x0 + d.x1 / 2) - Math.PI / 2;
-           //var angle = x(d.x + d.dx / 2) - Math.PI / 2;
+           //var angle = x(d.x0 + d.x1 / 2) - Math.PI / 2;
+           var angle = x(d.x + d.dx / 2) - Math.PI / 2;
             return angle / Math.PI * 180;
         }
-        /*text.attr("transform", function (d) {
+        text.attr("transform", function (d) {
           //return "rotate(" + computeTextRotation(d) + ")";
-          return "rotate(230)";
-      });*/
+          //return "rotate(25)";
+      });
   }
  tooltipFunc(branch) {
     return branch.name;

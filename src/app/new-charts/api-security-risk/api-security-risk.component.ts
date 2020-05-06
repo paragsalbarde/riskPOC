@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewDataService } from '../../shared/new-data-service.service';
 import { ChartsModule } from 'ng2-charts';
-import { Chart, ChartType, ChartOptions, Labels } from 'chart.js';
+import * as Chart from 'chart.js';
 //import ChartDataLabels from 'chartjs-plugin-datalabels';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 

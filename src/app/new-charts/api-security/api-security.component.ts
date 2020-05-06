@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewDataService } from '../../shared/new-data-service.service';
 import { ChartType, MultiDataSet, Label} from 'chart.js';
-import {  } from 'ng2-charts';
+import  * as chart from 'ng2-charts';
 import 'chart.piecelabel.js';
 import { Observable } from 'rxjs';
 

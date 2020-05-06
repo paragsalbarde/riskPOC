@@ -31,6 +31,7 @@ import { MapDataTableComponent } from './new-charts/map-data-table/map-data-tabl
 import { D3DashboardComponent } from './d3-dashboard/d3-dashboard.component';
 import { OverviewComponent } from './d3-charts/overview/overview.component';
 import { DonutchartComponent } from './d3-charts/donutchart/donutchart.component';
+import { SunburstchartComponent } from './d3-charts/sunburstchart/sunburstchart.component';
 import { SunburstComponent } from './d3-charts/sunburst/sunburst.component';
 import { ApiSecurityComponent } from './new-charts/api-security/api-security.component';
 //
@@ -59,7 +60,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SunburstComponent,
     ApiSecurityComponent,
     DonutchartComponent,
-    DashboardComponent
+    DashboardComponent,
+    SunburstchartComponent
   ],
   imports: [
     BrowserModule,

@@ -39,14 +39,27 @@ export class DashboardComponent {
             //console.log(groupCritical);
             let chartChildData = [];
             chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
+
+              let  groupBreach = this.groupBy(groupCritical[column1], 'penTestSlaBreach');
+
+              let chart2ChildData = [];
+              chart2ChildData['children'] = Object.keys(groupBreach).map((column2) => {
+                return {
+                  name : ( column2 !== undefined && column2 !== "" ) ? column2 : "NA",
+                  size : groupBreach[column2].length
+                }
+              });
+
+              console.log(groupBreach)
               return {
-                name : column1,
-                size : groupCritical[column1].length
+                name : ( column1!== undefined ) ? column1 : "NA",
+                size : groupCritical[column1].length,
+                children : chart2ChildData['children']
               }
             })
        // })
           return {
-            name : column,
+            name : ( column!== undefined ) ? column : "NA",
             size : riskGroup[column].length,
             children : chartChildData['children']
           }

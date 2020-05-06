@@ -5,11 +5,11 @@ import * as d3 from 'd3';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-donutchart',
-  templateUrl: './donutchart.component.html',
-  styleUrls: ['./donutchart.component.css']
+  selector: 'app-sunburstchart',
+  templateUrl: './sunburstchart.component.html',
+  styleUrls: ['./sunburstchart.component.css']
 })
-export class DonutchartComponent implements OnInit {
+export class SunburstchartComponent implements OnInit {
   @Input() chartData;
   public chart:any;
   constructor(private _getReport: NewDataService ) { }
@@ -34,7 +34,7 @@ export class DonutchartComponent implements OnInit {
    // let color = [ "#95b53c","#f7464a", "#95b53c", '#f7464a', '#95b53c', '#f7464a',
                                  // "#95b53c","#f7464a", "#95b53c", '#f7464a', '#95b53c', '#f7464a']
 
-  //  color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, this.chartData.children.length + 1))
+    color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, this.chartData.children.length + 1))
 
     var svg = d3.select('#container')
                             .append('svg')

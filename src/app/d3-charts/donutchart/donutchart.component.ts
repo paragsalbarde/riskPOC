@@ -18,10 +18,9 @@ export class DonutchartComponent implements OnInit {
   constructor(private _getReport: NewDataService ) { }
 
   ngOnInit() {
-    console.log(this.chartSetting);
     var self = this;  
-    var width = 300;
-    var height = 300;
+    var width = 330;
+    var height = 330;
     var radius = Math.min(width, height) / 2;
     var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical'];
     var color = d3.scaleOrdinal()
@@ -116,8 +115,28 @@ export class DonutchartComponent implements OnInit {
           if(d.data['name'] == "API risk") {
             return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
           } else {
-            return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+            //return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+            return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
           }
-      });
+      })
+      path.append("text")
+      .attr("title", function(d) {
+        return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
+      })
+      .attr("style", "font-size:10px") 
+      .attr("x", function (d) {
+          return arc.centroid(<any>d)[0]-20;
+      })
+      .attr("y", function (d) {
+          return arc.centroid(<any>d)[1]+15;
+      })
+      .text(function (d) {
+        if(d.data['name'] == "API risk") {
+          //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+        } else {
+          //return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+          return `(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+        }
+    });
   }
 }

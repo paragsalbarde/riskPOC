@@ -19,8 +19,8 @@ export class PiechartComponent implements OnInit {
     let totalCount = 24;
   
     var self = this;
-    const width = 300;
-    const height = 300;
+    const width = 330;
+    const height = 330;
     const radius = Math.min(width, height) / 2;
 
     const svg = d3.select("#"+this.chartID)

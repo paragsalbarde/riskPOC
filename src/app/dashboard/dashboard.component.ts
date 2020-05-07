@@ -29,26 +29,29 @@ export class DashboardComponent {
   }
   ngOnInit() {
     this.avgData();
-    this._riskReport.riskReport().subscribe(riskData => {
+    //this._riskReport.riskReport().subscribe(riskData => {
+    this._getReport.getReport().subscribe(res => {
+      let riskData = res['RiskScoreDetails'];
+
       //console.log(riskData['list']);
 
-     let riskGroup = this.groupBy(riskData['list'], 'apiType');
-       //console.log("group", riskGroup);
+     let riskGroup = this.groupBy(riskData, 'apiType');
+       console.log("group", riskGroup);
        
        //Piechart data
        let pieChartData = {};
        pieChartData['name'] = "API Risk Overview";
-       pieChartData['count'] = riskData['list'].length;
+       pieChartData['count'] = riskData.length;
        pieChartData['data'] = [];
        //Donut chart data
        let dountChartData = {};
        dountChartData['name'] = 'API risk';
-       dountChartData['size'] = riskData['list'].length;
-       dountChartData['count'] = riskData['list'].length;
+       dountChartData['size'] = riskData.length;
+       dountChartData['count'] = riskData.length;
        //
        dountChartData['children'] = Object.keys(riskGroup).map((column) => {
        // riskGroup[column].map((data) => {
-            let  groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassification');
+            let  groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassificatin');
             let chartChildData = [];
             chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
 
@@ -77,7 +80,7 @@ export class DashboardComponent {
        });
        this.donutData = dountChartData;
        //PieChart Data
-       let groupPieData = this.groupBy(riskData['list'], 'apiRiskClassification');
+       let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
        Object.keys(groupPieData).map((column) => {
           let objPie = {};
           objPie['name'] = column;
@@ -85,62 +88,12 @@ export class DashboardComponent {
           pieChartData['data'].push(objPie);
        });
       this.pieData = pieChartData;
-
-
-      let apiNames = riskData['list'].map(i => i.apiName)
-      let apiScores = riskData['list'].map(i => i.riskScore)
-      let internalApiCount = riskData['list'].filter(i => i.apiType === 'Internal')
-        .map(i => i.riskScore)
-        .reduce((a, b) => a + b);
-      let externalApiCount = riskData['list'].filter(i => i.apiType === 'External')
-        .map(i => i.riskScore)
-        .reduce((a, b) => a + b);
-      let internalRiskCount = riskData['list'].filter(i => i.apiType === 'Internal')
-        .map(i => i.apiName).length;
-      let internalHighRisk = riskData['list'].filter(i => i.apiType === 'Internal' && i.apiRiskClassification === 'High')
-        .map(i => i.apiName).length;
-      let internalLowRisk = riskData['list'].filter(i => i.apiType === 'Internal' && i.apiRiskClassification === 'Low')
-        .map(i => i.apiName).length;
-      let internalMediumRisk = riskData['list'].filter(i => i.apiType === 'Internal' && i.apiRiskClassification === 'Medium')
-        .map(i => i.apiName).length;
-      let internalCriticalRisk = riskData['list'].filter(i => i.apiType === 'Internal' && i.apiRiskClassification === 'Critical')
-        .map(i => i.apiName).length;
-
-      let externalRiskCount = riskData['list'].filter(i => i.apiType === 'External')
-        .map(i => i.apiName).length;
-      let externalHighRisk = riskData['list'].filter(i => i.apiType === 'External' && i.apiRiskClassification === 'High')
-        .map(i => i.apiName).length;
-      let externalLowRisk = riskData['list'].filter(i => i.apiType === 'External' && i.apiRiskClassification === 'Low')
-        .map(i => i.apiName).length;
-      let externalMediumRisk = riskData['list'].filter(i => i.apiType === 'External' && i.apiRiskClassification === 'Medium')
-        .map(i => i.apiName).length;
-      let externalCriticalRisk = riskData['list'].filter(i => i.apiType === 'External' && i.apiRiskClassification === 'Critical')
-        .map(i => i.apiName).length;
-      let maxCount = riskData['list'].length;
-
-      let apiName = riskData['list'].map(res => res.apiName)
-      let apiType = riskData['list'].map(res => res.apiType)
-      let riskScore = riskData['list'].map(res => res.riskScore)
-      let apiRiskClassification = riskData['list'].map(res => res.apiRiskClassification)
-      //let veracodeStatus = res['list'].map(res => res.veracodeStatus)
-      //let penTestSlaBreach = res['list'].map(res => res.penTestSlaBreach)
-      //let veracodeSlaBreach = res['list'].map(res => res.veracodeSlaBreach)
-      //let veracodeDate = res['list'].map(res => res.veracodeDate)
-      //let ramlReviewDate = res['list'].map(res => res.ramlReviewDate)
-      //let penTestDate = res['list'].map(res => res.penTestDate)
-      //console.log(apiNames);
-      let uniqueApiType = Array.from(new Set(apiType))
-      let apiTypeColor = riskData['list'].map(i => i.apiType === "Internal" ? i.color = "#31dc26cc" : 
-                                               i.apiRiskClassification = '#0074a6aa')
-
     });    
   }
 
   avgData() {
-    this._getReport.getReport()
-    .subscribe(res => {
-      console.log(res);
-      
+    this._getReport.getReport().subscribe(res => {
+      //
       let riskScores = res['RiskScoreDetails'].map(i => i.riskScore);
       let avgRiskCal = res['RiskScoreDetails'].filter(i => i.apiType)
                       .map(i => i.riskScore)

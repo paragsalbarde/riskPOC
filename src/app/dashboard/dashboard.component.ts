@@ -12,7 +12,7 @@ import { ApiRiskReportDataService } from './../shared/api-risk-report-data.servi
 export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
   public showApiSummary = [];
-  public root:any = [];
+  public rootData:any = [];
   
 
   constructor(private _riskReport:ApiRiskReportDataService) {}
@@ -31,6 +31,7 @@ export class DashboardComponent {
        //console.log("group", riskGroup);
        let chartData = {};
        chartData['name'] = 'API risk';
+       chartData['size'] = riskData['list'].length;
        chartData['children'] = Object.keys(riskGroup).map((column) => {
         //console.log(riskGroup[column])
        // riskGroup[column].map((data) => {
@@ -46,7 +47,7 @@ export class DashboardComponent {
               chart2ChildData['children'] = Object.keys(groupBreach).map((column2) => {
                 return {
                   name : ( column2 !== undefined && column2 !== "" ) ? column2 : "NA",
-                  size : groupBreach[column2].length
+                  //size : groupBreach[column2].length,
                 }
               });
 
@@ -54,7 +55,7 @@ export class DashboardComponent {
               return {
                 name : ( column1!== undefined ) ? column1 : "NA",
                 size : groupCritical[column1].length,
-                children : chart2ChildData['children']
+                //children : chart2ChildData['children']
               }
             })
        // })
@@ -65,7 +66,7 @@ export class DashboardComponent {
           }
        });
        console.log(chartData)
-this.root = chartData;
+this.rootData = chartData;
 
       let apiNames = riskData['list'].map(i => i.apiName)
       let apiScores = riskData['list'].map(i => i.riskScore)

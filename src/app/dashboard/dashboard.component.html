@@ -71,7 +71,11 @@
         <mat-card-content class="dashboard-card-content">
           <!--<app-api-security-risk></app-api-security-risk>-->
           <div id="pieChart1"></div>
-          <app-piechart *ngIf="pieData.name !== undefined" [chartData]="pieData" [chartID]="'pieChart1'"></app-piechart>
+          <app-piechart 
+            *ngIf="pieData.name !== undefined" 
+            [chartData]="pieData" 
+            [chartID]="'pieChart1'">
+          </app-piechart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -91,7 +95,12 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-            
+            <div id="barChart1"></div>
+            <app-barchart 
+            *ngIf="pieData.name !== undefined" 
+            [chartData]="barData" 
+            [chartID]="'barChart1'">
+          </app-barchart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

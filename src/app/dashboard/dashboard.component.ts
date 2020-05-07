@@ -15,6 +15,7 @@ export class DashboardComponent {
   public showApiSummary = [];
   public donutData:any = [];
   public pieData:any = [];
+  public barData:any = [];
   public chartSetting:any = [];
   
 
@@ -27,16 +28,38 @@ export class DashboardComponent {
      }, {});
      return groupData;
   }
+  getBarData(riskData) {
+    let barData = [];
+    let groupRisk = this.groupBy(riskData, 'apiRiskClassificatin');
+    Object.keys(groupRisk).map((column) => {
+      let objData = {};
+      objData['key'] = column;
+      objData['values'] = [];
+
+      let groupApiType = this.groupBy(groupRisk[column], 'apiType');
+      Object.keys(groupApiType).map((column1) => {
+       // console.log(groupApiType);
+        let objType = {};
+        objType['groupName'] = column1;
+        objType['groupValue'] = groupApiType[column1].length;
+        objData['values'].push(objType);
+      })  
+      //console.log(objData);
+      barData.push(objData);
+    });
+    this.barData = barData;
+    //console.log(barData);
+  }
   ngOnInit() {
     this.avgData();
     //this._riskReport.riskReport().subscribe(riskData => {
     this._getReport.getReport().subscribe(res => {
       let riskData = res['RiskScoreDetails'];
-
+      this.getBarData(riskData);
       //console.log(riskData['list']);
 
      let riskGroup = this.groupBy(riskData, 'apiType');
-       console.log("group", riskGroup);
+       //console.log("group", riskGroup);
        
        //Piechart data
        let pieChartData = {};

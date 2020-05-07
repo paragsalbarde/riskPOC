@@ -11,43 +11,26 @@ import { Observable } from 'rxjs';
 })
 export class DonutchartComponent implements OnInit {
   @Input() chartData;
+  @Input() chartID;
+  @Input() chartSetting;
+
   public chart:any;
   constructor(private _getReport: NewDataService ) { }
 
   ngOnInit() {
-    var self = this;
-    console.log(this.chartData);
+    console.log(this.chartSetting);
+    var self = this;  
     var width = 300;
     var height = 300;
     var radius = Math.min(width, height) / 2;
-    //var color = d3.scaleOrdinal(d3.schemeCategory10);
-
-     /*var color = d3.scaleLinear()
-    .domain([10, 100])
-    .range(["brown", "steelblue"])
-    .interpolate(d3.interpolateCubehelix.gamma(3));
-
-    var color =  d3.scaleQuantize()
-    .domain([10,100])
-    interpolator(d3.interpolateViridis);
-    console.log(color)*/
-  //let color =   d3.scaleOrdinal().domain(this.chartData)
-  //.range(["gold", "blue", "green", "yellow", "black", "grey", "darkgreen", "pink", "brown", "slateblue", "grey1", "orange"])
-  /*var color = d3.scaleQuantize()
-    .domain([10,100])
-    .range(["#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", 
-    "#FFFFBF", "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"]);*/
-var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical'];
+    var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical'];
     var color = d3.scaleOrdinal()
-  .domain(arrRisksColor)
-  //.range(["#016da9", "#62a8e9", "#EC8C90" , "#EA5C62", "#DC2E36", "#F70814"]);
-  .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9"]);
-//console.log(color('External'));
-//console.log(color('Internal'));
-//console.log(color('High'));
-//console.log(color('Low'));
+                .domain(arrRisksColor)
+                //.range(["#016da9", "#62a8e9", "#EC8C90" , "#EA5C62", "#DC2E36", "#F70814"]);
+                .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9"]);
 
-    var svg = d3.select('#container')
+
+    var svg = d3.select('#'+this.chartID)
                 .append('svg')
                 .attr('width', width)
                 .attr('height', height)
@@ -59,23 +42,17 @@ var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical']
         .padding(0)
         .round(true);
 
-    /*var partition = d3.layout.partition()
-        .value(function (d) {
-        return d.size;
-    });*/
-  //return !d.children || d.children.length === 0 ? d.size :0; }
   let root = d3.hierarchy(this.chartData)
       root.sum(d => d.size)
       .sort(function(a,b){
-        console.log(a);
-        //return a.data['name'].toLowerCase().localeCompare(b.data['name'].toLowerCase());
         if(a.data['size'] < b.data['size']) return -1;
-        if(a.data['size'] > b.data['size']) return 1;
+        //if(a.data['size'] > b.data['size']) return 1;
         return 0;
       });
-    // root.sum(d => { return !d.children || d.children.length === 0 ? d.size :0; });
-     
+
+    //set partition
     partition(root)
+
     var x = d3.scaleLinear()
     .range([0, 2 * Math.PI]);
   
@@ -93,11 +70,7 @@ var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical']
         .innerRadius(function(d) { return d['y0'] })
         .outerRadius(function(d) { return d['y1'] })
     
-  /*var div = d3.select("#container")
-  .append("div") 
-  .attr("class", "d3-tip n");*/
-  //var partition = d3.partition();
-    var path1 = svg.append("g").selectAll('g')
+    var path = svg.append("g").selectAll('g')
         .data(partition(root).descendants())
         .enter().append("g")
       /*  .on("mousemove",function(d){
@@ -112,111 +85,39 @@ var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical']
           .style("display","block");
       })*/
         
-        path1.append('path')
-            .attr("display", function(d) { return d.depth ? null : "none"; })
-            .attr("d", <any>arc)
-            .attr("fill-rule", "evenodd")
-            .style('stroke', '#fff')
-            .style("fill", <any>function(d) {return color(d.data['name']); })
-  
-        path1.append("title")
-            .text(d => {return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`})
+    path.append('path')
+      .attr("display", function(d) { return d.depth ? null : "none"; })
+      .attr("d", <any>arc)
+      .attr("fill-rule", "evenodd")
+      .style('stroke', '#fff')
+      .style("fill", <any>function(d) {return color(d.data['name']); })
 
-        var text = path1.append("text")
-        .attr("transform", <any>function (d) {
-          // console.log(arc.centroid(d))
-           
-           const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
-           const y = (d.y0 + d.y1) / 2 * radius;
-           //return `rotate(${x - 90}) translate(${arc.centroid(d)}) rotate(${x < 180 ? 0 : 180})`;
-           //return "translate(" + arc.centroid(d) + ")";
-           //console.log(x)
-           //console.log(`rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`)
-           return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
-       })
-        .attr("fill", "black")
-       
-        .attr("title", function(d) {
-          return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
-        })
-        .attr("style", "font-size:10px") 
-        .attr("x", function (d) {
-            return arc.centroid(<any>d)[0]-20;
-        })
-        .attr("y", function (d) {
-           return arc.centroid(<any>d)[1];
-        })
-        .text(function (d) {
-            return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
-        });
-       
-        var partition = d3.partition();
+    path.append("title")
+      .text(d => {return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`})
 
-       /* const label = svg.append("g")
-        .attr("pointer-events", "none")
-        .attr("text-anchor", "middle")
-        .style("user-select", "none")
-        .selectAll("text")
-        .data(partition(root).descendants())
-        .join("text")
-        .attr("dy", "0.35em")
-        .attr("fill-opacity", d => +labelVisible(d))
-        .attr("transform", d => labelTransform(d))
-        .text(d => (d.data['name'] !== undefined) ? d.data['name'] : 'NA');*/
-
-        //const t = svg.transition().duration(750);
-    /*    path1.transition(t)
-        .tween("data", d => {
-          const i = d3.interpolate(d.current, d.target);
-          return t => d.current = i(t);
-        })
-      .filter(function(d) {
-        return +this.getAttribute("fill-opacity") || arcVisible(d.target);
+    path.append("text")
+      .attr("transform", <any>function (d) { 
+          //const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+          //const y = (d.y0 + d.y1) / 2 * radius;
+        // return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
       })
-        .attr("fill-opacity", d => arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0)
-        .attrTween("d", d => () => arc(d.current));
-        
-    label.filter(function(d) {
-        return +this.getAttribute("fill-opacity") || labelVisible(d);
-      }).transition(t)
-        .attr("fill-opacity", d => +labelVisible(d.target))
-        .attrTween("transform", d => () => labelTransform(d.current));*/
-  
-
-          function computeTextRotation(d) {
-            //console.log(d);
-           //var angle = x(d.x0 + d.x1 / 2) - Math.PI / 2;
-           var angle = x(d.x + d.dx / 2) - Math.PI / 2;
-            return angle / Math.PI * 180;
-        }
-
-        function arcVisible(d) {
-          return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
-        }
-      
-        function labelTransform(d) {
-          
-          const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
-          const y = (d.y0 + d.y1) / 2 * radius;
-          //console.log(x)
-          //console.log(`rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`)
-          return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
-        }
-
-        function labelVisible(d) {
-          return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
-        }
-
-        text.attr("transform", <any>function (d) {
-          //return "rotate(" + computeTextRotation(d) + ")";
-          //return "rotate(25)";
+      .attr("fill", "black")
+      .attr("title", function(d) {
+        return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
+      })
+      .attr("style", "font-size:10px") 
+      .attr("x", function (d) {
+          return arc.centroid(<any>d)[0]-20;
+      })
+      .attr("y", function (d) {
+          return arc.centroid(<any>d)[1];
+      })
+      .text(function (d) {
+          if(d.data['name'] == "API risk") {
+            return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+          } else {
+            return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+          }
       });
-  }
- tooltipFunc(branch) {
-    return branch.name;
-  }
-  computeTextRotation(d) {
-    //var angle = x(d.x + d.dx / 2) - Math.PI / 2;
-    //return angle / Math.PI * 180;
   }
 }

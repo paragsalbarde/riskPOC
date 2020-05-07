@@ -78,7 +78,7 @@ export class ApiOverviewComponent implements OnInit {
         .map(i => i.apiName).length;
         let int_riskCountMedium = res['RiskScoreDetails'].filter(i => i.apiType === 'Internal' &&  i.apiRiskClassificatin === 'Medium')
         .map(i => i.apiName).length;
-        let int_riskCountHigh = res['RiskScoreDetails'].filter(i => i.apiRiskClassificatin === 'High')
+        let int_riskCountHigh = res['RiskScoreDetails'].filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'High')
         .map(i => i.apiName).length;
         let int_riskCountCritical = res['RiskScoreDetails'].filter(i => i.apiType === 'Internal' &&  i.apiRiskClassificatin === 'Critical')
         .map(i => i.apiName).length;
@@ -120,17 +120,14 @@ export class ApiOverviewComponent implements OnInit {
         
 
         // END: DATA from JSON
-// var outerCircle = [intRamlRvStsDn, intRamlRvStsPn, intVeracodeStsDn, intVeracodeStsPn, intPenTstStsDn, intPenTstStsPn,
-        //                    extRamlRvStsDn, extRamlRvStsPn, extVeracodeStsDn, extVeracodeStsPn, extPenTstStsDn, extPenTstStsPn];
-        // var middleCircle = [intRamlRvSts,intVeracodeSts,intPenTstSts,extRamlRvSts,extVeracodeSts,extPenTstSts];
-        let outerCircle = [ int_riskCountLow, int_riskCountMedium, int_riskCountHigh, int_riskCountCritical, int_riskCountNoRisk,
-                            ext_riskCountLow, ext_riskCountMedium, ext_riskCountHigh, ext_riskCountCritical, ext_riskCountNoRisk];
+        let outerCircle = [ int_riskCountNoRisk, int_riskCountLow, int_riskCountMedium, int_riskCountHigh, int_riskCountCritical,
+                            ext_riskCountNoRisk, ext_riskCountLow, ext_riskCountMedium, ext_riskCountHigh, ext_riskCountCritical ];
 
         let innerCircle = [internalApiCount, externalApiCount];
-        let innerCircleColor = [ "#da8f34", '#46bfbd']
-        // let middleCircleColor = [ "#da8f34cc","#da8f34cc", "#da8f34cc", '#46bfbdcc', '#46bfbdcc', '#46bfbdcc']
-        let outerCircleColor = [ "#95b53c","#f7464a", "#95b53c", '#f7464a', '#95b53c', '#f7464a',
-                                  "#95b53c","#f7464a", "#95b53c", '#f7464a', '#95b53c', '#f7464a']
+        let innerCircleColor = [ "#da8f34", '#142459']
+        let outerCircleColor = [ '#f7f4bf', '#eabd3b','#ee9a3a', '#de542c', '#820401',
+                                 '#c7f9ee', '#1de4bd','#1ac9e6', '#19aade','#176ba0'
+                               ]
         
        
 
@@ -142,22 +139,15 @@ export class ApiOverviewComponent implements OnInit {
             {
               backgroundColor: outerCircleColor,
               data: outerCircle,
-              labels: ['Low', 'Medium', 'High', 'Critical', 'No Risk',
-                       'Low', 'Medium', 'High', 'Critical', 'No Risk'],
+              labels: [ 'No Risk', 'Low', 'Medium', 'High', 'Critical',
+                        'No Risk', 'Low', 'Medium', 'High', 'Critical' ],
             },
-            // {
-            //   backgroundColor: middleCircleColor,
-            //   data: middleCircle,
-            //   labels: ['Internal Raml Review', 'Internal Veracode','Internal Pen Test',
-            //            'External Raml Review', 'External Veracode','External Pen Test'],
-            // },
             {
               backgroundColor: innerCircleColor,
               data: innerCircle,
               labels: ['Internal', 'External']
             }]
           },
-          //plugins: [pluginDataLabels],
           options: {
             maintainAspectRatio: false,
             responsive: true,

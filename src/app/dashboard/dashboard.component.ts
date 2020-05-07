@@ -10,11 +10,9 @@ import { ApiRiskReportDataService } from './../shared/api-risk-report-data.servi
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  /** Based on the screen size, switch from standard to one column per row */
   public showApiSummary = [];
   public root:any = [];
   
-
   constructor(private _riskReport:ApiRiskReportDataService) {}
   groupBy(data, column) {
     let groupData = data.reduce((r, a) => {
@@ -25,18 +23,11 @@ export class DashboardComponent {
   }
   ngOnInit() {
     this._riskReport.riskReport().subscribe(riskData => {
-      //console.log(riskData['list']);
-
      let riskGroup = this.groupBy(riskData['list'], 'apiType');
-       //console.log("group", riskGroup);
-       let chartData = {};
+      let chartData = {};
        chartData['name'] = 'API risk';
        chartData['children'] = Object.keys(riskGroup).map((column) => {
-        //console.log(riskGroup[column])
-       // riskGroup[column].map((data) => {
-          //  console.log(data);
-            let  groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassification');
-            //console.log(groupCritical);
+           let  groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassification');
             let chartChildData = [];
             chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
               return {
@@ -44,7 +35,6 @@ export class DashboardComponent {
                 size : groupCritical[column1].length
               }
             })
-       // })
           return {
             name : column,
             size : riskGroup[column].length,
@@ -52,7 +42,7 @@ export class DashboardComponent {
           }
        });
        console.log(chartData)
-this.root = chartData;
+      this.root = chartData;
 
       let apiNames = riskData['list'].map(i => i.apiName)
       let apiScores = riskData['list'].map(i => i.riskScore)

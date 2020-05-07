@@ -32,6 +32,7 @@ export class DashboardComponent {
        let chartData = {};
        chartData['name'] = 'API risk';
        chartData['size'] = riskData['list'].length;
+       chartData['count'] = riskData['list'].length;
        chartData['children'] = Object.keys(riskGroup).map((column) => {
         //console.log(riskGroup[column])
        // riskGroup[column].map((data) => {
@@ -55,13 +56,15 @@ export class DashboardComponent {
               return {
                 name : ( column1!== undefined ) ? column1 : "NA",
                 size : groupCritical[column1].length,
+                count : groupCritical[column1].length,
                 //children : chart2ChildData['children']
               }
             })
        // })
           return {
             name : ( column!== undefined ) ? column : "NA",
-            size : riskGroup[column].length,
+            //size : riskGroup[column].length,
+            count : riskGroup[column].length,
             children : chartChildData['children']
           }
        });

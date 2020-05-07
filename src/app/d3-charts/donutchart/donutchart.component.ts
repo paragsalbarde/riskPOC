@@ -64,7 +64,7 @@ var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical']
         return d.size;
     });*/
   //return !d.children || d.children.length === 0 ? d.size :0; }
-  let root = d3.hierarchy(this.chartData);
+  let root = d3.hierarchy(this.chartData)
       root.sum(d => d.size)
       .sort(function(a,b){
         console.log(a);
@@ -72,8 +72,8 @@ var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical']
         if(a.data['size'] < b.data['size']) return -1;
         if(a.data['size'] > b.data['size']) return 1;
         return 0;
-      });;
-     //root.sum(d => { return !d.children || d.children.length === 0 ? d.size :0; });
+      });
+    // root.sum(d => { return !d.children || d.children.length === 0 ? d.size :0; });
      
     partition(root)
     var x = d3.scaleLinear()
@@ -120,7 +120,7 @@ var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical']
             .style("fill", <any>function(d) {return color(d.data['name']); })
   
         path1.append("title")
-            .text(d => {return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['size'] !== undefined) ? Math.ceil((d.data['size']/self.chartData['size'])*100) : ''}%)`})
+            .text(d => {return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`})
 
         var text = path1.append("text")
         .attr("transform", <any>function (d) {
@@ -147,7 +147,7 @@ var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical']
            return arc.centroid(<any>d)[1];
         })
         .text(function (d) {
-            return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['size'] !== undefined) ? Math.ceil((d.data['size']/self.chartData['size'])*100) : ''}%)`;
+            return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
         });
        
         var partition = d3.partition();

@@ -4,7 +4,9 @@
     <!-- <p>{{ summary.reportDate }}</p> -->
   </div>
   <app-api-counters></app-api-counters>
-  <app-donutchart *ngIf="root.name !== undefined" [chartData]="root"></app-donutchart>
+ <!--<app-donutchart *ngIf="rootData.name !== undefined" [chartData]="rootData"></app-donutchart>-->
+ <!--<app-sunburstchart *ngIf="rootData.name !== undefined" [chartData]="rootData"></app-sunburstchart>-->
+ 
   <!-- <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
@@ -26,8 +28,8 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list> -->
-  <mat-grid-list cols="4" rowHeight="400px">
-    <mat-grid-tile [colspan]=1 [rowspan]=1>
+  <mat-grid-list cols="12" rowHeight="400px">
+    <mat-grid-tile [colspan]=4 [rowspan]=1>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -42,11 +44,17 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <app-api-overview></app-api-overview>
+          <!--<app-api-overview></app-api-overview>-->
+          <div id="container1"></div>
+          <app-donutchart 
+              *ngIf="donutData.name !== undefined" 
+              [chartData]="donutData" 
+              [chartSetting]="chartSetting"
+              [chartID]="'container1'"></app-donutchart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]=1 [rowspan]=1>
+    <mat-grid-tile [colspan]=4 [rowspan]=1>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -61,11 +69,14 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <app-api-security-risk></app-api-security-risk>
+          <!--<app-api-security-risk></app-api-security-risk>-->
+          <div id="pieChart1"></div>
+          <app-piechart *ngIf="pieData.name !== undefined" [chartData]="pieData" [chartID]="'pieChart1'"></app-piechart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-   <!-- <mat-grid-tile [colspan]=2 [rowspan]=1>
+    <!-- Chart3-->
+    <mat-grid-tile [colspan]=4 [rowspan]=1>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -80,29 +91,12 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <app-donutchart [root3]="root"></app-donutchart>
+            
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>-->
-    <!-- <mat-grid-tile [colspan]=1 [rowspan]=1>
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            API Security Risk Overview
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <app-api-security></app-api-security>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile> -->
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="2" rowHeight="400px">
     <mat-grid-tile [colspan]=2 [rowspan]=1>
       <mat-card class="dashboard-card">
         <!-- <mat-card-header>

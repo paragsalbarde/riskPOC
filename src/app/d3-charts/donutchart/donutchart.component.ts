@@ -11,68 +11,51 @@ import { Observable } from 'rxjs';
 })
 export class DonutchartComponent implements OnInit {
   @Input() chartData;
+  @Input() chartID;
+  @Input() chartSetting;
+
   public chart:any;
   constructor(private _getReport: NewDataService ) { }
 
   ngOnInit() {
-    console.log(this.chartData);
-    var width = 700;
-    var height = 700;
+    var self = this;  
+    var width = 330;
+    var height = 330;
     var radius = Math.min(width, height) / 2;
-    var color = d3.scaleOrdinal(d3.schemeCategory10);
-    console.log(radius);
-    /*var color = d3.scaleLinear()
-    .domain([10, 100])
-    .range(["brown", "steelblue"])
-    .interpolate(d3.interpolateCubehelix.gamma(3));
+    var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical'];
+    var color = d3.scaleOrdinal()
+                .domain(arrRisksColor)
+                //.range(["#016da9", "#62a8e9", "#EC8C90" , "#EA5C62", "#DC2E36", "#F70814"]);
+                .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9"]);
 
-    var color =  d3.scaleQuantize()
-    .domain([10,100])
-    .range(["brown", "steelblue"]);
-    console.log(color)*/
 
-   // let color = [ "#95b53c","#f7464a", "#95b53c", '#f7464a', '#95b53c', '#f7464a',
-                                 // "#95b53c","#f7464a", "#95b53c", '#f7464a', '#95b53c', '#f7464a']
-
-   
-
-    var svg = d3.select('#container')
-                            .append('svg')
-                              .attr('width', width)
-                          .attr('height', height)
-                            .append('g')
-                              .attr('transform', 'translate(' + width/2 + ',' + height/2 + ')');;
+    var svg = d3.select('#'+this.chartID)
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .append('g')
+                .attr('transform', 'translate(' + width/2 + ',' + height/2 + ')');
     
     var partition = d3.partition()
         .size([360, radius])
         .padding(0)
         .round(true);
 
-            /*var partition = d3.layout.partition()
-    .value(function (d) {
-    return d.size;
-});*/
-    
-    var root = d3.hierarchy(this.chartData, function(d) { return d.children })
-        .sum( function(d) { 			
-                    if(d.children) {
-                        return 0
-                    } else {
-                        return 1
-                    }
-            })
-            //.sort(null);
-    console.log(root)
+  let root = d3.hierarchy(this.chartData)
+      root.sum(d => d.size)
+      .sort(function(a,b){
+        if(a.data['size'] < b.data['size']) return -1;
+        //if(a.data['size'] > b.data['size']) return 1;
+        return 0;
+      });
+
+    //set partition
     partition(root)
-
-
-   
 
     var x = d3.scaleLinear()
     .range([0, 2 * Math.PI]);
-    //console.log( x);
-
-  var y = d3.scaleSqrt()
+  
+    var y = d3.scaleSqrt()
     .range([0, radius]);
     
     var xScale = d3.scaleLinear()
@@ -86,28 +69,10 @@ export class DonutchartComponent implements OnInit {
         .innerRadius(function(d) { return d['y0'] })
         .outerRadius(function(d) { return d['y1'] })
     
-        /* var arc = d3.arc()
-      .startAngle(function (d) {
-        console.log(d)
-      return Math.max(0, Math.min(2 * Math.PI, x(d.x)));
-  })
-      .endAngle(function (d) {
-      return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
-  })
-      .innerRadius(function (d) {
-      return Math.max(0, y(d.y));
-  })
-      .outerRadius(function (d) {
-      return Math.max(0, y(d.y + d.dy));
-  });*/
-  var div = d3.select("#container")
-  .append("div") 
-  .attr("class", "d3-tip n");
-
-    var path1 = svg.selectAll('g')
-        .data(root.descendants())
+    var path = svg.append("g").selectAll('g')
+        .data(partition(root).descendants())
         .enter().append("g")
-        .on("mousemove",function(d){
+      /*  .on("mousemove",function(d){
           var mouseVal = d3.mouse(this);
           div.style("display","none");
           div
@@ -117,65 +82,61 @@ export class DonutchartComponent implements OnInit {
           .style("opacity", 1)
           .style("position", 'absolute')
           .style("display","block");
-      })
-        
-        path1.append('path')
-            .attr("display", function(d) { return d.depth ? null : "none"; })
-            .attr("d", arc)
-            .attr("fill-rule", "evenodd")
-            .style('stroke', '#fff')
-            .style("fill", function(d) { return color((d.children ? d : d.parent).data.name); })
-  
-          
-
-        var text = path1.append("text")
-        .attr("fill", "white")
-       
-        .attr("title", function(d) {
-          return `${d.data.name}`;
-        })
-        .attr("style", "font-size:12px")
-        /*.attr("transform", function (d) {
-          console.log(arc.centroid(d))
-          return "translate(" + arc.centroid(d) + ")";
       })*/
-    
-      
-       .attr("x", function (d) {
-             // console.log(d);
-              return arc.centroid(d)[0]-30;
-            //return y(d.y);
-        })
-        .attr("y", function (d) {
-          // console.log(d);
-           return arc.centroid(d)[1];
-         //return y(d.y);
-     })
-          /*  .attr("dx", "6") // margin
-        .attr("dy", ".35em") // vertical-align*/
-        .text(function (d) {
-          //console.log(d);
-            return `${d.data.name}\n\r(${(d.data.size) ? d.data.size : ''})`;
-            //return `${d.data.name}`;
-        });
-       
+        
+    path.append('path')
+      .attr("display", function(d) { return d.depth ? null : "none"; })
+      .attr("d", <any>arc)
+      .attr("fill-rule", "evenodd")
+      .style('stroke', '#fff')
+      .style("fill", <any>function(d) {return color(d.data['name']); })
 
-          function computeTextRotation(d) {
-            //console.log(d);
-           //var angle = x(d.x0 + d.x1 / 2) - Math.PI / 2;
-           var angle = x(d.x + d.dx / 2) - Math.PI / 2;
-            return angle / Math.PI * 180;
+    path.append("title")
+      .text(d => {return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`})
+
+    path.append("text")
+      .attr("transform", <any>function (d) { 
+          //const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+          //const y = (d.y0 + d.y1) / 2 * radius;
+        // return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+      })
+      .attr("fill", "black")
+      .attr("title", function(d) {
+        return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
+      })
+      .attr("style", "font-size:10px") 
+      .attr("x", function (d) {
+          return arc.centroid(<any>d)[0]-20;
+      })
+      .attr("y", function (d) {
+          return arc.centroid(<any>d)[1];
+      })
+      .text(function (d) {
+          if(d.data['name'] == "API risk") {
+            return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+          } else {
+            //return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+            return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
+          }
+      })
+      path.append("text")
+      .attr("title", function(d) {
+        return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
+      })
+      .attr("style", "font-size:10px") 
+      .attr("x", function (d) {
+          return arc.centroid(<any>d)[0]-20;
+      })
+      .attr("y", function (d) {
+          return arc.centroid(<any>d)[1]+15;
+      })
+      .text(function (d) {
+        if(d.data['name'] == "API risk") {
+          //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+        } else {
+          //return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+          return `(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
         }
-        text.attr("transform", function (d) {
-          //return "rotate(" + computeTextRotation(d) + ")";
-          //return "rotate(25)";
-      });
-  }
- tooltipFunc(branch) {
-    return branch.name;
-  }
-  computeTextRotation(d) {
-    //var angle = x(d.x + d.dx / 2) - Math.PI / 2;
-    //return angle / Math.PI * 180;
+    });
   }
 }

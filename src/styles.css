@@ -61,6 +61,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: auto !important;
 }
 
+.counterContaniner {
+    text-align: center;
+    display: flex;
+}
+.counterDiv{
+    width: 50%;
+}
+.counterDiv .counters {
+    display: flex;
+}
+
+.counterDiv .counters .counter {
+    width: 50%;
+}
+.counterContaniner h4 {
+  color: red;
+}
+
+.counterContaniner h2 {
+    color: green;
+  }
+/* START: Rupesh's */
 .overviewChartStyle {
     position: relative;
 }
@@ -97,7 +119,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     box-sizing: border-box;
     display: inline;
     font-size: 10px;
-    width: 100%;
+    /* width: 100%; */
     line-height: 1;
     color: rgba(0, 0, 0, 0.8);
     content: "\25BC";

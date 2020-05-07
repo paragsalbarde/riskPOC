@@ -11,7 +11,6 @@ import { ApiRiskReportDataService } from './../shared/api-risk-report-data.servi
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  /** Based on the screen size, switch from standard to one column per row */
   public showApiSummary = [];
   public donutData:any = [];
   public pieData:any = [];
@@ -93,7 +92,6 @@ export class DashboardComponent {
                 //children : chart2ChildData['children']
               }
             })
-       // })
           return {
             name : ( column!== undefined ) ? column : "NA",
             //size : riskGroup[column].length,

@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class ApiSecurityComponent implements OnInit {
   public securityRiskData
   public chartType: string = 'pie';
-  public chartLabels: any[] = ['Low', 'Medium', 'High', 'Critical', 'No Risk'];
+  public chartLabels: any[] = ['No Risk','Low', 'Medium', 'High', 'Critical'];
   // public chartData: Array<number> = [1, 2, 3];
   public chartData: any[] = [{data:null, label: 'risk'}]
   public chartOptions: any = {
@@ -28,10 +28,18 @@ export class ApiSecurityComponent implements OnInit {
       legend: {
         display: false,
           labels: {
+            fontColor : '#ffffff',
             display: false
           }
         }
   }
+  private donutColors=[
+    {
+      // backgroundColor: [ '#f7f4bf', '#eabd3b','#ee9a3a', '#de542c', '#820401'  ]
+      // backgroundColor: [ '#cddc39', '#ffeb3b','#ffc107', '#ff9800', '#ff5722' ]
+      backgroundColor: [ '#e7e34e', '#eabd3b','#ee9a3a', '#de542c', '#c02323' ]
+    }
+  ];
 
   constructor(private _getReport: NewDataService) {}
 
@@ -52,7 +60,7 @@ export class ApiSecurityComponent implements OnInit {
         let riskCountNoRiskW = res['RiskScoreDetails'].filter(i => i.apiRiskClassificatin === 'No Risk')
         .map(i => i.apiName);
 
-        this.chartData = [riskCountLow, riskCountMedium, riskCountHigh, riskCountCritical, riskCountNoRisk];
+        this.chartData = [riskCountNoRisk, riskCountLow, riskCountMedium, riskCountHigh, riskCountCritical];
         //this.chartLabels = ['Low', 'Medium', 'High', 'Critical', 'No Risk'];
         //console.log("No Risk : "+ securityRiskData)
         // END: DATA from JSON

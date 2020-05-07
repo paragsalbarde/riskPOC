@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    MatChipsModule
+    MatChipsModule,
+    MatExpansionModule
   ],
   exports: [
     MatToolbarModule,
@@ -25,7 +27,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    MatChipsModule
+    MatChipsModule,
+    MatExpansionModule
   ],
 })
 export class AllMatComponentsModule { }

@@ -19,7 +19,7 @@ export class BarchartComponent implements OnInit {
 
     var self = this;
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 300 - margin.left - margin.right,
+    width = 330 - margin.left - margin.right,
     height = 350 - margin.top - margin.bottom;
 
     //var x0  = d3.scaleBand().rangeRound([0, width], .5);
@@ -28,13 +28,13 @@ export class BarchartComponent implements OnInit {
     var y   = d3.scaleLinear().rangeRound([height, 0]);
 
     var xAxis = d3.axisBottom(null).scale(x0)
-                                //.tickFormat(d3.timeFormat("Week %V"))
                                 .tickFormat(null)
                                 .tickValues(this.chartData.map(d=>d.key));
 
     var yAxis = d3.axisLeft(null).scale(y);
 
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
+    //const color = d3.scaleOrdinal(d3.schemeCategory10);
+    const color = d3.scaleOrdinal(["#016da9","#7bbfff", "#62a8e9","#dedede", "#00a5b6"]);
 
     var svg = d3.select('#'+this.chartID).append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -46,7 +46,7 @@ export class BarchartComponent implements OnInit {
     var rateNames       = this.chartData[0].values.map(function(d) { return d.groupName; });
 
     x0.domain(<any>categoriesNames);
-    x1.domain(rateNames).rangeRound([0, x0.bandwidth()]);
+    x1.domain(rateNames).rangeRound([0, x0.bandwidth()]).paddingOuter(0.1);
     y.domain([0, <any>d3.max(self.chartData, function(key) { return d3.max(key['values'], function(d) { return d['groupValue']; }); })]);
 
     svg.append("g")

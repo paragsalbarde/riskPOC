@@ -72,14 +72,18 @@ export class DonutchartComponent implements OnInit {
         .innerRadius(function(d) { return d['y0'] })
         .outerRadius(function(d) { return d['y1'] })
     
+      /*var div = d3.select('#'+this.chartID)
+        .append("div") 
+        .attr("class", "d3-tip n");*/
+
     var path = svg.append("g").selectAll('g')
         .data(partition(root).descendants())
         .enter().append("g")
-      /*  .on("mousemove",function(d){
+        /*.on("mousemove",function(d){
           var mouseVal = d3.mouse(this);
           div.style("display","none");
           div
-          .html("name:"+d.data.name+"</br>"+"size:"+d.data.size)
+          .html("name:"+d.data['name']+"</br>"+"size:"+d.data['size'])
           .style("left", (d3.event.pageX-220) + "px")
           .style("top", (d3.event.pageY+120) + "px")
           .style("opacity", 1)
@@ -115,7 +119,14 @@ export class DonutchartComponent implements OnInit {
       .attr("title", function(d) {
         return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
       })
-      .attr("style", "font-size:10px") 
+      .attr("style", <any>function(d) {
+        if(d.data['name'] == "Sunburst") {
+          return `font-size:15px`;
+        } else {
+          return `font-size:10px`;
+        }
+        
+      }) 
       .attr("x", function (d) {
           return arc.centroid(<any>d)[0]-20;
       })
@@ -142,9 +153,8 @@ export class DonutchartComponent implements OnInit {
       })
       .text(function (d) {
         if(d.data['name'] == "Sunburst") {
-          //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+          //return `${self.chartSetting.avgRisk}`;
         } else {
-          //return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
           return `(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
         }
     });

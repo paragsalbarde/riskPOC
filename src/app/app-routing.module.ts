@@ -14,7 +14,7 @@ import { D3DashboardComponent } from './d3-dashboard/d3-dashboard.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', component: NewDashboardComponent},
+  { path: '', component: DashboardComponent},
   { path: 'old-dashboard', component: ApiAppDashboardComponent},
   { path: 'new-dashboard', component: NewDashboardComponent},
   { path: 'd3-dashboard', component: D3DashboardComponent},

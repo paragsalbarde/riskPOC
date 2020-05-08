@@ -119,14 +119,15 @@ export class DonutchartComponent implements OnInit {
       .attr("title", function(d) {
         return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
       })
-      .attr("style", <any>function(d) {
+      .attr("style", "font-size:10px")
+      .attr("class",<any>function(d) {
         if(d.data['name'] == "Sunburst") {
-          return `font-size:15px`;
+          return `chart-name`;
         } else {
-          return `font-size:10px`;
+          return `partition-name`;
         }
         
-      }) 
+      })
       .attr("x", function (d) {
           return arc.centroid(<any>d)[0]-20;
       })
@@ -135,7 +136,8 @@ export class DonutchartComponent implements OnInit {
       })
       .text(function (d) {
           if(d.data['name'] == "Sunburst") {
-            return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+            return `${self.chartSetting.avgRisk}`;
+            //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
           } else {
             return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
           }
@@ -153,7 +155,7 @@ export class DonutchartComponent implements OnInit {
       })
       .text(function (d) {
         if(d.data['name'] == "Sunburst") {
-          //return `${self.chartSetting.avgRisk}`;
+          return `${self.chartSetting.avgRiskLevel}`;
         } else {
           return `(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
         }

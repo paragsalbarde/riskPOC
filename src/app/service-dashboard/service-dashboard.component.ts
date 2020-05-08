@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { NewDataService } from '../shared/new-data-service.service'
-import { ApiRiskReportDataService } from './../shared/api-risk-report-data.service';
+import { ApiRiskReportDataService } from '../shared/api-risk-report-data.service';
 
 @Component({
   selector: 'app-dashboard',

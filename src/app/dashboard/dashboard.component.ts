@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
-import { NewDataService } from '../shared/new-data-service.service'
-import { ApiRiskReportDataService } from './../shared/api-risk-report-data.service';
+import { NewDataService } from '../shared/new-data-service.service';
+import { ApiRiskReportDataService } from '../shared/api-risk-report-data.service';
 
 
 @Component({
@@ -25,6 +25,16 @@ export class DashboardComponent {
       return r;
      }, {});
      return groupData;
+  }
+  getTableData(riskData) {
+    var objData = {};
+    let groupApiType = this.groupBy(riskData, 'apiType');
+
+    Object.keys(groupApiType).map((column) => {
+      groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
+    })
+
+    console.log(groupApiType);
   }
   getBarData(riskData) {
     let barData = [];
@@ -49,11 +59,12 @@ export class DashboardComponent {
     //console.log(barData);
   }
   ngOnInit() {
-    this.avgData();
+    this.avgData();// avg Data
     //this._riskReport.riskReport().subscribe(riskData => {
     this._getReport.getReport().subscribe(res => {
       let riskData = res['RiskScoreDetails'];
       this.getBarData(riskData);
+      this.getTableData(riskData);
       //console.log(riskData['list']);
 
      let riskGroup = this.groupBy(riskData, 'apiType');

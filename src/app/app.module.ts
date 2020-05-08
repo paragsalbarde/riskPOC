@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 //import * as Chart from 'chart.js';
 import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
-import { ApiRiskReportDataService } from '././shared/api-risk-report-data.service';
-import { NewDataService } from '././shared/new-data-service.service';
+import { ApiRiskReportDataService } from './shared/api-risk-report-data.service';
+import { NewDataService } from './shared/new-data-service.service';
 
 import { ApiAppNavComponent } from './api-app-nav/api-app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -34,12 +34,14 @@ import { OverviewComponent } from './d3-charts/overview/overview.component';
 import { SunburstchartComponent } from './d3-charts/sunburstchart/sunburstchart.component';
 import { SunburstComponent } from './d3-charts/sunburst/sunburst.component';
 import { ApiSecurityComponent } from './new-charts/api-security/api-security.component';
-//
+//Components
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonutchartComponent } from './d3-charts/donutchart/donutchart.component';
 import { BarchartComponent } from './d3-charts/barchart/barchart.component';
 import { PiechartComponent } from './d3-charts/piechart/piechart.component';
-//import { sunburst } from 'angular-d3-sunburst';
+import { ReporttableComponent } from './table/report-table/report-table.component';
+//Service
+import { ReportService } from './shared/services/report.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { PiechartComponent } from './d3-charts/piechart/piechart.component';
     DashboardComponent,
     SunburstchartComponent,
     PiechartComponent,
-    BarchartComponent
+    BarchartComponent,
+    ReporttableComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,7 @@ import { PiechartComponent } from './d3-charts/piechart/piechart.component';
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [ApiRiskReportDataService, NewDataService],
+  providers: [ApiRiskReportDataService, NewDataService, ReportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

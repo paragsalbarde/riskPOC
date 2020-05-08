@@ -1,0 +1,99 @@
+<table class="holisticMapTable" >
+        <thead role="rowgroup">
+          <tr class="firstHeader">
+            <th class="mat-header-cell" rowspan="2">API Type</th>
+            <th class="mat-header-cell" rowspan="2">API Risk Classification</th>
+            <th class="mat-header-cell" colspan="3">Pending</th>
+            <th class="mat-header-cell" colspan="2">SLA Breached</th>
+          </tr>
+          <tr class="SecondHeader">
+            <!-- <th class="mat-header-cell">API Type</th>
+            <th class="mat-header-cell">API Risk Classification</th> -->
+            <th class="mat-header-cell">PEN Test</th>
+            <th class="mat-header-cell">Veracode Scan</th>
+            <th class="mat-header-cell">Raml Review</th>
+            <th class="mat-header-cell">Pen Test</th>
+            <th class="mat-header-cell">Veracode</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let data of holisticMapData">
+          <tr class="mat-row">
+            <th class="mat-cell" rowspan="4">External</th>
+            <td class="mat-cell">Critical</td>
+            <td class="mat-cell">{{ data.extCriPendingPenTesting }}</td>
+            <td class="mat-cell">{{ data.extCriPendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ data.extCriPendingRamlReview }}</td>
+            <td class="mat-cell">{{ data.extCriPenTestSLABreach }}</td>
+            <td class="mat-cell">{{ data.extCriVeracodeSLABreach }}</td>
+          </tr>
+          <tr class="mat-row">
+            <td class="mat-cell">High</td>
+            <td class="mat-cell">{{ data.extHighPendingPenTesting }}</td>
+            <td class="mat-cell">{{ data.extHighPendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ data.extHighPendingRamlReview }}</td>
+            <td class="mat-cell">{{ data.extHighPenTestSLABreach }}</td>
+            <td class="mat-cell">{{ data.extHighVeracodeSLABreach }}</td>
+          </tr>
+          <tr class="mat-row">
+            <td class="mat-cell">Medium</td>
+            <td class="mat-cell">{{ data.extMedPendingPenTesting }}</td>
+            <td class="mat-cell">{{ data.extMedPendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ data.extMedPendingRamlReview }}</td>
+            <td class="mat-cell">{{ data.extMedVeracodeSLABreach }}</td>
+            <td class="mat-cell">{{ data.extMedPenTestSLABreach }}</td>
+          </tr>
+          <tr class="mat-row">
+            <td class="mat-cell">Low</td>
+            <td class="mat-cell">{{ data.extLowPendingPenTesting }}</td>
+            <td class="mat-cell">{{ data.extLowPendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ data.extLowPendingRamlReview }}</td>
+            <td class="mat-cell">{{ data.extLowPenTestSLABreach }}</td>
+            <td class="mat-cell">{{ data.extLowVeracodeSLABreach }}</td>
+          </tr>
+        </tbody>
+        <tbody *ngFor="let data of holisticMapData">
+          <tr class="mat-row">
+            <th class="mat-cell" rowspan="4">Internal</th>
+            <td class="mat-cell">Critical</td>
+            <td class="mat-cell">{{ data.intCriPendingPenTesting }}</td>
+            <td class="mat-cell">{{ data.intCriPendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ data.intCriPendingRamlReview }}</td>
+            <td class="mat-cell">{{ data.intCriPenTestSLABreach }}</td>
+            <td class="mat-cell">{{ data.intCriVeracodeSLABreach }}</td>
+          </tr>
+          <tr class="mat-row">
+            <td class="mat-cell">High</td>
+            <td class="mat-cell">{{ data.intHighPendingPenTesting }}</td>
+            <td class="mat-cell">{{ data.intHighPendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ data.intHighPendingRamlReview }}</td>
+            <td class="mat-cell">{{ data.intHighPenTestSLABreach }}</td>
+            <td class="mat-cell">{{ data.intHighVeracodeSLABreach }}</td>
+          </tr>
+          <tr class="mat-row">
+            <td class="mat-cell">Medium</td>
+            <td class="mat-cell">{{ data.intMedPendingPenTesting }}</td>
+            <td class="mat-cell">{{ data.intMedPendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ data.intMedPendingRamlReview }}</td>
+            <td class="mat-cell">{{ data.intMedPenTestSLABreach }}</td>
+            <td class="mat-cell">{{ data.intMedVeracodeSLABreach }}</td>
+          </tr>
+          <tr class="mat-row">
+            <td class="mat-cell">Low</td>
+            <td class="mat-cell">{{ data.intLowPendingPenTesting }}</td>
+            <td class="mat-cell">{{ data.intLowPendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ data.intLowVeracodeSLABreach }}</td>
+            <td class="mat-cell">{{ data.intLowPendingRamlReview }}</td>
+            <td class="mat-cell">{{ data.intLowPenTestSLABreach }}</td>
+          </tr>
+        </tbody>
+        <tfoot class="">
+          <tr class="mat-row">
+            <th class="mat-cell" colspan="2"> Total</th>
+            <td class="mat-cell">{{ add_PendingPenTesting }}</td>
+            <td class="mat-cell">{{ add_PendingVeracodeScan }}</td>
+            <td class="mat-cell">{{ add_ramlReviewStatus }}</td>
+            <td class="mat-cell">{{ add_penTestSlaBreach }}</td>
+            <td class="mat-cell">{{ add_veracodeSlaBreach }}</td>
+          </tr>
+        </tfoot>
+      </table>

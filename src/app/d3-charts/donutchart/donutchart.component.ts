@@ -30,11 +30,12 @@ export class DonutchartComponent implements OnInit {
                 //.range(['#da8f34', '#142459', '#eabd3b', '#ee9a3a', '#de542c', '#820401', '#f7f4bf']);
                 //.range(["#49d9eb", "#00a5b6", "#A8DADC" , "#457B9D", "#1D3557", "#E63946", "#F1FAEE"]);
                 //.range(["#227c9d", "#17c3b2", "#84A98C" , "#52796F", "#354F52", "#E63946", "#CAD2C5"]);
-                .range(["#227c9d", "#17c3b2", "#A5C7AD" , "#83A8A0", "#748D8F", "#E63946", "#CAD2C5"]);
+                //.range(["#227c9d", "#17c3b2", "#A5C7AD" , "#83A8A0", "#748D8F", "#E63946", "#CAD2C5"]);
                 //.range(["#063E54", "#079E8C", "#daffef", "#c0fdfb", "#64b6ac", "#5d737e", "#fcfffd"]);
                 //.range(["#063E54", "#079E8C", "#daffef", "#c0fdfb", "#64b6ac", "#5d737e", "#fcfffd"]);
                 //.range(["#063E54", "#079E8C", "#c0fdfb", "#64b6ac", "#5d737e", "#EF6B71", "#fcfffd"]);
                 // .range(["#063E54", "#079E8C", "#02c39a", "#028090","#05668d", "#EF6B71", "#fcfffd"]);
+                 .range(["#063E54", "#079E8C", "#DBE6DE", "#B7C5C2","#8EA1A2", "#E63946", "#F3F3F3"]);
                 
                 
 
@@ -81,14 +82,18 @@ export class DonutchartComponent implements OnInit {
         .innerRadius(function(d) { return d['y0'] })
         .outerRadius(function(d) { return d['y1'] })
     
+      /*var div = d3.select('#'+this.chartID)
+        .append("div") 
+        .attr("class", "d3-tip n");*/
+
     var path = svg.append("g").selectAll('g')
         .data(partition(root).descendants())
         .enter().append("g")
-      /*  .on("mousemove",function(d){
+        /*.on("mousemove",function(d){
           var mouseVal = d3.mouse(this);
           div.style("display","none");
           div
-          .html("name:"+d.data.name+"</br>"+"size:"+d.data.size)
+          .html("name:"+d.data['name']+"</br>"+"size:"+d.data['size'])
           .style("left", (d3.event.pageX-220) + "px")
           .style("top", (d3.event.pageY+120) + "px")
           .style("opacity", 1)
@@ -101,7 +106,8 @@ export class DonutchartComponent implements OnInit {
       .attr("d", <any>arc)
       .attr("fill-rule", "evenodd")
       .style('stroke', '#fff')
-      .style("fill", <any>function(d) {return color(d.data['name']); })
+      .style("fill", <any>function(d) { return color(d.data['name']);
+    })
 
     path.append("title")
       .text(
@@ -118,13 +124,20 @@ export class DonutchartComponent implements OnInit {
       .attr("transform", <any>function (d) { 
           //const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
           //const y = (d.y0 + d.y1) / 2 * radius;
-        // return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+          // return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
       })
       .attr("fill", "black")
       .attr("title", function(d) {
         return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
       })
-      .attr("style", "font-size:10px") 
+      .attr("style", "font-size:10px")
+      .attr("class",<any>function(d) {
+        if(d.data['name'] == "Sunburst") {
+          return `risk-score`;
+        } else {
+          return `partition-name`;
+        }
+      })
       .attr("x", function (d) {
           return arc.centroid(<any>d)[0]-20;
       })
@@ -133,6 +146,7 @@ export class DonutchartComponent implements OnInit {
       })
       .text(function (d) {
           if(d.data['name'] == "Sunburst") {
+            return `${self.chartSetting.avgRisk}`;
             //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
           } else {
             return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
@@ -142,7 +156,15 @@ export class DonutchartComponent implements OnInit {
       .attr("title", function(d) {
         return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
       })
-      .attr("style", "font-size:10px") 
+      .attr("style", "font-size:10px")
+      .attr("class",<any>function(d) {
+        if(d.data['name'] == "Sunburst") {
+          return `risk-level`;
+        } else {
+          return `partition-label`;
+        }
+        
+      })
       .attr("x", function (d) {
           return arc.centroid(<any>d)[0]-20;
       })
@@ -151,9 +173,8 @@ export class DonutchartComponent implements OnInit {
       })
       .text(function (d) {
         if(d.data['name'] == "Sunburst") {
-          //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+          return `${self.chartSetting.avgRiskLevel}`;
         } else {
-          //return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
           return `(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
         }
     });

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
-import { NewDataService } from '../shared/new-data-service.service'
-import { ApiRiskReportDataService } from './../shared/api-risk-report-data.service';
+import { NewDataService } from '../shared/new-data-service.service';
+import { ApiRiskReportDataService } from '../shared/api-risk-report-data.service';
 
 
 @Component({
@@ -29,6 +29,16 @@ export class DashboardComponent {
      }, {});
      return groupData;
   }
+  getTableData(riskData) {
+    var objData = {};
+    let groupApiType = this.groupBy(riskData, 'apiType');
+
+    Object.keys(groupApiType).map((column) => {
+      groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
+    })
+
+    console.log(groupApiType);
+  }
   getBarData(riskData) {
     let barData = [];
     let groupRisk = this.groupBy(riskData, 'apiRiskClassificatin');
@@ -52,37 +62,12 @@ export class DashboardComponent {
     //console.log(barData);
   }
   ngOnInit() {
-    //this.avgData();
-    //START: Risk Score and Level Display
-    this._getReport.getReport()
-      .subscribe(res => {
-        let riskScores = res['RiskScoreDetails'].map(i => i.riskScore);
-        let avgRiskCal = res['RiskScoreDetails'].filter(i => i.apiType)
-                        .map(i => i.riskScore)
-                        .reduce((a, b) => a + b, 0)/riskScores.length;
-                        let avgRisk = avgRiskCal.toFixed();
-                        this.riskScoreVar = avgRisk;
-        
-        let overAllRiskLevel 
-        let avgRiskInt = parseInt(avgRisk)
-        if (avgRiskInt >= 1 && avgRiskInt <= 6) {
-                overAllRiskLevel = "Low"
-        } else if (avgRiskInt >= 7 && avgRiskInt < 12) {
-                overAllRiskLevel = "Medium"
-        } else if (avgRiskInt >= 13 && avgRiskInt < 36) {
-          overAllRiskLevel = "High"
-        } else if (avgRiskInt >= 37) {
-          overAllRiskLevel = "Critical"
-        } else {
-          overAllRiskLevel = "No Risk"
-        }
-        this.riskScoreLevel = overAllRiskLevel
-      });
-    //END: Risk Score and Level Display
+    this.avgData();// avg Data
     //this._riskReport.riskReport().subscribe(riskData => {
     this._getReport.getReport().subscribe(res => {
       let riskData = res['RiskScoreDetails'];
       this.getBarData(riskData);
+      this.getTableData(riskData);
       //console.log(riskData['list']);
 
      let riskGroup = this.groupBy(riskData, 'apiType');

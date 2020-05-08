@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { APISummary } from '../shared/apiSummary';
-import { holisticMap } from '../shared/holisticTableMap';
-import { RiskDetailsArray } from '../shared/riskDetailsArray';
-import { SunBurstChartData } from '../shared/sunBurstChartData';
+import { APISummary } from './apiSummary';
+import { holisticMap } from './holisticTableMap';
+import { RiskDetailsArray } from './riskDetailsArray';
+import { SunBurstChartData } from './sunBurstChartData';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 

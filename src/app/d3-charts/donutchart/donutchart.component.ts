@@ -26,8 +26,17 @@ export class DonutchartComponent implements OnInit {
     var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical', 'No Risk'];
     var color = d3.scaleOrdinal()
                 .domain(arrRisksColor)
-                .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9", "#dedede"]);
-
+                //.range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9", "#dedede"]);
+                //.range(['#da8f34', '#142459', '#eabd3b', '#ee9a3a', '#de542c', '#820401', '#f7f4bf']);
+                //.range(["#49d9eb", "#00a5b6", "#A8DADC" , "#457B9D", "#1D3557", "#E63946", "#F1FAEE"]);
+                //.range(["#227c9d", "#17c3b2", "#84A98C" , "#52796F", "#354F52", "#E63946", "#CAD2C5"]);
+                .range(["#227c9d", "#17c3b2", "#A5C7AD" , "#83A8A0", "#748D8F", "#E63946", "#CAD2C5"]);
+                //.range(["#063E54", "#079E8C", "#daffef", "#c0fdfb", "#64b6ac", "#5d737e", "#fcfffd"]);
+                //.range(["#063E54", "#079E8C", "#daffef", "#c0fdfb", "#64b6ac", "#5d737e", "#fcfffd"]);
+                //.range(["#063E54", "#079E8C", "#c0fdfb", "#64b6ac", "#5d737e", "#EF6B71", "#fcfffd"]);
+                // .range(["#063E54", "#079E8C", "#02c39a", "#028090","#05668d", "#EF6B71", "#fcfffd"]);
+                
+                
 
     var svg = d3.select('#'+this.chartID)
                 .append('svg')
@@ -98,7 +107,7 @@ export class DonutchartComponent implements OnInit {
       .text(
         function (d) {
           if(d.data['name'] == "Sunburst") {
-            return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+           // return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
           } else {
             return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
           }
@@ -124,7 +133,7 @@ export class DonutchartComponent implements OnInit {
       })
       .text(function (d) {
           if(d.data['name'] == "Sunburst") {
-            return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+            //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
           } else {
             return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
           }

@@ -16,6 +16,9 @@ export class DashboardComponent {
   public pieData:any = [];
   public barData:any = [];
   public chartSetting:any = [];
+
+  public riskScoreVar: any
+  public riskScoreLevel: any
   
  constructor(private _riskReport:ApiRiskReportDataService,
   private _getReport : NewDataService) {}
@@ -49,7 +52,33 @@ export class DashboardComponent {
     //console.log(barData);
   }
   ngOnInit() {
-    this.avgData();
+    //this.avgData();
+    //START: Risk Score and Level Display
+    this._getReport.getReport()
+      .subscribe(res => {
+        let riskScores = res['RiskScoreDetails'].map(i => i.riskScore);
+        let avgRiskCal = res['RiskScoreDetails'].filter(i => i.apiType)
+                        .map(i => i.riskScore)
+                        .reduce((a, b) => a + b, 0)/riskScores.length;
+                        let avgRisk = avgRiskCal.toFixed();
+                        this.riskScoreVar = avgRisk;
+        
+        let overAllRiskLevel 
+        let avgRiskInt = parseInt(avgRisk)
+        if (avgRiskInt >= 1 && avgRiskInt <= 6) {
+                overAllRiskLevel = "Low"
+        } else if (avgRiskInt >= 7 && avgRiskInt < 12) {
+                overAllRiskLevel = "Medium"
+        } else if (avgRiskInt >= 13 && avgRiskInt < 36) {
+          overAllRiskLevel = "High"
+        } else if (avgRiskInt >= 37) {
+          overAllRiskLevel = "Critical"
+        } else {
+          overAllRiskLevel = "No Risk"
+        }
+        this.riskScoreLevel = overAllRiskLevel
+      });
+    //END: Risk Score and Level Display
     //this._riskReport.riskReport().subscribe(riskData => {
     this._getReport.getReport().subscribe(res => {
       let riskData = res['RiskScoreDetails'];

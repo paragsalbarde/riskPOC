@@ -6,7 +6,7 @@
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            API Overall Risk1
+            API Overall Risk
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -20,6 +20,12 @@
           <div class="d3Div" id="container1"></div>
           <app-donutchart *ngIf="donutData.name !== undefined" [chartData]="donutData" [chartSetting]="chartSetting"
             [chartID]="'container1'"></app-donutchart>
+            <div class="wrapper overviewChartStyle">
+              <div class="riskScoreDiv" *ngIf = "riskScoreVar">
+                <h1>{{ riskScoreVar }}</h1>
+                <span>{{ riskScoreLevel }}</span>
+              </div>
+            </div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

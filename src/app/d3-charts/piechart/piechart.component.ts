@@ -30,7 +30,9 @@ export class PiechartComponent implements OnInit {
         .append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-    const color = d3.scaleOrdinal(["#95d7ff" , "#7bbfff", "#016da9", "#62a8e9","#dedede", "#00a5b6"]);
+    // const color = d3.scaleOrdinal(["#95d7ff" , "#7bbfff", "#016da9", "#62a8e9","#dedede", "#00a5b6"]);
+    const color = d3.scaleOrdinal(["#c0fdfb", "#64b6ac", "#5d737e", "#EF6B71", "#fcfffd"]);
+    
 
     const pie = d3.pie()
         .value(d => d['count'])

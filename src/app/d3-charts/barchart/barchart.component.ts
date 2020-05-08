@@ -18,9 +18,9 @@ export class BarchartComponent implements OnInit {
   ngOnInit() {
 
     var self = this;
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 330 - margin.left - margin.right,
-    height = 350 - margin.top - margin.bottom;
+    var margin = {top: 10, right: 0, bottom: 30, left: 30},
+    width = 370 - margin.left - margin.right,
+    height = 330 - margin.top - margin.bottom;
 
     //var x0  = d3.scaleBand().rangeRound([0, width], .5);
     var x0  = d3.scaleBand().rangeRound([0, width]);
@@ -34,8 +34,9 @@ export class BarchartComponent implements OnInit {
     var yAxis = d3.axisLeft(null).scale(y);
 
     //const color = d3.scaleOrdinal(d3.schemeCategory10);
-    const color = d3.scaleOrdinal(["#016da9","#7bbfff", "#62a8e9","#dedede", "#00a5b6"]);
-
+    // const color = d3.scaleOrdinal(["#016da9","#7bbfff", "#62a8e9","#dedede", "#00a5b6"]);
+    const color = d3.scaleOrdinal(["#17c3b2","#227c9d"]);
+    
     var svg = d3.select('#'+this.chartID).append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -46,7 +47,7 @@ export class BarchartComponent implements OnInit {
     var rateNames       = this.chartData[0].values.map(function(d) { return d.groupName; });
 
     x0.domain(<any>categoriesNames);
-    x1.domain(rateNames).rangeRound([0, x0.bandwidth()]).paddingOuter(0.1);
+    x1.domain(rateNames).rangeRound([0, x0.bandwidth()]).paddingOuter(0.2);
     y.domain([0, <any>d3.max(self.chartData, function(key) { return d3.max(key['values'], function(d) { return d['groupValue']; }); })]);
 
     svg.append("g")
@@ -78,12 +79,12 @@ export class BarchartComponent implements OnInit {
       slice.selectAll("rect")
       .data(function(d) { return d['values']; })
         .enter().append("rect")
-            //.attr("width", 20)
-            .attr("width", x1.bandwidth())
+            .attr("width", 26)
+            //.attr("width", x1.bandwidth())
             .attr("x", function(d) { return x1(d['groupName']); })
-             .style("fill", function(d) { return color(d['groupName']) })
-             .attr("y", function(d) { return y(0); })
-             .attr("height", function(d) { return height - y(0); })
+            .style("fill", function(d) { return color(d['groupName']) })
+            .attr("y", function(d) { return y(0); })
+            .attr("height", function(d) { return height - y(0); })
             .on("mouseover", function(d) {
                 d3.select(this).style("fill", <any>d3.rgb(color(d['groupName'])).darker(2));
             })
@@ -102,7 +103,7 @@ export class BarchartComponent implements OnInit {
       //Legend
   var legend = svg.selectAll(".legend")
       .data(this.chartData[0].values.map(function(d) { return d.groupName; }).reverse())
-  .enter().append("g")
+      .enter().append("g")
       .attr("class", "legend")
       .attr("transform", function(d,i) { return "translate(0," + i * 20 + ")"; })
       .style("opacity","0");

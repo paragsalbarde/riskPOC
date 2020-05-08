@@ -1,18 +1,12 @@
 <div class="grid-container">
-  <div *ngFor="let summary of showApiSummary">
-    <h1 class="mat-h1">Dashboard</h1>
-    <!-- <p>{{ summary.reportDate }}</p> -->
-  </div>
+ <h1 class="page-title mat-h1">Dashboard</h1>
   <app-api-counters></app-api-counters>
- <!--<app-donutchart *ngIf="rootData.name !== undefined" [chartData]="rootData"></app-donutchart>-->
- <!--<app-sunburstchart *ngIf="rootData.name !== undefined" [chartData]="rootData"></app-sunburstchart>-->
- 
-  <!-- <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+  <mat-grid-list cols="3" rowHeight="400px">
+    <mat-grid-tile [colspan]=1 [rowspan]=1>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            {{card.title}}
+            API Overall Risk1
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -23,38 +17,13 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+          <div class="d3Div" id="container1"></div>
+          <app-donutchart *ngIf="donutData.name !== undefined" [chartData]="donutData" [chartSetting]="chartSetting"
+            [chartID]="'container1'"></app-donutchart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list> -->
-  <mat-grid-list cols="12" rowHeight="400px">
-    <mat-grid-tile [colspan]=4 [rowspan]=1>
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            API Overall Risk
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <!--<app-api-overview></app-api-overview>-->
-          <div id="container1"></div>
-          <app-donutchart 
-              *ngIf="donutData.name !== undefined" 
-              [chartData]="donutData" 
-              [chartSetting]="chartSetting"
-              [chartID]="'container1'"></app-donutchart>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]=4 [rowspan]=1>
+    <mat-grid-tile [colspan]=1 [rowspan]=1>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -70,17 +39,17 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <!--<app-api-security-risk></app-api-security-risk>-->
-          <div id="pieChart1"></div>
+          <div class="d3Div" id="pieChart1"></div>
           <app-piechart *ngIf="pieData.name !== undefined" [chartData]="pieData" [chartID]="'pieChart1'"></app-piechart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-    <!-- Chart3-->
-    <mat-grid-tile [colspan]=4 [rowspan]=1>
+    <!--START: Chart3-->
+    <mat-grid-tile [colspan]=1 [rowspan]=1>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            API Security Risk Overview
+            API Overall Risk
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -91,53 +60,45 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-            
+          <div class="d3Div" id="container3"></div>
+          <app-donutchart *ngIf="donutData.name !== undefined" [chartData]="donutData" [chartSetting]="chartSetting"
+            [chartID]="'container3'"></app-donutchart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list>
-  <mat-grid-list cols="2" rowHeight="400px">
-    <mat-grid-tile [colspan]=2 [rowspan]=1>
+    <!-- START: Table -->
+    <mat-grid-tile [colspan]=3 [rowspan]=1>
       <mat-card class="dashboard-card">
-        <!-- <mat-card-header>
-          <mat-card-title>
-            Holistic Table View
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header> -->
-        <mat-card-content class="dashboard-card-content">
+       <mat-card-content class="dashboard-card-content">
           <app-table-map></app-table-map>
-          <!-- <map-data-table></map-data-table> -->
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <mat-grid-list cols="2" rowHeight="400px">
-    <mat-grid-tile [colspan]=2 [rowspan]=1>
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Holistic Table View
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <app-table-map></app-table-map>
-          <!-- <map-data-table></map-data-table> -->
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <!-- START: Expansion Panel -->
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Test Reports
+        </mat-panel-title>
+        <!-- <mat-panel-description>
+           Test Reports
+        </mat-panel-description> -->
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Self aware panel
+        </mat-panel-title>
+        <mat-panel-description>
+          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p></p>
+    </mat-expansion-panel> -->
+  </mat-accordion>
+
+  <!-- END : Expansion Panel -->
 </div>

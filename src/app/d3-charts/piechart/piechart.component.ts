@@ -52,7 +52,7 @@ export class PiechartComponent implements OnInit {
           .attr("fill", (d, i) => color(<any>i))
           .attr("d", <any>arc)
           .attr("stroke", "white")
-          .attr("stroke-width", "6px")
+          .attr("stroke-width", "1px")
           //.each(function(d) { this._current = d; });
 
       var text = path.append("text")
@@ -60,7 +60,7 @@ export class PiechartComponent implements OnInit {
       .attr("fill", "black")
       .attr("style", "font-size:11px") 
       .attr("x", function (d) {
-          return arc.centroid(<any>d)[0]-20;
+          return arc.centroid(<any>d)[0]-50;
       })
       .attr("y", function (d) {
           return arc.centroid(<any>d)[1];

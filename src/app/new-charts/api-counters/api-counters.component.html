@@ -1,107 +1,49 @@
-<!-- <mat-grid-list cols="4" rowHeight="100px" *ngFor="let summary of showApiSummary">
-  <mat-grid-tile [colspan]=4 [rowspan]=1>
-    <mat-card class="dashboard-card counter-card">
-      <mat-card-content class="dashboard-card-content" class="headerContent">
-        <div class="dateDiv">
-          <mat-icon>insert_invitation</mat-icon><strong>{{ apiReportDate |  date:'dd/MM/yyyy'}}</strong>
-        </div>
-        <mat-chip-list>
-          <mat-chip>Total Vulnerabilities : <span class="count">{{ summary.totalVulnerabilities }}</span></mat-chip>
-          <mat-chip color="primary">External API's Pending for Pen Test: <span
-              class="count">{{ summary.extApiPenTestPending }}</span></mat-chip>
-          <mat-chip color="primary">External API's Pending for Veracode Scan: <span
-              class="count">{{ summary.extApiVeracodeScanPending }}</span></mat-chip>
-        </mat-chip-list>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list> -->
-
-<mat-grid-list cols="4" rowHeight="100px" *ngFor="let summary of showApiSummary">
-  <!-- <mat-grid-tile [colspan]=1>
-    <mat-card class="dashboard-card counter-card">
-      <mat-card-content class="dashboard-card-content" class="headerContent">
-        <div class="dateDiv">
-          <mat-icon>insert_invitation</mat-icon><strong>{{ apiReportDate |  date:'dd/MM/yyyy'}}</strong>
-          <mat-chip-list>
-            <mat-chip>Total Vulnerabilities : <span class="count">{{ summary.totalVulnerabilities }}</span></mat-chip>
-          </mat-chip-list>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile> -->
-
+<mat-grid-list class="counterGrid"cols="4" rowHeight="150px" *ngFor="let summary of showApiSummary">
   <mat-grid-tile [colspan]=4>
     <mat-card class="dashboard-card counter-card">
       <mat-card-content class="dashboard-card-content">
-        <div class="dateDiv">
-          <mat-icon>insert_invitation</mat-icon><strong>{{ apiReportDate |  date:'dd/MM/yyyy'}}</strong>
-        </div>
-        <div  class="counterContaniner">
+        <div class="counterContaniner">
           <div class="counterDiv">
             <div class="counterHeader">
+              <div class="dateDiv">
+                <mat-icon>insert_invitation</mat-icon><strong>{{ apiReportDate |  date:'dd/MM/yyyy'}}</strong>
+              </div>
               <h4>Total Vulnerabilities</h4>
-            </div>
-            <div class="counter">
-              <label for="">Internal</label>
               <h2>{{ summary.totalVulnerabilities }}</h2>
             </div>
           </div>
-        <div class="counterDiv">
-          <div class="counterHeader">
-            <h4>API's Pending for Pen Test</h4>
-          </div>
-          <div class="counters">
-            <div class="counter">
-              <label for="">Internal</label>
-              <h2>{{ summary.extApiPenTestPending }}</h2>
+          <div class="counterDiv">
+            <div class="counterHeader">
+              <h4>Pending for Pen Test</h4>
             </div>
-            <div class="counter">
-              <label for="">External</label>
-              <h2>{{ summary.extApiPenTestPending }}</h2>
+            <div class="counters">
+              <div class="counter">
+                <label for="">Internal</label>
+                <h2>{{ summary.extApiPenTestPending }}</h2>
+              </div>
+              <div class="counter">
+                <label for="">External</label>
+                <h2>{{ summary.extApiPenTestPending }}</h2>
+              </div>
+            </div>
+          </div>
+          <div class="counterDiv">
+            <div class="counterHeader">
+              <h4>Pending for Veracode Test</h4>
+            </div>
+            <div class="counters">
+              <div class="counter">
+                <label for="">Internal</label>
+                <h2>{{ summary.extApiVeracodeScanPending }}</h2>
+              </div>
+              <div class="counter">
+                <label for="">External</label>
+                <h2>{{ summary.extApiVeracodeScanPending }}</h2>
+              </div>
             </div>
           </div>
         </div>
-        <div class="counterDiv">
-          <div class="counterHeader">
-            <h4>API's Pending for Veracode Test</h4>
-          </div>
-          <div class="counters">
-            <div class="counter">
-              <label for="">Internal</label>
-              <h2>{{ summary.extApiPenTestPending }}</h2>
-            </div>
-            <div class="counter">
-              <label for="">External</label>
-              <h2>{{ summary.extApiPenTestPending }}</h2>
-            </div>
-          </div>
-        </div>
-      </div>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
-  <!-- <mat-grid-tile [colspan]=2 [rowspan]=1>
-    <mat-card class="dashboard-card counter-card">
-      <mat-card-content class="dashboard-card-content" class="">
-        <div class="counterDiv">
-          <div class="counterHeader">
-            <h4>API's Pending for Veracode Test</h4>
-          </div>
-          <div class="counters">
-            <div class="counter">
-              <label for="">Internal</label>
-              <h2>{{ summary.extApiPenTestPending }}</h2>
-            </div>
-            <div class="counter">
-              <label for="">External</label>
-              <h2>{{ summary.extApiPenTestPending }}</h2>
-            </div>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile> -->
- 
-
 </mat-grid-list>

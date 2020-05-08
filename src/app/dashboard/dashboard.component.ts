@@ -16,8 +16,7 @@ export class DashboardComponent {
   public pieData:any = [];
   public chartSetting:any = [];
   
-
-  constructor(private _riskReport:ApiRiskReportDataService,
+ constructor(private _riskReport:ApiRiskReportDataService,
   private _getReport : NewDataService) {}
   groupBy(data, column) {
     let groupData = data.reduce((r, a) => {
@@ -77,6 +76,7 @@ export class DashboardComponent {
           }
        });
        this.donutData = dountChartData;
+       
        //PieChart Data
        let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
        Object.keys(groupPieData).map((column) => {

@@ -60,7 +60,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     max-height: 250px;
     width: auto !important;
 }
-
+.counter-card.mat-card {
+    padding: 10px;
+}
 .counterContaniner {
     text-align: center;
     display: flex;
@@ -68,6 +70,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .counterDiv{
     width: 50%;
 }
+.counterDiv:nth-child(1) {
+    width: 275px;
+}
+.counterDiv:nth-child(2) {
+    border-left: 1px solid #d5d5d5;
+    border-right: 1px solid #d5d5d5;
+}
+.counter:nth-child(1) {
+    border-right: 1px solid #d5d5d5;
+}
+
 .counterDiv .counters {
     display: flex;
 }
@@ -76,11 +89,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 50%;
 }
 .counterContaniner h4 {
-  color: red;
+  margin: 5px;
+  margin-bottom: 10px;
 }
 
 .counterContaniner h2 {
-    color: green;
+    color: #016da9;
+    font-size: xx-large;
+    margin-bottom: 5px;
+    font-weight: 200;
+    margin-top: auto;
+  }
+
+  .counterGrid .mat-grid-tile .mat-figure{
+    right: 20px;
   }
 /* START: Rupesh's */
 .overviewChartStyle {
@@ -113,7 +135,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 2px;
     font-size:12px;
   }
-  
+  .d3Div {
+      align-items: center;
+      text-align: center;
+  }
   /* Creates a small triangle extender for the tooltip */
   .d3-tip:after {
     box-sizing: border-box;

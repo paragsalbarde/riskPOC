@@ -37,6 +37,7 @@ import { ApiSecurityComponent } from './new-charts/api-security/api-security.com
 //
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonutchartComponent } from './d3-charts/donutchart/donutchart.component';
+import { BarchartComponent } from './d3-charts/barchart/barchart.component';
 import { PiechartComponent } from './d3-charts/piechart/piechart.component';
 //import { sunburst } from 'angular-d3-sunburst';
 
@@ -64,7 +65,8 @@ import { PiechartComponent } from './d3-charts/piechart/piechart.component';
     DonutchartComponent,
     DashboardComponent,
     SunburstchartComponent,
-    PiechartComponent
+    PiechartComponent,
+    BarchartComponent
   ],
   imports: [
     BrowserModule,

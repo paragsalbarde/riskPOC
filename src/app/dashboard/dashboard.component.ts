@@ -67,7 +67,7 @@ export class DashboardComponent {
        pieChartData['data'] = [];
        //Donut chart data
        let dountChartData = {};
-       dountChartData['name'] = 'API risk';
+       dountChartData['name'] = 'Sunburst';//this.chartSetting.avgRiskLevel+"\r\n"+this.chartSetting.avgRisk;
        dountChartData['size'] = riskData.length;
        dountChartData['count'] = riskData.length;
        //

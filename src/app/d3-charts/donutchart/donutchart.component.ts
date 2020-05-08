@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, ViewEncapsu
 import { NewDataService } from '../../shared/new-data-service.service';
 //import * as d3 from 'd3-selection';
 import * as d3 from 'd3';
+import * as $ from 'jquery';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -22,11 +23,10 @@ export class DonutchartComponent implements OnInit {
     var width = 330;
     var height = 330;
     var radius = Math.min(width, height) / 2;
-    var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical'];
+    var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical', 'No Risk'];
     var color = d3.scaleOrdinal()
                 .domain(arrRisksColor)
-                //.range(["#016da9", "#62a8e9", "#EC8C90" , "#EA5C62", "#DC2E36", "#F70814"]);
-                .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9"]);
+                .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9", "#dedede"]);
 
 
     var svg = d3.select('#'+this.chartID)
@@ -35,6 +35,9 @@ export class DonutchartComponent implements OnInit {
                 .attr('height', height)
                 .append('g')
                 .attr('transform', 'translate(' + width/2 + ',' + height/2 + ')');
+                /*.on("load", function() {
+                  $("svg text[title='Sunburst']").css({"font-size": "16px !important"});
+                });*/
     
     var partition = d3.partition()
         .size([360, radius])
@@ -92,7 +95,15 @@ export class DonutchartComponent implements OnInit {
       .style("fill", <any>function(d) {return color(d.data['name']); })
 
     path.append("title")
-      .text(d => {return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`})
+      .text(
+        function (d) {
+          if(d.data['name'] == "Sunburst") {
+            return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
+          } else {
+            return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+          }
+         }
+      )
 
     path.append("text")
       .attr("transform", <any>function (d) { 
@@ -112,10 +123,9 @@ export class DonutchartComponent implements OnInit {
           return arc.centroid(<any>d)[1];
       })
       .text(function (d) {
-          if(d.data['name'] == "API risk") {
+          if(d.data['name'] == "Sunburst") {
             return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
           } else {
-            //return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
             return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
           }
       })
@@ -131,12 +141,16 @@ export class DonutchartComponent implements OnInit {
           return arc.centroid(<any>d)[1]+15;
       })
       .text(function (d) {
-        if(d.data['name'] == "API risk") {
+        if(d.data['name'] == "Sunburst") {
           //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
         } else {
           //return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
           return `(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
         }
     });
+    setTimeout(()=> {
+      $("text[title='Sunburst']").css({"font-size": "16px !important"});
+    }, 1000)
   }
+  
 }

@@ -34,7 +34,7 @@ export class DonutchartComponent implements OnInit {
                 //.range(["#063E54", "#079E8C", "#daffef", "#c0fdfb", "#64b6ac", "#5d737e", "#fcfffd"]);
                 //.range(["#063E54", "#079E8C", "#daffef", "#c0fdfb", "#64b6ac", "#5d737e", "#fcfffd"]);
                 //.range(["#063E54", "#079E8C", "#c0fdfb", "#64b6ac", "#5d737e", "#EF6B71", "#fcfffd"]);
-                // .range(["#063E54", "#079E8C", "#02c39a", "#028090","#05668d", "#EF6B71", "#fcfffd"]);
+                //.range(["#063E54", "#079E8C", "#02c39a", "#028090","#05668d", "#EF6B71", "#fcfffd"]);
                  .range(["#063E54", "#079E8C", "#DBE6DE", "#B7C5C2","#8EA1A2", "#E63946", "#F3F3F3"]);
                 
                 
@@ -146,7 +146,7 @@ export class DonutchartComponent implements OnInit {
       })
       .text(function (d) {
           if(d.data['name'] == "Sunburst") {
-            return `${self.chartSetting.avgRisk}`;
+            //return `${self.chartSetting.avgRisk}`;
             //return `${self.chartSetting.avgRiskLevel} \r\n ${self.chartSetting.avgRisk}`;
           } else {
             return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}`;
@@ -173,7 +173,7 @@ export class DonutchartComponent implements OnInit {
       })
       .text(function (d) {
         if(d.data['name'] == "Sunburst") {
-          return `${self.chartSetting.avgRiskLevel}`;
+          return `${self.chartSetting.avgRiskLevel} Risk`;
         } else {
           return `(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
         }

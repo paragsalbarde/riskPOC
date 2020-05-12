@@ -188,9 +188,17 @@ export class DashboardComponent {
       //console.log(event);
       let apiTypeLabel =  event.apiType; 
       let apiRiskLabel =  event.apiRiskClassificatin; 
-      filterCriteria['apiType'] = (apiType) => apiType == apiTypeLabel;
+      
       if(event.apiRiskClassificatin !== undefined ) {
         filterCriteria['apiRiskClassificatin'] = (apiRiskClassificatin) => apiRiskClassificatin == apiRiskLabel;
+      }
+      if(event.apiType !== undefined) {
+        filterCriteria['apiType'] = (apiType) => apiType == apiTypeLabel;
+      }
+      if(event.column !== undefined) {
+        let key = Object.keys(event.column)[0];
+        let objValue = event.column[key];
+        filterCriteria[key] = (value) => value == objValue;
       }
     }
     //console.log(filterCriteria);
@@ -207,7 +215,6 @@ export class DashboardComponent {
     dialogRef.afterClosed().subscribe(
        // data => console.log("Dialog output:", event)
     );  
-    
   }
 
   filterArray(array, filters) {

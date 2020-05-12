@@ -28,3 +28,7 @@ tbody td {
     background-color: #dddddd;
     font-weight: bold !important;
   }
+
+  .mat-cell {
+    cursor: pointer;
+  }

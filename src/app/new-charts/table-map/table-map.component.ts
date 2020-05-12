@@ -43,7 +43,7 @@ export class TableMapComponent implements OnInit {
 
 }
 clickPartition(data) {
-    console.log(data);
+    //console.log(data);
     this.chartDetails.emit(data);
   }
 }

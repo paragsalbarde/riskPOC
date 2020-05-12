@@ -172,3 +172,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     top: 100%;
     left: 0;
   }
+
+  path {
+    cursor: pointer;
+  }

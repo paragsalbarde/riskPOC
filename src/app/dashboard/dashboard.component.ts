@@ -185,11 +185,15 @@ export class DashboardComponent {
       let apiRiskLabel = event.data.data['name'];
       filterCriteria['apiRiskClassificatin'] = (apiType) => apiType == apiRiskLabel;
     } else if(event.type == 'apiTable') {
+      //console.log(event);
       let apiTypeLabel =  event.apiType; 
       let apiRiskLabel =  event.apiRiskClassificatin; 
       filterCriteria['apiType'] = (apiType) => apiType == apiTypeLabel;
-      filterCriteria['apiRiskClassificatin'] = (apiRiskClassificatin) => apiRiskClassificatin == apiRiskLabel;
+      if(event.apiRiskClassificatin !== undefined ) {
+        filterCriteria['apiRiskClassificatin'] = (apiRiskClassificatin) => apiRiskClassificatin == apiRiskLabel;
+      }
     }
+    //console.log(filterCriteria);
     filterData  = this.filterArray(this.riskData, filterCriteria);
     //console.log(filterData);
     const dialogConfig = new MatDialogConfig();

@@ -18,8 +18,8 @@
   </thead>
   <tbody *ngFor="let data of holisticMapData">
     <tr class="mat-row">
-      <th class="mat-cell" rowspan="4">External</th>
-      <td class="mat-cell">Critical</td>
+      <th class="mat-cell" rowspan="4" (click)="clickPartition({type:'apiTable',apiType:'External'})">External</th>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External','apiRiskClassificatin':'Critical'})">Critical</td>
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriPendingPenTesting }}</td>
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriPendingVeracodeScan }}</td>
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriPendingRamlReview }}</td>
@@ -27,7 +27,7 @@
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriVeracodeSLABreach }}</td>
     </tr>
     <tr class="mat-row">
-      <td class="mat-cell">High</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External','apiRiskClassificatin':'High'})">High</td>
       <td class="mat-cell">{{ data.extHighPendingPenTesting }}</td>
       <td class="mat-cell">{{ data.extHighPendingVeracodeScan }}</td>
       <td class="mat-cell">{{ data.extHighPendingRamlReview }}</td>
@@ -35,7 +35,7 @@
       <td class="mat-cell">{{ data.extHighVeracodeSLABreach }}</td>
     </tr>
     <tr class="mat-row">
-      <td class="mat-cell">Medium</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External','apiRiskClassificatin':'Medium'})">Medium</td>
       <td class="mat-cell">{{ data.extMedPendingPenTesting }}</td>
       <td class="mat-cell">{{ data.extMedPendingVeracodeScan }}</td>
       <td class="mat-cell">{{ data.extMedPendingRamlReview }}</td>
@@ -43,7 +43,7 @@
       <td class="mat-cell">{{ data.extMedPenTestSLABreach }}</td>
     </tr>
     <tr class="mat-row">
-      <td class="mat-cell">Low</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External','apiRiskClassificatin':'Low'})">Low</td>
       <td class="mat-cell">{{ data.extLowPendingPenTesting }}</td>
       <td class="mat-cell">{{ data.extLowPendingVeracodeScan }}</td>
       <td class="mat-cell">{{ data.extLowPendingRamlReview }}</td>
@@ -53,8 +53,8 @@
   </tbody>
   <tbody *ngFor="let data of holisticMapData">
     <tr class="mat-row">
-      <th class="mat-cell" rowspan="4">Internal</th>
-      <td class="mat-cell">Critical</td>
+      <th class="mat-cell" rowspan="4" (click)="clickPartition({type:'apiTable',apiType:'Internal'})">Internal</th>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'Internal','apiRiskClassificatin':'Critical'})">Critical</td>
       <td class="mat-cell">{{ data.intCriPendingPenTesting }}</td>
       <td class="mat-cell">{{ data.intCriPendingVeracodeScan }}</td>
       <td class="mat-cell">{{ data.intCriPendingRamlReview }}</td>
@@ -62,7 +62,7 @@
       <td class="mat-cell">{{ data.intCriVeracodeSLABreach }}</td>
     </tr>
     <tr class="mat-row">
-      <td class="mat-cell">High</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'Internal','apiRiskClassificatin':'High'})">High</td>
       <td class="mat-cell">{{ data.intHighPendingPenTesting }}</td>
       <td class="mat-cell">{{ data.intHighPendingVeracodeScan }}</td>
       <td class="mat-cell">{{ data.intHighPendingRamlReview }}</td>
@@ -70,7 +70,7 @@
       <td class="mat-cell">{{ data.intHighVeracodeSLABreach }}</td>
     </tr>
     <tr class="mat-row">
-      <td class="mat-cell">Medium</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'Internal','apiRiskClassificatin':'Medium'})">Medium</td>
       <td class="mat-cell">{{ data.intMedPendingPenTesting }}</td>
       <td class="mat-cell">{{ data.intMedPendingVeracodeScan }}</td>
       <td class="mat-cell">{{ data.intMedPendingRamlReview }}</td>
@@ -78,7 +78,7 @@
       <td class="mat-cell">{{ data.intMedVeracodeSLABreach }}</td>
     </tr>
     <tr class="mat-row">
-      <td class="mat-cell">Low</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'Internal','apiRiskClassificatin':'Low'})">Low</td>
       <td class="mat-cell">{{ data.intLowPendingPenTesting }}</td>
       <td class="mat-cell">{{ data.intLowPendingVeracodeScan }}</td>
       <td class="mat-cell">{{ data.intLowVeracodeSLABreach }}</td>

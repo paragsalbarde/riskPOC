@@ -1,12 +1,12 @@
 <div class="grid-container">
  <h1 class="page-title mat-h1">Dashboard</h1>
   <app-api-counters></app-api-counters>
-  <mat-grid-list cols="3" rowHeight="400px">
+  <mat-grid-list cols="4" rowHeight="400px">
     <mat-grid-tile [colspan]=1 [rowspan]=1>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            API Overall Risk1
+            API Overall Risk
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -77,7 +77,7 @@
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>-->
-    <mat-grid-tile [colspan]=3 [rowspan]=1>
+    <mat-grid-tile [colspan]=2 [rowspan]=1>
       <mat-card class="dashboard-card">
        <mat-card-content class="dashboard-card-content">
           <app-table-map></app-table-map>

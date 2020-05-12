@@ -3,7 +3,9 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { NewDataService } from '../shared/new-data-service.service';
 import { ApiRiskReportDataService } from '../shared/api-risk-report-data.service';
-
+//import {MatDialog, MatDialogConfig} from "@angular/material";
+import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ApiDetailsComponent } from './../modal/api-details/api-details.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,12 +18,14 @@ export class DashboardComponent {
   public pieData:any = [];
   public barData:any = [];
   public chartSetting:any = [];
+  public riskData:any = [];
 
   public riskScoreVar: any
   public riskScoreLevel: any
   
  constructor(private _riskReport:ApiRiskReportDataService,
-  private _getReport : NewDataService) {}
+              private _getReport : NewDataService,
+              private dialog: MatDialog) {}
   groupBy(data, column) {
     let groupData = data.reduce((r, a) => {
       r[a[column]] = [...r[a[column]] || [], a];
@@ -66,6 +70,7 @@ export class DashboardComponent {
     //this._riskReport.riskReport().subscribe(riskData => {
     this._getReport.getReport().subscribe(res => {
       let riskData = res['RiskScoreDetails'];
+      this.riskData = riskData;
       this.getBarData(riskData);
       this.getTableData(riskData);
       //console.log(riskData['list']);
@@ -113,7 +118,7 @@ export class DashboardComponent {
           }
        });
        this.donutData = dountChartData;
-       console.log(dountChartData);
+      // console.log(dountChartData);
        //PieChart Data
        let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
        Object.keys(groupPieData).map((column) => {
@@ -152,6 +157,74 @@ export class DashboardComponent {
       //console.log(overAllRiskLevel);
       this.chartSetting['avgRisk'] = avgRisk;
       this.chartSetting['avgRiskLevel'] = overAllRiskLevel;
+    });
+  }
+
+  /*
+  * Function to show API risk details in Table format
+  */
+  getChartDetails(event) {
+    
+    let filterData:any = {};
+    let filterCriteria = {};
+    if(event.type == 'donut') {
+      //Donut
+      if(["Internal", "External"].indexOf(event.data.data['name']) > -1 ) {
+        // Inner parition
+        let apiTypeLabel = event.data.data['name'];
+        filterCriteria['apiType'] = (apiType) => apiType == apiTypeLabel;
+      } else {
+        //Outer partition
+        let apiRiskLabel =  event.data.data['name']; //Internal/external
+        let apiTypeLabel = event.data.parent.data['name']; //Hig/low
+        filterCriteria['apiType'] = (apiType) => apiType == apiTypeLabel;
+        filterCriteria['apiRiskClassificatin'] = (apiRiskClassificatin) => apiRiskClassificatin == apiRiskLabel;
+      }
+    } else if(event.type == "piechart") {
+      //Piechart
+      let apiRiskLabel = event.data.data['name'];
+      filterCriteria['apiRiskClassificatin'] = (apiType) => apiType == apiRiskLabel;
+    } else if(event.type == 'apiTable') {
+      //console.log(event);
+      let apiTypeLabel =  event.apiType; 
+      let apiRiskLabel =  event.apiRiskClassificatin; 
+      
+      if(event.apiRiskClassificatin !== undefined ) {
+        filterCriteria['apiRiskClassificatin'] = (apiRiskClassificatin) => apiRiskClassificatin == apiRiskLabel;
+      }
+      if(event.apiType !== undefined) {
+        filterCriteria['apiType'] = (apiType) => apiType == apiTypeLabel;
+      }
+      if(event.column !== undefined) {
+        let key = Object.keys(event.column)[0];
+        let objValue = event.column[key];
+        filterCriteria[key] = (value) => value == objValue;
+      }
+    }
+    //console.log(filterCriteria);
+    filterData  = this.filterArray(this.riskData, filterCriteria);
+    //console.log(filterData);
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = filterData;
+
+    const dialogRef = this.dialog.open(ApiDetailsComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+       // data => console.log("Dialog output:", event)
+    );  
+  }
+
+  filterArray(array, filters) {
+    const filterKeys = Object.keys(filters);
+    return array.filter(item => {
+      // validates all filter criteria
+      return filterKeys.every(key => {
+        if (typeof filters[key] !== 'function') return true;
+        return filters[key](item[key]);
+      });
     });
   }
 }

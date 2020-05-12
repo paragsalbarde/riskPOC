@@ -7,6 +7,7 @@ import { ReportService } from './../../shared/services/report.service';
   styleUrls: ['./report-table.component.css']
 })
 export class ReporttableComponent implements OnInit {
+  @Input() tableData;
     resonse: any = [];
     public holisticMapData = [];
     public add_PendingPenTesting;
@@ -17,22 +18,6 @@ export class ReporttableComponent implements OnInit {
   constructor(private _getReport: ReportService ) { }
 
   ngOnInit() {
-    this._getReport.getHolisticMap().subscribe(data => {
-        this.holisticMapData = data;
-         //START: Column Additions 
-        this._getReport.getReport().subscribe(data => {
-
-            this.add_PendingPenTesting = data['RiskScoreDetails'].filter(i => i.penTestStatus === 'Pending')
-                            .map(i => i.apiName).length;
-            this.add_PendingVeracodeScan = data['RiskScoreDetails'].filter(i => i.veracodeStatus === 'Pending')
-                            .map(i => i.apiName).length;
-            this.add_ramlReviewStatus = data['RiskScoreDetails'].filter(i => i.ramlReviewStatus === 'Pending')
-                            .map(i => i.apiName).length;
-            this.add_penTestSlaBreach = data['RiskScoreDetails'].filter(i => i.penTestSlaBreach === 'SLA Breached')
-                            .map(i => i.apiName).length;
-            this.add_veracodeSlaBreach = data['RiskScoreDetails'].filter(i => i.veracodeSlaBreach === 'SLA Breached')
-                            .map(i => i.apiName).length;
-        });
-    });
+    //console.log(this.tableData)
   }
 }

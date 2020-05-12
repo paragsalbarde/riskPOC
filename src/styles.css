@@ -178,6 +178,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     left: 0;
   }
 
-  .testDataTable {
-      
+  path {
+    cursor: pointer;
   }

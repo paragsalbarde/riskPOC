@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, EventEmitter, Output } from '@angular/core';
 import { NewDataService } from '../../shared/new-data-service.service';
 //import * as d3 from 'd3-selection';
 import * as d3 from 'd3';
@@ -14,6 +14,7 @@ export class DonutchartComponent implements OnInit {
   @Input() chartData;
   @Input() chartID;
   @Input() chartSetting;
+  @Output() chartDetails = new EventEmitter();
 
   public chart:any;
   constructor(private _getReport: NewDataService ) { }
@@ -96,6 +97,14 @@ export class DonutchartComponent implements OnInit {
     var path = svg.append("g").selectAll('g')
         .data(partition(root).descendants())
         .enter().append("g")
+        .on('click', d => {
+          const data = {
+            data : d,
+            type : 'donut'
+          }
+          self.chartDetails.emit(data);
+          //this.focusOn(d);
+      });
         /*.on("mousemove",function(d){
           var mouseVal = d3.mouse(this);
           div.style("display","none");

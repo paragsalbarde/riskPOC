@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild, ElementRef, Input, Output } from '@angular/core';
 import { NewDataService } from '../../shared/new-data-service.service';
 //import * as d3 from 'd3-selection';
 import * as d3 from 'd3';
@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 export class PiechartComponent implements OnInit {
   @Input() chartData;
   @Input() chartID;
+  @Output() chartDetails = new EventEmitter();
+
   public chart:any;
   constructor(private _getReport: NewDataService ) { }
 
@@ -33,7 +35,6 @@ export class PiechartComponent implements OnInit {
     // const color = d3.scaleOrdinal(["#95d7ff" , "#7bbfff", "#016da9", "#62a8e9","#dedede", "#00a5b6"]);
     const color = d3.scaleOrdinal(["#c0fdfb", "#64b6ac", "#5d737e", "#EF6B71", "#fcfffd"]);
     
-
     const pie = d3.pie()
         .value(d => d['count'])
         .sort(null);
@@ -44,8 +45,14 @@ export class PiechartComponent implements OnInit {
 
       d3.selectAll("input")
       const path = svg.append("g").selectAll("path")
-          .data(pie(this.chartData['data'])).enter().append("g");
-
+          .data(pie(this.chartData['data'])).enter().append("g")
+          .on('click', d => {
+            const data = {
+              data : d,
+              type : 'piechart'
+            }
+            self.chartDetails.emit(data);
+        });
       // Update existing arcs
       path.transition().duration(200).attrTween("d", arcTween);
 

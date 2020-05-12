@@ -22,7 +22,10 @@ import { NewBubbleChartComponent } from './api-app-dashboard/charts/new-bubble-c
 import { AllApiReportComponent } from './api-app-dashboard/charts/all-api-report/all-api-report.component';
 import { PendingApiComponent } from './api-app-dashboard/charts/pending-api/pending-api.component';
 import { NewDashboardComponent } from './new-dashboard/new-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatGridListModule, MatFormFieldModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { ApiOverviewComponent } from './new-charts/api-overview/api-overview.component';
 import { ApiSecurityRiskComponent } from './new-charts/api-security-risk/api-security-risk.component';
 import { ApiCountersComponent } from './new-charts/api-counters/api-counters.component';
@@ -40,6 +43,7 @@ import { DonutchartComponent } from './d3-charts/donutchart/donutchart.component
 import { BarchartComponent } from './d3-charts/barchart/barchart.component';
 import { PiechartComponent } from './d3-charts/piechart/piechart.component';
 import { ReporttableComponent } from './table/report-table/report-table.component';
+import { ApiDetailsComponent } from './modal/api-details/api-details.component';
 //Service
 import { ReportService } from './shared/services/report.service';
 
@@ -69,7 +73,8 @@ import { ReportService } from './shared/services/report.service';
     SunburstchartComponent,
     PiechartComponent,
     BarchartComponent,
-    ReporttableComponent
+    ReporttableComponent,
+    ApiDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -86,9 +91,12 @@ import { ReportService } from './shared/services/report.service';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [ApiRiskReportDataService, NewDataService, ReportService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ApiDetailsComponent]
 })
 export class AppModule { }

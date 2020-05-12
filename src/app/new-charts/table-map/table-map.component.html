@@ -20,11 +20,11 @@
     <tr class="mat-row">
       <th class="mat-cell" rowspan="4">External</th>
       <td class="mat-cell">Critical</td>
-      <td class="mat-cell">{{ data.extCriPendingPenTesting }}</td>
-      <td class="mat-cell">{{ data.extCriPendingVeracodeScan }}</td>
-      <td class="mat-cell">{{ data.extCriPendingRamlReview }}</td>
-      <td class="mat-cell">{{ data.extCriPenTestSLABreach }}</td>
-      <td class="mat-cell">{{ data.extCriVeracodeSLABreach }}</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriPendingPenTesting }}</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriPendingVeracodeScan }}</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriPendingRamlReview }}</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriPenTestSLABreach }}</td>
+      <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', 'penTestStatus':'Pending'})">{{ data.extCriVeracodeSLABreach }}</td>
     </tr>
     <tr class="mat-row">
       <td class="mat-cell">High</td>

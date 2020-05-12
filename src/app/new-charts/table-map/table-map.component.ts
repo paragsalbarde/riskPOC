@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NewDataService } from '../../shared/new-data-service.service';
 
 import {MatTableModule} from '@angular/material/table';
@@ -15,7 +15,9 @@ export class TableMapComponent implements OnInit {
   public add_PendingVeracodeScan;
   public add_penTestSlaBreach;
   public add_veracodeSlaBreach;
-  public add_ramlReviewStatus 
+  public add_ramlReviewStatus;
+
+  @Output() chartDetails = new EventEmitter();
   
   constructor(private _getHolisticMap: NewDataService, private _getReport: NewDataService) { }
 
@@ -40,7 +42,10 @@ export class TableMapComponent implements OnInit {
     //END
 
 }
-
+clickPartition(data) {
+    console.log(data);
+    this.chartDetails.emit(data);
+  }
 }
 
 // 1st Col

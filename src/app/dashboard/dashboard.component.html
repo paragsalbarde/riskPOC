@@ -18,7 +18,11 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div class="d3Div" id="container1"></div>
-          <app-donutchart *ngIf="donutData.name !== undefined" [chartData]="donutData" [chartSetting]="chartSetting"
+          <app-donutchart 
+            *ngIf="donutData.name !== undefined" 
+            [chartData]="donutData" 
+            (chartDetails)="getChartDetails($event)"
+            [chartSetting]="chartSetting"
             [chartID]="'container1'"></app-donutchart>
         </mat-card-content>
       </mat-card>
@@ -40,7 +44,12 @@
         <mat-card-content class="dashboard-card-content">
           <!--<app-api-security-risk></app-api-security-risk>-->
           <div class="d3Div" id="pieChart1"></div>
-          <app-piechart *ngIf="pieData.name !== undefined" [chartData]="pieData" [chartID]="'pieChart1'"></app-piechart>
+          <app-piechart 
+          *ngIf="pieData.name !== undefined" 
+          [chartData]="pieData" 
+          (chartDetails)="getChartDetails($event)"
+          [chartID]="'pieChart1'">
+        </app-piechart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -79,7 +88,7 @@
     <mat-grid-tile [colspan]=2 [rowspan]=1>
       <mat-card class="dashboard-card">
        <mat-card-content class="dashboard-card-content">
-          <app-table-map></app-table-map>
+          <app-table-map (chartDetails)="getChartDetails($event)"></app-table-map>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

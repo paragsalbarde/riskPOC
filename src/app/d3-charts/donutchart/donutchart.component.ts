@@ -27,7 +27,7 @@ export class DonutchartComponent implements OnInit {
     var color = d3.scaleOrdinal()
                 .domain(arrRisksColor)
                 //.range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9", "#dedede"]);
-                .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#ef6b71", "#dedede"]);
+                //.range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#ef6b71", "#dedede"]);
                 //.range(['#da8f34', '#142459', '#eabd3b', '#ee9a3a', '#de542c', '#820401', '#f7f4bf']);
                 //.range(["#49d9eb", "#00a5b6", "#A8DADC" , "#457B9D", "#1D3557", "#E63946", "#F1FAEE"]);
                 //.range(["#227c9d", "#17c3b2", "#84A98C" , "#52796F", "#354F52", "#E63946", "#CAD2C5"]);
@@ -36,9 +36,10 @@ export class DonutchartComponent implements OnInit {
                 //.range(["#063E54", "#079E8C", "#daffef", "#c0fdfb", "#64b6ac", "#5d737e", "#fcfffd"]);
                 //.range(["#063E54", "#079E8C", "#c0fdfb", "#64b6ac", "#5d737e", "#EF6B71", "#fcfffd"]);
                 //.range(["#063E54", "#079E8C", "#02c39a", "#028090","#05668d", "#EF6B71", "#fcfffd"]);
-                 //.range(["#063E54", "#079E8C", "#DBE6DE", "#B7C5C2","#8EA1A2", "#E63946", "#F3F3F3"]);
+                //.range(["#063E54", "#079E8C", "#DBE6DE", "#B7C5C2","#8EA1A2", "#E63946", "#F3F3F3"]);
                  //.range(["#247C9E", "#079E8C", "#DBE6DE", "#B7C5C2","#8EA1A2", "#E63946", "#F3F3F3"]);
                  //.range(["#247C9E", "#079E8C", "#fee89a", "#fdbf70","#f78851", "#e35449", "#f7faaf"]);
+                 .range(["#a2b5af", "#5d737e", "#ffbaba", "#ff7b7b","	#ff0000", "#a70000", "#F3F3F3"]);
 
                 
                  
@@ -60,11 +61,12 @@ export class DonutchartComponent implements OnInit {
 
   let root = d3.hierarchy(this.chartData)
       root.sum(d => d.size)
+       //root.sum(d => { return !d.children || d.children.length === 0 ? d.size :0; })
       .sort(function(a,b){
         if(a.data['size'] < b.data['size']) return -1;
         //if(a.data['size'] > b.data['size']) return 1;
         return 0;
-      });
+      }).descendants();
 
     //set partition
     partition(root)

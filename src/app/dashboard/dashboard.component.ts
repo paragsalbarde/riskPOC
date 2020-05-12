@@ -37,7 +37,7 @@ export class DashboardComponent {
       groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
     })
 
-    console.log(groupApiType);
+    //console.log(groupApiType);
   }
   getBarData(riskData) {
     let barData = [];
@@ -113,7 +113,7 @@ export class DashboardComponent {
           }
        });
        this.donutData = dountChartData;
-       
+       console.log(dountChartData);
        //PieChart Data
        let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
        Object.keys(groupPieData).map((column) => {

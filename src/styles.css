@@ -60,8 +60,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     max-height: 250px;
     width: auto !important;
 }
+
+.page-title.mat-h1 {
+    margin:0px
+}
 .counter-card.mat-card {
-    padding: 10px;
+    padding: 5px;
 }
 .counterContaniner {
     text-align: center;
@@ -86,17 +90,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .counterDiv .counters .counter {
+    margin-top: 10px;
     width: 50%;
 }
 .counterContaniner h4 {
   margin: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .counterContaniner h2 {
     color: #016da9;
-    font-size: xx-large;
-    margin-bottom: 5px;
+    font-size: 24px;
+    margin-bottom: 0px;
     font-weight: 200;
     margin-top: auto;
   }
@@ -171,4 +176,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: -1px 0 0 0;
     top: 100%;
     left: 0;
+  }
+
+  .testDataTable {
+      
   }

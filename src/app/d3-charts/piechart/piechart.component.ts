@@ -19,8 +19,8 @@ export class PiechartComponent implements OnInit {
     let totalCount = 24;
   
     var self = this;
-    const width = 275;
-    const height = 275;
+    const width = 300;
+    const height = 300;
     const radius = Math.min(width, height) / 2;
 
     const svg = d3.select("#"+this.chartID)
@@ -62,7 +62,7 @@ export class PiechartComponent implements OnInit {
       .attr("fill", "black")
       .attr("style", "font-size:11px") 
       .attr("x", function (d) {
-          return arc.centroid(<any>d)[0]-30;
+          return arc.centroid(<any>d)[0]-50;
       })
       .attr("y", function (d) {
           return arc.centroid(<any>d)[1];

@@ -1,6 +1,9 @@
 <div class="grid-container">
  <h1 class="page-title mat-h1">Dashboard</h1>
   <app-api-counters></app-api-counters>
+  <!--<div class="d3Div" id="container3"></div>
+  <app-sunburstchart *ngIf="donutData.name !== undefined" [chartData]="donutData" [chartSetting]="chartSetting"
+    [chartID]="'container3'"></app-sunburstchart>-->
   <mat-grid-list cols="3" rowHeight="400px">
     <mat-grid-tile [colspan]=1 [rowspan]=1>
       <mat-card class="dashboard-card">
@@ -45,7 +48,7 @@
       </mat-card>
     </mat-grid-tile>
     <!--START: Chart3-->
-   <!-- <mat-grid-tile [colspan]=1 [rowspan]=1>
+   <!--<mat-grid-tile [colspan]=1 [rowspan]=1>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -64,8 +67,7 @@
           <app-barchart 
           *ngIf="pieData.name !== undefined" 
           [chartData]="barData" 
-          [chartID]="'barChart1'">
-        </app-barchart>
+          [chartID]="'barChart1'"></app-barchart>        
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>-->

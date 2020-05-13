@@ -46,6 +46,7 @@ import { ReporttableComponent } from './table/report-table/report-table.componen
 import { ApiDetailsComponent } from './modal/api-details/api-details.component';
 //Service
 import { ReportService } from './shared/services/report.service';
+import { HorizontalBarchartComponent } from './d3-charts/horizontal-barchart/horizontal-barchart.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { ReportService } from './shared/services/report.service';
     PiechartComponent,
     BarchartComponent,
     ReporttableComponent,
-    ApiDetailsComponent
+    ApiDetailsComponent,
+    HorizontalBarchartComponent
   ],
   imports: [
     BrowserModule,

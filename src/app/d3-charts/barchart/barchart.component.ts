@@ -33,7 +33,7 @@ export class BarchartComponent implements OnInit {
 
     var yAxis = d3.axisLeft(null).scale(y);
 
-    //const color = d3.scaleOrdinal(d3.schemeCategory10);
+    // const color = d3.scaleOrdinal(d3.schemeCategory10);
     // const color = d3.scaleOrdinal(["#016da9","#7bbfff", "#62a8e9","#dedede", "#00a5b6"]);
     const color = d3.scaleOrdinal(["#17c3b2","#227c9d"]);
     

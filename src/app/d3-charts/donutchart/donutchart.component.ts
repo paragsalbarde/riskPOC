@@ -24,8 +24,7 @@ export class DonutchartComponent implements OnInit {
     var width = 330;
     var height = 330;
     var radius = Math.min(width, height) / 2;
-    //var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical', 'No Risk'];
-    var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical', 'Met'];
+    var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical', 'No Risk'];
     var color = d3.scaleOrdinal()
                 .domain(arrRisksColor)
                 //.range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#62a8e9", "#dedede"]);

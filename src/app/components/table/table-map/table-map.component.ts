@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NewDataService } from '../../shared/new-data-service.service';
+import { NewDataService } from './../../../shared/new-data-service.service';
 
 import {MatTableModule} from '@angular/material/table';
 

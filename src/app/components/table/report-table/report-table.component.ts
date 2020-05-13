@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
-import { ReportService } from './../../shared/services/report.service';
+import { ReportService } from './../../../shared/services/report.service';
 
 @Component({
   selector: 'report-table',

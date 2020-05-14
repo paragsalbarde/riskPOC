@@ -20,6 +20,7 @@ import { ApiCountersComponent } from './components/api-counters/api-counters.com
 import { TableMapComponent } from './components/table/table-map/table-map.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonutchartComponent } from './d3-charts/donutchart/donutchart.component';
+import { HbarchartComponent } from './d3-charts/hbarchart/hbarchart.component';
 import { BarchartComponent } from './d3-charts/barchart/barchart.component';
 import { PiechartComponent } from './d3-charts/piechart/piechart.component';
 import { ReporttableComponent } from './components/table/report-table/report-table.component';
@@ -36,7 +37,8 @@ import { ApiDetailsComponent } from './modal/api-details/api-details.component';
     PiechartComponent,
     BarchartComponent,
     ReporttableComponent,
-    ApiDetailsComponent
+    ApiDetailsComponent,
+    HbarchartComponent
   ],
   imports: [
     BrowserModule,

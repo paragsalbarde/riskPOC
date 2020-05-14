@@ -1,0 +1,59 @@
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+
+/*
+.chart rect {
+  fill: steelblue;
+}
+*/
+.hbarchart .legend {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}
+
+.hbarchart text {
+  fill: black;
+  font: 10px sans-serif;
+  text-anchor: center;
+}
+
+.hbarchart .label {
+  fill: black;
+  font: 12px sans-serif;
+  text-anchor: end;
+}
+
+/* .bar:hover {
+  fill: brown;
+} */
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.bar-label {
+  font-size: 12px !important;
+}

@@ -187,3 +187,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
  text, path {
     cursor: pointer;
   }
+  .bar-label {
+    font-size: 12px !important;
+  }
+  .hbarchart .label {
+    fill: black;
+    font: 14px sans-serif;
+    text-anchor: end;
+  }

@@ -53,38 +53,6 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-    <!--START: Chart3-->
-   <!--<mat-grid-tile [colspan]=1 [rowspan]=1>
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            API Overall Risk
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div id="barChart1"></div>
-          <app-barchart 
-          *ngIf="pieData.name !== undefined" 
-          [chartData]="barData" 
-          [chartID]="'barChart1'"></app-barchart>        
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>-->
-    <!-- START: Table -->
-    <!--<mat-grid-tile [colspan]=3 [rowspan]=1>
-        <mat-card class="dashboard-card">
-         <mat-card-content class="dashboard-card-content">
-            <report-table></report-table>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>-->
     <mat-grid-tile [colspan]=5 [rowspan]=1 class="testDataTable">
       <mat-card class="dashboard-card">
        <mat-card-content class="dashboard-card-content">
@@ -93,20 +61,24 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <mat-grid-list cols="12" rowHeight="auto">
+  <!--<mat-grid-list cols="12" rowHeight="auto">
     <app-hbarchart *ngIf="horizantalChartData.labels !== undefined" [chartData]="horizantalChartData"></app-hbarchart>
-  </mat-grid-list>
+  </mat-grid-list>-->
   <!-- START: Expansion Panel -->
   <mat-accordion>
-    <mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Test Reports
+          API Review Details
         </mat-panel-title>
         <!-- <mat-panel-description>
-           Test Reports
+          
         </mat-panel-description> -->
       </mat-expansion-panel-header>
+      <div class="d3Div" id="horizontalBarChart1"></div>
+      <app-horizontal-barchart
+      *ngIf="horizantalChartData.labels !== undefined" 
+      [chartData]="horizantalChartData"></app-horizontal-barchart>
     </mat-expansion-panel>
     <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>

@@ -4,7 +4,7 @@ import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/l
 import { NewDataService } from '../shared/new-data-service.service';
 import { ApiRiskReportDataService } from '../shared/api-risk-report-data.service';
 //import {MatDialog, MatDialogConfig} from "@angular/material";
-import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ApiDetailsComponent } from './../modal/api-details/api-details.component';
 
 @Component({
@@ -14,10 +14,12 @@ import { ApiDetailsComponent } from './../modal/api-details/api-details.componen
 })
 export class DashboardComponent {
   public showApiSummary = [];
-  public donutData:any = [];
-  public pieData:any = [];
-  public barData:any = [];
-  public chartSetting:any = [];
+  public donutData: any = [];
+
+  public pieData: any = [];
+  public barData: any = [];
+
+  public chartSetting: any = [];
   public riskData:any = [];
   public horizantalChartData: any = {};
 
@@ -72,25 +74,25 @@ export class DashboardComponent {
                 //children : chart2ChildData['children']
               }
             })
-          return {
-            name : ( column!== undefined ) ? column : "NA",
-            //size : riskGroup[column].length,
-            count : riskGroup[column].length,
-            children : chartChildData['children']
-          }
-       });
-       this.donutData = dountChartData;
-      // console.log(dountChartData);
-       //PieChart Data
-       let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
-       Object.keys(groupPieData).map((column) => {
+            return {
+              name: (column !== undefined) ? column : "NA",
+              //size : riskGroup[column].length,
+              count: riskGroup[column].length,
+              children: chartChildData['children']
+            }
+      
+        });
+        this.donutData = dountChartData;
+        //PieChart Data
+        let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
+        Object.keys(groupPieData).map((column) => {
           let objPie = {};
           objPie['name'] = column;
           objPie['count'] = groupPieData[column].length;
           pieChartData['data'].push(objPie);
-       });
-      this.pieData = pieChartData;
-    });    
+        });
+        this.pieData = pieChartData;
+      })
   }
   /*
   * Group data by columns
@@ -157,13 +159,13 @@ export class DashboardComponent {
     //External
     Object.keys(groupStatusExt).map((column) => {
       let label = `External - ${column}`;
-    barData.labels.push(label);
-    this.iterateHBarData(groupStatusExt, column, barData);
+      barData.labels.push(label);
+      this.iterateHBarData(groupStatusExt, column, barData);
     });
     //Internal
     Object.keys(groupStatusInt).map((column) => {
-    let label = `Internal - ${column}`;
-    barData.labels.push(label);
+      let label = `Internal - ${column}`;
+      barData.labels.push(label);
       this.iterateHBarData(groupStatusInt, column, barData);
   });
 }
@@ -219,12 +221,10 @@ export class DashboardComponent {
       this.chartSetting['avgRisk'] = avgRisk;
       this.chartSetting['avgRiskLevel'] = overAllRiskLevel;
   }
+  //END: Center Text of Donut Chart
 
-  /*
-  * Function to show API risk details in Table format
-  */
+  // START: Function to show API risk details on in PopUp Table format
   getChartDetails(event) {
-    
     let filterData:any = {};
     let filterCriteria = {};
     if(event.type == 'donut') {
@@ -248,7 +248,7 @@ export class DashboardComponent {
       //console.log(event);
       let apiTypeLabel =  event.apiType; 
       let apiRiskLabel =  event.apiRiskClassificatin; 
-      
+
       if(event.apiRiskClassificatin !== undefined ) {
         filterCriteria['apiRiskClassificatin'] = (apiRiskClassificatin) => apiRiskClassificatin == apiRiskLabel;
       }
@@ -260,7 +260,7 @@ export class DashboardComponent {
         let objValue = event.column[key];
         filterCriteria[key] = (value) => value == objValue;
       }
-    }
+    } 
     //console.log(filterCriteria);
     filterData  = this.filterArray(this.riskData, filterCriteria);
     //console.log(filterData);
@@ -287,4 +287,9 @@ export class DashboardComponent {
       });
     });
   }
+  // END: Function to show API risk details on in PopUp Table format
+
+ 
+
+
 }

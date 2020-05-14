@@ -18,9 +18,9 @@ export class HbarchartComponent implements OnInit {
   ngOnInit() {
     var data = this.chartData;     
     var chartWidth       = 300,
-        barHeight        = 15,
+        barHeight        = 12,
         groupHeight      = barHeight * data.series.length,
-        gapBetweenGroups = 15,
+        gapBetweenGroups = 5,
         spaceForLabels   = 150,
         spaceForLegend   = 150;
       

@@ -4,7 +4,7 @@ import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/l
 import { NewDataService } from '../shared/new-data-service.service';
 import { ApiRiskReportDataService } from '../shared/api-risk-report-data.service';
 //import {MatDialog, MatDialogConfig} from "@angular/material";
-import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ApiDetailsComponent } from './../modal/api-details/api-details.component';
 
 @Component({
@@ -14,24 +14,48 @@ import { ApiDetailsComponent } from './../modal/api-details/api-details.componen
 })
 export class DashboardComponent {
   public showApiSummary = [];
-  public donutData:any = [];
-  public pieData:any = [];
-  public barData:any = [];
-  public chartSetting:any = [];
+  public donutData: any = [];
+
+  public pieData: any = [];
+  public barData: any = [];
+
+  public chartSetting: any = [];
   public riskData:any = [];
 
   public riskScoreVar: any
   public riskScoreLevel: any
-  
- constructor(private _riskReport:ApiRiskReportDataService,
-              private _getReport : NewDataService,
-              private dialog: MatDialog) {}
+
+  public apiReviewData = {
+    labels: [
+      'External-Met', 'External-Low', 'External-High', 'External-Medium', 'External-Critical',
+      'Internal-Met', 'Internal-Low', 'Internal-High', 'Internal-Medium', 'Internal-Critical'
+    ],
+    series: [
+      {
+        label: 'Pen Test',
+        values: [14, 8, 15, 55, 57, 14, 8, 15, 55, 57]
+      },
+      {
+        label: 'Veracode Scan',
+        values: [14, 8, 15, 55, 57, 14, 8, 15, 55, 57]
+      },
+      {
+        label: 'RamlReview',
+        values: [12, 43, 22, 89, 65, 12, 43, 22, 89, 65]
+      }],
+
+  }
+
+  constructor(private _riskReport: ApiRiskReportDataService,
+    private _getReport: NewDataService,
+    private dialog: MatDialog) { }
+
   groupBy(data, column) {
     let groupData = data.reduce((r, a) => {
       r[a[column]] = [...r[a[column]] || [], a];
       return r;
-     }, {});
-     return groupData;
+    }, {});
+    return groupData;
   }
   getTableData(riskData) {
     var objData = {};
@@ -40,8 +64,10 @@ export class DashboardComponent {
     Object.keys(groupApiType).map((column) => {
       groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
     })
+    // console.log(groupApiType);
+  }
+  horizantalBarData(apiReviewData) {
 
-    //console.log(groupApiType);
   }
   getBarData(riskData) {
     let barData = [];
@@ -53,84 +79,131 @@ export class DashboardComponent {
 
       let groupApiType = this.groupBy(groupRisk[column], 'apiType');
       Object.keys(groupApiType).map((column1) => {
-       // console.log(groupApiType);
+        // console.log(groupApiType);
         let objType = {};
         objType['groupName'] = column1;
         objType['groupValue'] = groupApiType[column1].length;
         objData['values'].push(objType);
-      })  
+      })
       //console.log(objData);
       barData.push(objData);
     });
     this.barData = barData;
     //console.log(barData);
   }
+
+
   ngOnInit() {
     this.avgData();// avg Data
     //this._riskReport.riskReport().subscribe(riskData => {
     this._getReport.getReport().subscribe(res => {
       let riskData = res['RiskScoreDetails'];
-      this.riskData = riskData;
+      //this.riskData = riskData;
       this.getBarData(riskData);
       this.getTableData(riskData);
+
+      this.horizantalBarData(riskData);
       //console.log(riskData['list']);
 
-     let riskGroup = this.groupBy(riskData, 'apiType');
-       //console.log("group", riskGroup);
-       
-       //Piechart data
-       let pieChartData = {};
-       pieChartData['name'] = "API Risk Overview";
-       pieChartData['count'] = riskData.length;
-       pieChartData['data'] = [];
-       //Donut chart data
-       let dountChartData = {};
-       dountChartData['name'] = 'Sunburst';//this.chartSetting.avgRiskLevel+"\r\n"+this.chartSetting.avgRisk;
-       dountChartData['size'] = riskData.length;
-       dountChartData['count'] = riskData.length;
-       //
-       dountChartData['children'] = Object.keys(riskGroup).map((column) => {
-       // riskGroup[column].map((data) => {
-            let  groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassificatin');
-            let chartChildData = [];
-            chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
+      let riskGroup = this.groupBy(riskData, 'apiType');
+      //console.log("group", riskGroup);
 
-              let  groupBreach = this.groupBy(groupCritical[column1], 'penTestSlaBreach');
-              let chart2ChildData = [];
-              chart2ChildData['children'] = Object.keys(groupBreach).map((column2) => {
-                return {
-                  name : ( column2 !== undefined && column2 !== "" ) ? column2 : "NA",
-                  //size : groupBreach[column2].length,
-                }
-              });
-              return {
-                name : ( column1!== undefined ) ? column1 : "NA",
-                size : groupCritical[column1].length,
-                count : groupCritical[column1].length,
-                //children : chart2ChildData['children']
-              }
-            })
+      //Piechart data
+      let pieChartData = {};
+      pieChartData['name'] = "API Risk Overview";
+      pieChartData['count'] = riskData.length;
+      pieChartData['data'] = [];
+     
+   
+      //Horizontal Bar Chart Data
+      let hrBarChartData = {};
+      hrBarChartData['name'] = "API Review Details";
+      hrBarChartData['count'] = riskData.length;
+      hrBarChartData['data'] = [];
+
+      //Donut chart data
+      let dountChartData = {};
+      dountChartData['name'] = 'Sunburst';//this.chartSetting.avgRiskLevel+"\r\n"+this.chartSetting.avgRisk;
+      dountChartData['size'] = riskData.length;
+      dountChartData['count'] = riskData.length;
+
+      dountChartData['children'] = Object.keys(riskGroup).map((column) => {
+        let groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassificatin');
+        let chartChildData = [];
+        chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
+          let groupBreach = this.groupBy(groupCritical[column1], 'penTestSlaBreach');
+          let chart2ChildData = [];
+          chart2ChildData['children'] = Object.keys(groupBreach).map((column2) => {
+            return {
+              name: (column2 !== undefined && column2 !== "") ? column2 : "NA",
+              //size : groupBreach[column2].length,
+            }
+          });
           return {
-            name : ( column!== undefined ) ? column : "NA",
-            //size : riskGroup[column].length,
-            count : riskGroup[column].length,
-            children : chartChildData['children']
+            name: (column1 !== undefined) ? column1 : "NA",
+            size: groupCritical[column1].length,
+            count: groupCritical[column1].length,
+            //children : chart2ChildData['children']
           }
-       });
-       this.donutData = dountChartData;
+        })
+        return {
+          name: (column !== undefined) ? column : "NA",
+          //size : riskGroup[column].length,
+          count: riskGroup[column].length,
+          children: chartChildData['children']
+        }
+      });
+      this.donutData = dountChartData;
       // console.log(dountChartData);
-       //PieChart Data
-       let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
-       Object.keys(groupPieData).map((column) => {
-          let objPie = {};
-          objPie['name'] = column;
-          objPie['count'] = groupPieData[column].length;
-          pieChartData['data'].push(objPie);
-       });
-      this.pieData = pieChartData;
-    });    
-  }
+      
+      // Horizontal BarChart Data
+      let groupHorizontalBarchartData = {};
+      groupHorizontalBarchartData['name'] = 'Sunburst';//this.chartSetting.avgRiskLevel+"\r\n"+this.chartSetting.avgRisk;
+      groupHorizontalBarchartData['size'] = riskData.length;
+      groupHorizontalBarchartData['count'] = riskData.length;
 
+      groupHorizontalBarchartData['children'] = Object.keys(riskGroup).map((column) => {
+        let groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassificatin');
+        let chartChildData = [];
+
+        chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
+          let groupRamlReview = this.groupBy(groupCritical[column1], 'ramlReviewStatus');
+          let chart2ChildData = [];
+          chart2ChildData['children'] = Object.keys(groupRamlReview).map((column2) => {
+            return {
+              name: (column2 !== undefined && column2 !== "") ? column2 : "NA",
+              //size : groupBreach[column2].length,
+            }
+          });
+          return {
+            name: (column1 !== undefined) ? column1 : "NA",
+            size: groupCritical[column1].length,
+            count: groupCritical[column1].length,
+            //children : chart2ChildData['children']
+          }
+        })
+        return {
+          name: (column !== undefined) ? column : "NA",
+          //size : riskGroup[column].length,
+          count: riskGroup[column].length,
+          children: chartChildData['children']
+        }
+      });
+
+
+
+      //PieChart Data
+      let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
+      Object.keys(groupPieData).map((column) => {
+        let objPie = {};
+        objPie['name'] = column;
+        objPie['count'] = groupPieData[column].length;
+        pieChartData['data'].push(objPie);
+      });
+      this.pieData = pieChartData;
+});
+  }
+  //START: Center Text of Donut Chart
   avgData() {
     this._getReport.getReport().subscribe(res => {
       //
@@ -159,12 +232,10 @@ export class DashboardComponent {
       this.chartSetting['avgRiskLevel'] = overAllRiskLevel;
     });
   }
+  //END: Center Text of Donut Chart
 
-  /*
-  * Function to show API risk details in Table format
-  */
+  // START: Function to show API risk details on in PopUp Table format
   getChartDetails(event) {
-    
     let filterData:any = {};
     let filterCriteria = {};
     if(event.type == 'donut') {
@@ -188,7 +259,7 @@ export class DashboardComponent {
       //console.log(event);
       let apiTypeLabel =  event.apiType; 
       let apiRiskLabel =  event.apiRiskClassificatin; 
-      
+
       if(event.apiRiskClassificatin !== undefined ) {
         filterCriteria['apiRiskClassificatin'] = (apiRiskClassificatin) => apiRiskClassificatin == apiRiskLabel;
       }
@@ -200,7 +271,7 @@ export class DashboardComponent {
         let objValue = event.column[key];
         filterCriteria[key] = (value) => value == objValue;
       }
-    }
+    } 
     //console.log(filterCriteria);
     filterData  = this.filterArray(this.riskData, filterCriteria);
     //console.log(filterData);
@@ -227,4 +298,9 @@ export class DashboardComponent {
       });
     });
   }
+  // END: Function to show API risk details on in PopUp Table format
+
+ 
+
+
 }

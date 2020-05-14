@@ -19,6 +19,7 @@ export class DashboardComponent {
   public barData:any = [];
   public chartSetting:any = [];
   public riskData:any = [];
+  public horizantalChartData: any = {};
 
   public riskScoreVar: any
   public riskScoreLevel: any
@@ -26,58 +27,19 @@ export class DashboardComponent {
  constructor(private _riskReport:ApiRiskReportDataService,
               private _getReport : NewDataService,
               private dialog: MatDialog) {}
-  groupBy(data, column) {
-    let groupData = data.reduce((r, a) => {
-      r[a[column]] = [...r[a[column]] || [], a];
-      return r;
-     }, {});
-     return groupData;
-  }
-  getTableData(riskData) {
-    var objData = {};
-    let groupApiType = this.groupBy(riskData, 'apiType');
-
-    Object.keys(groupApiType).map((column) => {
-      groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
-    })
-
-    //console.log(groupApiType);
-  }
-  getBarData(riskData) {
-    let barData = [];
-    let groupRisk = this.groupBy(riskData, 'apiRiskClassificatin');
-    Object.keys(groupRisk).map((column) => {
-      let objData = {};
-      objData['key'] = column;
-      objData['values'] = [];
-
-      let groupApiType = this.groupBy(groupRisk[column], 'apiType');
-      Object.keys(groupApiType).map((column1) => {
-       // console.log(groupApiType);
-        let objType = {};
-        objType['groupName'] = column1;
-        objType['groupValue'] = groupApiType[column1].length;
-        objData['values'].push(objType);
-      })  
-      //console.log(objData);
-      barData.push(objData);
-    });
-    this.barData = barData;
-    //console.log(barData);
-  }
+  
   ngOnInit() {
-    this.avgData();// avg Data
+    
     //this._riskReport.riskReport().subscribe(riskData => {
     this._getReport.getReport().subscribe(res => {
       let riskData = res['RiskScoreDetails'];
       this.riskData = riskData;
-      this.getBarData(riskData);
-      this.getTableData(riskData);
-      //console.log(riskData['list']);
-
-     let riskGroup = this.groupBy(riskData, 'apiType');
-       //console.log("group", riskGroup);
-       
+      this.getBarData(riskData);//bar data
+      this.getTableData(riskData);//table data
+      this.avgData(riskData);// avg Data
+      
+      let riskGroup = this.groupBy(riskData, 'apiType');
+      this.horizontalBarData(riskGroup);
        //Piechart data
        let pieChartData = {};
        pieChartData['name'] = "API Risk Overview";
@@ -130,12 +92,112 @@ export class DashboardComponent {
       this.pieData = pieChartData;
     });    
   }
+  /*
+  * Group data by columns
+  */
+  groupBy(data, column) {
+    let groupData = data.reduce((r, a) => {
+      r[a[column]] = [...r[a[column]] || [], a];
+      return r;
+     }, {});
+     return groupData;
+  }
+  /*
+  * Table data
+  */
+  getTableData(riskData) {
+    var objData = {};
+    let groupApiType = this.groupBy(riskData, 'apiType');
 
-  avgData() {
-    this._getReport.getReport().subscribe(res => {
-      //
-      let riskScores = res['RiskScoreDetails'].map(i => i.riskScore);
-      let avgRiskCal = res['RiskScoreDetails'].filter(i => i.apiType)
+    Object.keys(groupApiType).map((column) => {
+      groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
+    })    
+  }
+  /*
+  * Bar Data
+  */
+  getBarData(riskData) {
+    let barData = [];
+    let groupRisk = this.groupBy(riskData, 'apiRiskClassificatin');
+    Object.keys(groupRisk).map((column) => {
+      let objData = {};
+      objData['key'] = column;
+      objData['values'] = [];
+
+      let groupApiType = this.groupBy(groupRisk[column], 'apiType');
+      Object.keys(groupApiType).map((column1) => {
+       // console.log(groupApiType);
+        let objType = {};
+        objType['groupName'] = column1;
+        objType['groupValue'] = groupApiType[column1].length;
+        objData['values'].push(objType);
+      })  
+      //console.log(objData);
+      barData.push(objData);
+    });
+    this.barData = barData;
+    //console.log(barData);
+  }
+  /*
+  * Horizontal Bar chart Data
+  */
+  horizontalBarData(riskGroup) {
+    let barData:any = {
+      labels : [],
+      series : [
+        {label : 'Pen Test', values : []},
+        {label : 'Veracode Status', values : []},
+        {label : 'Raml Status', values : []}
+      ]
+    }
+   
+    let groupStatusExt = this.groupBy(riskGroup['External'], 'apiRiskClassificatin');
+    let groupStatusInt = this.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
+
+    //External
+    Object.keys(groupStatusExt).map((column) => {
+      let label = `External - ${column}`;
+    barData.labels.push(label);
+    this.iterateHBarData(groupStatusExt, column, barData);
+    });
+    //Internal
+    Object.keys(groupStatusInt).map((column) => {
+    let label = `Internal - ${column}`;
+    barData.labels.push(label);
+      this.iterateHBarData(groupStatusInt, column, barData);
+  });
+}
+  /*
+  * Set Horizantal bar chart data
+  */
+ iterateHBarData(groupStatus,column, barData) {
+
+    let penTestCount = 0;
+    let veraCodeCount = 0;
+    let ramlReviewCount = 0;
+    
+    groupStatus[column].map((data) => {
+      penTestCount  += (data['penTestStatus'] !== "") ? 1 : 0;
+      veraCodeCount  += (data['veracodeStatus'] !== "") ? 1 : 0;
+      ramlReviewCount  += (data['ramlReviewStatus'] !== "") ? 1 : 0;
+    });
+    
+    let objPen = barData.series.find(element => element.label == 'Pen Test');
+    let objVeracode = barData.series.find(element => element.label == 'Veracode Status');
+    let objRaml = barData.series.find(element => element.label == 'Raml Status');
+    objPen.values.push(penTestCount);
+    objVeracode.values.push(veraCodeCount);
+    objRaml.values.push(ramlReviewCount);
+
+    this.horizantalChartData = barData;
+ }
+
+/*
+* Calculate average status of risk
+*/
+  avgData(riskData) {
+      let riskScores = riskData.map(i => i.riskScore);
+      let avgRiskCal = riskData.filter(i => i.apiType)
                       .map(i => i.riskScore)
                       .reduce((a, b) => a + b, 0)/riskScores.length;
 
@@ -153,11 +215,9 @@ export class DashboardComponent {
       } else {
         overAllRiskLevel = "No Risk"
       }
-      //console.log(avgRisk);
-      //console.log(overAllRiskLevel);
+    
       this.chartSetting['avgRisk'] = avgRisk;
       this.chartSetting['avgRiskLevel'] = overAllRiskLevel;
-    });
   }
 
   /*

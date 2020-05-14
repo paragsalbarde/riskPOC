@@ -191,6 +191,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
   .hbarchart .label {
     fill: black;
-    font: 14px sans-serif;
+    font-size: 14px;
     text-anchor: end;
+  }
+  .hbarchart .legend {
+    font-size: 14px !important;
   }

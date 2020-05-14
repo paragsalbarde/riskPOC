@@ -39,6 +39,7 @@ import { HorizontalBarchartComponent } from './d3-charts/horizontal-barchart/hor
     BarchartComponent,
     ReporttableComponent,
     ApiDetailsComponent,
+    HbarchartComponent,
     HorizontalBarchartComponent
   ],
   imports: [

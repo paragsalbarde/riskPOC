@@ -16,39 +16,13 @@ export class HbarchartComponent implements OnInit {
   constructor(private _getReport: NewDataService ) { }
 
   ngOnInit() {
-
-    var data = {
-        name : "Hi",
-        labels: [
-            'External - Critical',
-            'External - High',
-            'External - Medium',
-            'External - Low',
-            'Internal - Critical',
-            'Internal - High',
-            'Internal - Medium',
-            'Internal - Low'
-        ],
-        series: [
-          {
-            label: 'Pen Test',
-            values: [204, 68, 15, 14, 8, 15, 12, 24],
-          },
-          {
-            label: 'Veracode Scan',
-            values: [12, 43, 22, 14, 8, 15, 12, 56]
-          },{
-            label: 'Raml Review',
-            values: [13, 45, 27, 14, 8, 15, 12, 24]
-          }]
-      };
-      
-      var chartWidth       = 300,
-          barHeight        = 15,
-          groupHeight      = barHeight * data.series.length,
-          gapBetweenGroups = 15,
-          spaceForLabels   = 150,
-          spaceForLegend   = 150;
+    var data = this.chartData;     
+    var chartWidth       = 300,
+        barHeight        = 15,
+        groupHeight      = barHeight * data.series.length,
+        gapBetweenGroups = 15,
+        spaceForLabels   = 150,
+        spaceForLegend   = 150;
       
       // Zip the series data together (first values, second values, etc.)
       var zippedData = [];
@@ -160,6 +134,6 @@ export class HbarchartComponent implements OnInit {
           .attr('class', 'legend')
           .attr('x', legendRectSize + legendSpacing+30)
           .attr('y', legendRectSize - legendSpacing)
-          .text(function (d) { return d.label; });
+          .text(function (d) { return d['label']; });
   }
 }

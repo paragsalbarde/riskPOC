@@ -288,8 +288,4 @@ export class DashboardComponent {
     });
   }
   // END: Function to show API risk details on in PopUp Table format
-
- 
-
-
 }

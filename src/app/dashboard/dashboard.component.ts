@@ -34,12 +34,12 @@ export class DashboardComponent {
     
     //this._riskReport.riskReport().subscribe(riskData => {
     this._getReport.getReport().subscribe(res => {
+      
       let riskData = res['RiskScoreDetails'];
       this.riskData = riskData;
       this.getBarData(riskData);//bar data
       this.getTableData(riskData);//table data
       this.avgData(riskData);// avg Data
-      
       let riskGroup = this.groupBy(riskData, 'apiType');
       this.horizontalBarData(riskGroup);
        //Piechart data
@@ -55,7 +55,7 @@ export class DashboardComponent {
        //
        dountChartData['children'] = Object.keys(riskGroup).map((column) => {
        // riskGroup[column].map((data) => {
-            let  groupCritical = this.groupBy(riskGroup[column], 'apiRiskClassificatin');
+            let  groupCritical = this.groupBy(riskGroup[column], 'overallRiskClassification');
             let chartChildData = [];
             chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
 
@@ -84,7 +84,7 @@ export class DashboardComponent {
         });
         this.donutData = dountChartData;
         //PieChart Data
-        let groupPieData = this.groupBy(riskData, 'apiRiskClassificatin');
+        let groupPieData = this.groupBy(riskData, 'overallRiskClassification');
         Object.keys(groupPieData).map((column) => {
           let objPie = {};
           objPie['name'] = column;
@@ -98,11 +98,13 @@ export class DashboardComponent {
   * Group data by columns
   */
   groupBy(data, column) {
-    let groupData = data.reduce((r, a) => {
-      r[a[column]] = [...r[a[column]] || [], a];
-      return r;
-     }, {});
-     return groupData;
+    if(data !== undefined) {
+      let groupData = data.reduce((r, a) => {
+        r[a[column]] = [...r[a[column]] || [], a];
+        return r;
+      }, {});
+      return groupData;
+    }
   }
   /*
   * Table data
@@ -143,7 +145,7 @@ export class DashboardComponent {
   /*
   * Horizontal Bar chart Data
   */
-  horizontalBarData(riskGroup) {
+  horizontalBarData(riskGroup) {    
     let barData:any = {
       labels : [],
       series : [
@@ -157,17 +159,21 @@ export class DashboardComponent {
     let groupStatusInt = this.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
 
     //External
-    Object.keys(groupStatusExt).map((column) => {
-      let label = `External - ${column}`;
-      barData.labels.push(label);
-      this.iterateHBarData(groupStatusExt, column, barData);
-    });
+    if(riskGroup['External'] !== undefined) {
+      Object.keys(groupStatusExt).map((column) => {
+        let label = `External - ${column}`;
+        barData.labels.push(label);
+        this.iterateHBarData(groupStatusExt, column, barData);
+      });
+    }
     //Internal
-    Object.keys(groupStatusInt).map((column) => {
-      let label = `Internal - ${column}`;
-      barData.labels.push(label);
-      this.iterateHBarData(groupStatusInt, column, barData);
-  });
+    if(riskGroup['Internal'] !== undefined) {
+      Object.keys(groupStatusInt).map((column) => {
+        let label = `Internal - ${column}`;
+        barData.labels.push(label);
+        this.iterateHBarData(groupStatusInt, column, barData);
+      });
+    }
 }
   /*
   * Set Horizantal bar chart data
@@ -235,15 +241,15 @@ export class DashboardComponent {
         filterCriteria['apiType'] = (apiType) => apiType == apiTypeLabel;
       } else {
         //Outer partition
-        let apiRiskLabel =  event.data.data['name']; //Internal/external
-        let apiTypeLabel = event.data.parent.data['name']; //Hig/low
+        let apiRiskLabel =  event.data.data['name']; //Hig/low
+        let apiTypeLabel = event.data.parent.data['name']; //Internal/external
         filterCriteria['apiType'] = (apiType) => apiType == apiTypeLabel;
-        filterCriteria['apiRiskClassificatin'] = (apiRiskClassificatin) => apiRiskClassificatin == apiRiskLabel;
+        filterCriteria['overallRiskClassification'] = (overallRiskClassification) => overallRiskClassification == apiRiskLabel;
       }
     } else if(event.type == "piechart") {
       //Piechart
       let apiRiskLabel = event.data.data['name'];
-      filterCriteria['apiRiskClassificatin'] = (apiType) => apiType == apiRiskLabel;
+      filterCriteria['overallRiskClassification'] = (apiType) => apiType == apiRiskLabel;
     } else if(event.type == 'apiTable') {
       //console.log(event);
       let apiTypeLabel =  event.apiType; 

@@ -21,7 +21,7 @@ export class HorizontalBarchartComponent implements OnInit {
     var chartWidth       = 300,
         barHeight        = 10,
         groupHeight      = barHeight * data.series.length,
-        gapBetweenGroups = 5,
+        gapBetweenGroups = 15,
         spaceForLabels   = 150,
         spaceForLegend   = 150;
     

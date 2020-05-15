@@ -1,11 +1,23 @@
 {
     "externalAPISummaryMap": [
         {
-            "totalVulnerabilities": 20,
-            "extApiPenTestPending": 8,
-            "extApiVeracodeScanPending": 6,
-            "reportDate": "2020-04-21T12:53:48.315+0000",
-            "extApiRamlReviewPending": 4
+            "extApiVeracodeScanPending": 0,
+            "reportDate": "2020-05-15T08:05:51.432+0000",
+            "extApiRamlReviewPending": 0,
+            "extApiPenTestPending": 0,
+            "totalVulnerabilities": 10,
+            "intApiRamlReviewPending": 4,
+            "intApiPenTestPending": 8,
+            "intApiVeracodeScanPending": 6
+        }
+    ],
+    "overallSecurityRiskMap": [
+        {
+            "lowRiskCount": 5,
+            "highRiskCount": 2,
+            "noRiskCount": 11,
+            "criticalRiskCount": 1,
+            "mediumRiskCount": 1
         }
     ],
     "holisticTableMap": [
@@ -15,44 +27,43 @@
             "extCriPenTestSLABreach": 0,
             "intHighPendingRamlReview": 1,
             "extCriVeracodeSLABreach": 0,
-            "extMedVeracodeSLABreach": 2,
+            "extMedVeracodeSLABreach": 0,
             "intHighPenTestSLABreach": 0,
-            "extMedPenTestSLABreach": 2,
+            "extMedPenTestSLABreach": 0,
             "intMedPendingVeracodeScan": 0,
-            "extLowPendingRamlReview": 2,
-            "extCriPendingPenTesting": 3,
+            "extLowPendingRamlReview": 0,
+            "extCriPendingPenTesting": 0,
             "extLowPenTestSLABreach": 0,
             "extMedPendingVeracodeScan": 0,
             "intMedPendingPenTesting": 1,
             "extHighPenTestSLABreach": 0,
             "intCriPenTestSLABreach": 0,
-            "extHighPendingRamlReview": 1,
+            "extHighPendingRamlReview": 0,
             "intLowVeracodeSLABreach": 0,
             "intMedPenTestSLABreach": 2,
             "extLowVeracodeSLABreach": 0,
-            "extCriPendingRamlReview": 1,
-            "extLowPendingPenTesting": 3,
+            "extCriPendingRamlReview": 0,
+            "extLowPendingPenTesting": 0,
             "intLowPendingPenTesting": 3,
             "intHighVeracodeSLABreach": 0,
             "intHighPendingVeracodeScan": 1,
             "intCriPendingRamlReview": 1,
             "intMedPendingRamlReview": 0,
             "extMedPendingRamlReview": 0,
-            "extCriPendingVeracodeScan": 2,
+            "extCriPendingVeracodeScan": 0,
             "intLowPendingVeracodeScan": 3,
             "intCriPendingVeracodeScan": 2,
-            "extLowPendingVeracodeScan": 3,
+            "extLowPendingVeracodeScan": 0,
             "extHighVeracodeSLABreach": 0,
             "intCriPendingPenTesting": 3,
             "intHighPendingPenTesting": 1,
-            "extMedPendingPenTesting": 1,
+            "extMedPendingPenTesting": 0,
             "intCriVeracodeSLABreach": 0,
             "intLowPendingRamlReview": 2,
-            "extHighPendingVeracodeScan": 1,
-            "extHighPendingPenTesting": 1
+            "extHighPendingVeracodeScan": 0,
+            "extHighPendingPenTesting": 0
         }
     ],
-    
     "RiskScoreDetails": [
         {
             "srNo": 1,
@@ -60,7 +71,7 @@
             "apiName": "Test1",
             "apiType": "Internal",
             "apiRiskClassificatin": "Low",
-            "ramlReviewStatus": "",
+            "ramlReviewStatus": "Done",
             "ramlReviewDate": "23/01/2020",
             "veracodeStatus": "Pending",
             "veracodeDate": null,
@@ -68,8 +79,10 @@
             "penTestDate": null,
             "veracodeSlaBreach": "",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Done",
-            "riskScore": 2
+            "ramlReviewPending": null,
+            "riskScore": 1,
+            "overallRiskClassification": "Low Risk",
+            "transactionCycle": "a"
         },
         {
             "srNo": 2,
@@ -85,8 +98,10 @@
             "penTestDate": "23/12/2019",
             "veracodeSlaBreach": "SLA Breached",
             "penTestSlaBreach": "SLA Breached",
-            "ramlReviewPending": "Done",
-            "riskScore": 8
+            "ramlReviewPending": null,
+            "riskScore": 1,
+            "overallRiskClassification": "Low Risk",
+            "transactionCycle": "b"
         },
         {
             "srNo": 3,
@@ -102,8 +117,10 @@
             "penTestDate": null,
             "veracodeSlaBreach": "",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Pending",
-            "riskScore": 14
+            "ramlReviewPending": null,
+            "riskScore": 16,
+            "overallRiskClassification": "High Risk",
+            "transactionCycle": "c"
         },
         {
             "srNo": 4,
@@ -119,8 +136,10 @@
             "penTestDate": "23/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 17
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "d"
         },
         {
             "srNo": 5,
@@ -136,8 +155,10 @@
             "penTestDate": "20/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 4
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "e"
         },
         {
             "srNo": 6,
@@ -153,8 +174,10 @@
             "penTestDate": null,
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Done",
-            "riskScore": 8
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "f"
         },
         {
             "srNo": 7,
@@ -170,8 +193,10 @@
             "penTestDate": "18/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 12
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "g"
         },
         {
             "srNo": 8,
@@ -187,16 +212,18 @@
             "penTestDate": "17/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 4
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "h"
         },
         {
             "srNo": 9,
             "apiVersion": "V9",
             "apiName": "Test5",
             "apiType": "Internal",
-            "apiRiskClassificatin": "Met",
-            "ramlReviewStatus": "",
+            "apiRiskClassificatin": "Low",
+            "ramlReviewStatus": "Pending",
             "ramlReviewDate": null,
             "veracodeStatus": "Pending",
             "veracodeDate": null,
@@ -204,8 +231,10 @@
             "penTestDate": null,
             "veracodeSlaBreach": "",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Pending",
-            "riskScore": 0
+            "ramlReviewPending": null,
+            "riskScore": 1,
+            "overallRiskClassification": "Low Risk",
+            "transactionCycle": "y"
         },
         {
             "srNo": 10,
@@ -221,8 +250,10 @@
             "penTestDate": "15/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 6
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "j"
         },
         {
             "srNo": 11,
@@ -238,8 +269,10 @@
             "penTestDate": "14/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 0
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "k"
         },
         {
             "srNo": 12,
@@ -255,8 +288,10 @@
             "penTestDate": null,
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Done",
-            "riskScore": 11
+            "ramlReviewPending": null,
+            "riskScore": 10,
+            "overallRiskClassification": "Medium Risk",
+            "transactionCycle": "l"
         },
         {
             "srNo": 13,
@@ -272,8 +307,10 @@
             "penTestDate": "13/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 10
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "m"
         },
         {
             "srNo": 14,
@@ -289,8 +326,10 @@
             "penTestDate": "13/01/2019",
             "veracodeSlaBreach": "SLA Breached",
             "penTestSlaBreach": "SLA Breached",
-            "ramlReviewPending": "Done",
-            "riskScore": 0
+            "ramlReviewPending": null,
+            "riskScore": 1,
+            "overallRiskClassification": "Low Risk",
+            "transactionCycle": "n"
         },
         {
             "srNo": 15,
@@ -306,8 +345,10 @@
             "penTestDate": "10/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 5
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "o"
         },
         {
             "srNo": 16,
@@ -323,8 +364,10 @@
             "penTestDate": null,
             "veracodeSlaBreach": "",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Pending",
-            "riskScore": 6
+            "ramlReviewPending": null,
+            "riskScore": 28,
+            "overallRiskClassification": "Critical Risk",
+            "transactionCycle": "p"
         },
         {
             "srNo": 17,
@@ -340,8 +383,10 @@
             "penTestDate": null,
             "veracodeSlaBreach": "",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Pending",
-            "riskScore": 4
+            "ramlReviewPending": null,
+            "riskScore": 1,
+            "overallRiskClassification": "Low Risk",
+            "transactionCycle": "q"
         },
         {
             "srNo": 18,
@@ -357,8 +402,10 @@
             "penTestDate": "07/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 0
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "r"
         },
         {
             "srNo": 19,
@@ -374,8 +421,10 @@
             "penTestDate": "06/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 18
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "s"
         },
         {
             "srNo": 20,
@@ -391,300 +440,13 @@
             "penTestDate": null,
             "veracodeSlaBreach": "",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Done",
-            "riskScore": 12
+            "ramlReviewPending": null,
+            "riskScore": 20,
+            "overallRiskClassification": "High Risk",
+            "transactionCycle": "t"
         },
         {
-            "srNo": 21,
-            "apiVersion": "V1",
-            "apiName": "Test1",
-            "apiType": "Internal",
-            "apiRiskClassificatin": "Met",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "23/01/2020",
-            "veracodeStatus": "Pending",
-            "veracodeDate": null,
-            "penTestStatus": "Pending",
-            "penTestDate": null,
-            "veracodeSlaBreach": "",
-            "penTestSlaBreach": "",
-            "ramlReviewPending": "Done",
-            "riskScore": 0
-        },
-        {
-            "srNo": 22,
-            "apiVersion": "V2",
-            "apiName": "Test2",
-            "apiType": "External",
-            "apiRiskClassificatin": "Medium",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "21/11/2019",
-            "veracodeStatus": "Done",
-            "veracodeDate": "12/12/2019",
-            "penTestStatus": "Done",
-            "penTestDate": "23/12/2019",
-            "veracodeSlaBreach": "SLA Breached",
-            "penTestSlaBreach": "SLA Breached",
-            "ramlReviewPending": "Done",
-            "riskScore": 0
-        },
-        {
-            "srNo": 23,
-            "apiVersion": "V3",
-            "apiName": "Test3",
-            "apiType": "External",
-            "apiRiskClassificatin": "High",
-            "ramlReviewStatus": "Pending",
-            "ramlReviewDate": null,
-            "veracodeStatus": "Pending",
-            "veracodeDate": null,
-            "penTestStatus": "Pending",
-            "penTestDate": null,
-            "veracodeSlaBreach": "",
-            "penTestSlaBreach": "",
-            "ramlReviewPending": "Pending",
-            "riskScore": 10
-        },
-        {
-            "srNo": 24,
-            "apiVersion": "V4",
-            "apiName": "Test4",
-            "apiType": "External",
-            "apiRiskClassificatin": "Critical",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "21/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "22/02/2020",
-            "penTestStatus": "Done",
-            "penTestDate": "23/03/2020",
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 19
-        },
-        {
-            "srNo": 25,
-            "apiVersion": "V5",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Low",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "20/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "20/02/2020",
-            "penTestStatus": "Done",
-            "penTestDate": "20/03/2020",
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 4
-        },
-        {
-            "srNo": 26,
-            "apiVersion": "V6",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Medium",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "19/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "19/02/2020",
-            "penTestStatus": "Pending",
-            "penTestDate": null,
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "",
-            "ramlReviewPending": "Done",
-            "riskScore": 2
-        },
-        {
-            "srNo": 27,
-            "apiVersion": "V7",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "High",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "18/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "18/02/2020",
-            "penTestStatus": "Done",
-            "penTestDate": "18/03/2020",
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 1
-        },
-        {
-            "srNo": 28,
-            "apiVersion": "V8",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Critical",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "17/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "17/02/2020",
-            "penTestStatus": "Done",
-            "penTestDate": "17/03/2020",
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 14
-        },
-        {
-            "srNo": 29,
-            "apiVersion": "V9",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Low",
-            "ramlReviewStatus": "Pending",
-            "ramlReviewDate": null,
-            "veracodeStatus": "Pending",
-            "veracodeDate": null,
-            "penTestStatus": "Pending",
-            "penTestDate": null,
-            "veracodeSlaBreach": "",
-            "penTestSlaBreach": "",
-            "ramlReviewPending": "Pending",
-            "riskScore": 8
-        },
-        {
-            "srNo": 30,
-            "apiVersion": "V10",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Medium",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "15/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "15/02/2020",
-            "penTestStatus": "Done",
-            "penTestDate": "15/03/2020",
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 8
-        },
-        {
-            "srNo": 31,
-            "apiVersion": "V11",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "High",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "14/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "14/02/2020",
-            "penTestStatus": "Done",
-            "penTestDate": "14/03/2020",
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 14
-        },
-        {
-            "srNo": 32,
-            "apiVersion": "V12",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Critical",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "13/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "13/02/2020",
-            "penTestStatus": "Pending",
-            "penTestDate": null,
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "",
-            "ramlReviewPending": "Done",
-            "riskScore": 20
-        },
-        {
-            "srNo": 33,
-            "apiVersion": "V13",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Low",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "11/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "12/02/2020",
-            "penTestStatus": "Done",
-            "penTestDate": "13/03/2020",
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 1
-        },
-        {
-            "srNo": 34,
-            "apiVersion": "V14",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Medium",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "25/11/2019",
-            "veracodeStatus": "Done",
-            "veracodeDate": "27/12/2019",
-            "penTestStatus": "Done",
-            "penTestDate": "13/01/2019",
-            "veracodeSlaBreach": "SLA Breached",
-            "penTestSlaBreach": "SLA Breached",
-            "ramlReviewPending": "Done",
-            "riskScore": 3
-        },
-        {
-            "srNo": 35,
-            "apiVersion": "V15",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "High",
-            "ramlReviewStatus": "Done",
-            "ramlReviewDate": "10/01/2020",
-            "veracodeStatus": "Done",
-            "veracodeDate": "10/02/2020",
-            "penTestStatus": "Done",
-            "penTestDate": "10/03/2020",
-            "veracodeSlaBreach": "Withen SLA",
-            "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 5
-        },
-        {
-            "srNo": 36,
-            "apiVersion": "V16",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Critical",
-            "ramlReviewStatus": "Pending",
-            "ramlReviewDate": null,
-            "veracodeStatus": "Pending",
-            "veracodeDate": null,
-            "penTestStatus": "Pending",
-            "penTestDate": null,
-            "veracodeSlaBreach": "",
-            "penTestSlaBreach": "",
-            "ramlReviewPending": "Pending",
-            "riskScore": 15
-        },
-        {
-            "srNo": 37,
-            "apiVersion": "V17",
-            "apiName": "Test5",
-            "apiType": "External",
-            "apiRiskClassificatin": "Low",
-            "ramlReviewStatus": "Pending",
-            "ramlReviewDate": null,
-            "veracodeStatus": "Pending",
-            "veracodeDate": null,
-            "penTestStatus": "Pending",
-            "penTestDate": null,
-            "veracodeSlaBreach": "",
-            "penTestSlaBreach": "",
-            "ramlReviewPending": "Pending",
-            "riskScore": 5
-        },
-        {
-            "srNo": 38,
+            "srNo": 18,
             "apiVersion": "V18",
             "apiName": "Test5",
             "apiType": "External",
@@ -697,11 +459,13 @@
             "penTestDate": "07/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 1
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "r"
         },
         {
-            "srNo": 39,
+            "srNo": 19,
             "apiVersion": "V19",
             "apiName": "Test5",
             "apiType": "External",
@@ -714,11 +478,13 @@
             "penTestDate": "06/03/2020",
             "veracodeSlaBreach": "Withen SLA",
             "penTestSlaBreach": "Withen SLA",
-            "ramlReviewPending": "Done",
-            "riskScore": 0
+            "ramlReviewPending": null,
+            "riskScore": 0,
+            "overallRiskClassification": "No Risk",
+            "transactionCycle": "s"
         },
         {
-            "srNo": 40,
+            "srNo": 20,
             "apiVersion": "V20",
             "apiName": "Test5",
             "apiType": "External",
@@ -731,8 +497,10 @@
             "penTestDate": null,
             "veracodeSlaBreach": "",
             "penTestSlaBreach": "",
-            "ramlReviewPending": "Done",
-            "riskScore": 8
+            "ramlReviewPending": null,
+            "riskScore": 20,
+            "overallRiskClassification": "High Risk",
+            "transactionCycle": "t"
         }
     ]
 }

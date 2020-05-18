@@ -26,6 +26,7 @@ import { PiechartComponent } from './d3-charts/piechart/piechart.component';
 import { ReporttableComponent } from './components/table/report-table/report-table.component';
 import { ApiDetailsComponent } from './modal/api-details/api-details.component';
 import { HorizontalBarchartComponent } from './d3-charts/horizontal-barchart/horizontal-barchart.component';
+import { SunburstComponent } from './d3-charts/sunburst/sunburst.component'
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { HorizontalBarchartComponent } from './d3-charts/horizontal-barchart/hor
     ReporttableComponent,
     ApiDetailsComponent,
     HbarchartComponent,
-    HorizontalBarchartComponent
+    HorizontalBarchartComponent,
+    SunburstComponent
   ],
   imports: [
     BrowserModule,

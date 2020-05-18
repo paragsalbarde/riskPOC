@@ -1,0 +1,13 @@
+
+.arc text {
+    font: 10px sans-serif;
+    text-anchor: middle;
+  }
+.arc path {
+    stroke: #fff;
+  }
+
+  #partitionSVG {
+    height: 330px;
+    width:330px;
+  }

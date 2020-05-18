@@ -17,13 +17,19 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div class="d3Div" id="container1"></div>
+         <!-- <div class="d3Div" id="container1"></div>
           <app-donutchart 
             *ngIf="donutData.name !== undefined" 
             [chartData]="donutData" 
             (chartDetails)="getChartDetails($event)"
             [chartSetting]="chartSetting"
-            [chartID]="'container1'"></app-donutchart>
+            [chartID]="'container1'"></app-donutchart>-->
+            <app-sunburst  
+            *ngIf="donutData.name !== undefined" 
+            [chartData]="donutData" 
+            [chartSetting]="chartSetting"
+            (chartDetails)="getChartDetails($event)"
+            [chartID]="'container1'"></app-sunburst>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

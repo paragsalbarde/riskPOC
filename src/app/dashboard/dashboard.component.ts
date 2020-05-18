@@ -50,7 +50,7 @@ export class DashboardComponent {
        //Donut chart data
        let dountChartData = {};
        dountChartData['name'] = 'Sunburst';//this.chartSetting.avgRiskLevel+"\r\n"+this.chartSetting.avgRisk;
-       dountChartData['size'] = riskData.length;
+       //dountChartData['size'] = riskData.length;
        dountChartData['count'] = riskData.length;
        //
        dountChartData['children'] = Object.keys(riskGroup).map((column) => {

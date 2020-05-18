@@ -42,7 +42,7 @@ ngOnInit() {
 
     const root = partition(this.chartData);
     //const color = d3.scaleOrdinal().range(d3.quantize(d3.interpolateRainbow, (this.chartData.children.length + 1)));
-    var arrRisksColor = ['External', 'Internal', 'Low Risk', 'Medium Risk','High Risk', 'Critical Risk', 'No Risk'];
+    var arrRisksColor = ['External', 'Internal', 'Low Risk', 'Medium Risk','High Risk', 'Critical Risk', 'Met'];
     var color = d3.scaleOrdinal()
     .domain(arrRisksColor)
     .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#016da9", "#ef6b71", "#dedede"]); 

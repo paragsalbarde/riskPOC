@@ -33,8 +33,12 @@ export class PiechartComponent implements OnInit {
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
     // const color = d3.scaleOrdinal(["#95d7ff" , "#7bbfff", "#016da9", "#62a8e9","#dedede", "#00a5b6"]);
-    const color = d3.scaleOrdinal(["#c0fdfb", "#64b6ac", "#5d737e", "#EF6B71", "#fcfffd"]);
-    
+    //const color = d3.scaleOrdinal(["#c0fdfb", "#64b6ac", "#5d737e", "#EF6B71", "#fcfffd"]);
+    var arrRisksColor = ['External', 'Internal', 'Low', 'Medium','High', 'Critical', 'Met'];
+    var color = d3.scaleOrdinal()
+                .domain(arrRisksColor)
+                .range(["#49d9eb", "#00a5b6", "#95d7ff" , "#7bbfff", "#ffa500", "#ed332d", "#dedede"]); 
+                
     const pie = d3.pie()
         .value(d => d['count'])
         .sort(null);
@@ -58,7 +62,7 @@ export class PiechartComponent implements OnInit {
 
       // Enter new arcs
       path.append("path")
-          .attr("fill", (d, i) => color(<any>i))
+          .attr("fill", (d, i) => <any>color(d.data['name']))
           .attr("d", <any>arc)
           .attr("stroke", "white")
           .attr("stroke-width", "1px")

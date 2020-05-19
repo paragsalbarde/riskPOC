@@ -35,7 +35,7 @@ export class HorizontalBarchartComponent implements OnInit {
     
     // Color scale
     var color = d3.scaleOrdinal()
-                .range(["#16A085", "#33435C", "#1277BB"]);
+                .range(["#1f77b4", "#aec7e8", "#ff7f0e"]);
     var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
     
     var x = d3.scaleLinear()

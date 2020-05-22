@@ -57,6 +57,11 @@ export class PiechartComponent implements OnInit {
             }
             self.chartDetails.emit(data);
         });
+        path.append("title").text(
+            function (d) {
+                return `${(d.data['name'] !== undefined) ? d.data['name'] : 'NA'}\n\r(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`;
+             }
+          )
       // Update existing arcs
       path.transition().duration(200).attrTween("d", arcTween);
 

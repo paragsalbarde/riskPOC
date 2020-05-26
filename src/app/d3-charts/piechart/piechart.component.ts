@@ -30,8 +30,8 @@ export class PiechartComponent implements OnInit, AfterViewInit, OnChanges {
 
   drawPiechart() {
       var self = this;
-      const width = 330;
-      const height = 330;
+      const width = 350;
+      const height = 350;
       const radius = Math.min(width, height) / 2 -15;
       d3.select("#"+this.chartID).html("");
       

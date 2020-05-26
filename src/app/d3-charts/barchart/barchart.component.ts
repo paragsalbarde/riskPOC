@@ -9,16 +9,23 @@ import { Observable } from 'rxjs';
   templateUrl: './barchart.component.html',
   styleUrls: ['./barchart.component.css']
 })
-export class BarchartComponent implements OnInit {
+export class BarchartComponent implements OnInit, OnChanges {
   @Input() chartData;
   @Input() chartID;
   public chart:any;
   constructor(private _getReport: NewDataService ) { }
 
   ngOnInit() {
+    this.drawBarChart();
+  }
+  ngOnChanges() {
+    this.drawBarChart();
+  }
+
+  drawBarChart() {
     var self = this;
     var margin = {top: 10, right: 0, bottom: 30, left: 30},
-    width = 600 - margin.left - margin.right,
+    width = 550 - margin.left - margin.right,
     height = 350 - margin.top - margin.bottom;
 
     //var x0  = d3.scaleBand().rangeRound([0, width], .5);
@@ -34,8 +41,8 @@ export class BarchartComponent implements OnInit {
 
     // const color = d3.scaleOrdinal(d3.schemeCategory10);
     // const color = d3.scaleOrdinal(["#016da9","#7bbfff", "#62a8e9","#dedede", "#00a5b6"]);
-    const color = d3.scaleOrdinal(["#17c3b2","#227c9d"]);
-    
+    const color = d3.scaleOrdinal([ "#aec7e8", "#1f77b4","#ff7f0e"]);
+    d3.select('#'+this.chartID).html("");
     var svg = d3.select('#'+this.chartID).append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -80,7 +87,7 @@ export class BarchartComponent implements OnInit {
         .enter().append("rect")
             .attr("width", 26)
             //.attr("width", x1.bandwidth())
-            .attr("x", function(d) { return x1(d['groupName']); })
+            .attr("x", function(d) {  return (x1(d['groupName']))  })
             .style("fill", function(d) { return color(d['groupName']) })
             .attr("y", function(d) { return y(0); })
             .attr("height", function(d) { return height - y(0); })
@@ -120,6 +127,6 @@ export class BarchartComponent implements OnInit {
       .style("text-anchor", "end")
       .text(<any>function(d) {return d; });
 
-  legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
+    legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
   }
 }

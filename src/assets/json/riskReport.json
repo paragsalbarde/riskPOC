@@ -75,7 +75,7 @@
             "ramlReviewDate": "23/01/2020",
             "veracodeStatus": "Pending",
             "veracodeDate": null,
-            "penTestStatus": "Pending",
+            "penTestStatus": "",
             "penTestDate": null,
             "veracodeSlaBreach": "",
             "penTestSlaBreach": "",

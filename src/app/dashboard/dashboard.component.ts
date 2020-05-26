@@ -167,13 +167,15 @@ export class DashboardComponent {
 
   iterateVData(groupStatus,column) {
     let penTestCount = 0;
-    let veraCodeCount = 0;
-    let ramlReviewCount = 0;
+    //let veraCodeCount = 0;
+    //let ramlReviewCount = 0;
+    let totalCount = 0;
     
     groupStatus[column].map((data) => {
       penTestCount  += (data['penTestStatus'] !== "") ? 1 : 0;
-      veraCodeCount  += (data['veracodeStatus'] !== "") ? 1 : 0;
-      ramlReviewCount  += (data['ramlReviewStatus'] !== "") ? 1 : 0;
+      totalCount  += (data['srNo'] !== "") ? 1 : 0;
+      //veraCodeCount  += (data['veracodeStatus'] !== "") ? 1 : 0;
+      //ramlReviewCount  += (data['ramlReviewStatus'] !== "") ? 1 : 0;
     });
     
     let arrData = [
@@ -182,8 +184,8 @@ export class DashboardComponent {
         'groupValue' : penTestCount
       },
       {
-        'groupName' : 'total',
-        'groupValue' : veraCodeCount
+        'groupName' : 'Total',
+        'groupValue' : totalCount
       }
     ];
 
@@ -219,7 +221,7 @@ export class DashboardComponent {
         vBarData.push(objData);
       });
     }
-    console.log(vBarData);
+    //console.log(vBarData);
     this.barData = vBarData;
   }
   /*

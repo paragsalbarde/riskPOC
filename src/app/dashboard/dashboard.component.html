@@ -92,11 +92,21 @@
           <app-horizontal-barchart
           *ngIf="horizantalChartData.labels !== undefined" 
           [chartData]="horizantalChartData"></app-horizontal-barchart>-->
-          <div class="d3Div" id="barChart1"></div>
-          <app-barchart 
-            *ngIf="barData.length > 0"
-             [chartData]="barData" 
-             [chartID]="'barChart1'"></app-barchart>
+          <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+              <b>Pen Test Volume</b>
+            </mat-card-title>
+          </mat-card-header>
+        
+        <mat-card-content class="dashboard-card-content">
+            <div class="d3Div" id="barChart1"></div>
+            <app-barchart 
+              *ngIf="barData.length > 0"
+              [chartData]="barData" 
+              [chartID]="'barChart1'"></app-barchart>
+            </mat-card-content>
+          </mat-card>
         </mat-grid-tile>
     </mat-grid-list>
     </mat-expansion-panel>

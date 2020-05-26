@@ -1,0 +1,31 @@
+<mat-grid-list cols="12" rowHeight="70px">
+  <mat-grid-tile [colspan]=2>
+      <h1 class="page-title mat-h1"></h1>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]=4>
+
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]=6>
+    <!--1-->
+      <mat-form-field>
+        <mat-label>Business Unit</mat-label>
+        <mat-select (selectionChange)="changeBU($event.value)">
+          <mat-option *ngFor="let bu of businessUnit" [value]="bu">
+            {{bu}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!--2-->
+      &nbsp;&nbsp;&nbsp;
+      <mat-form-field>
+          <mat-label>Transaction Cycle</mat-label>
+          <mat-select (selectionChange)="changeTC($event.value)">
+            <mat-option *ngFor="let tc of transactionCycle" [value]="tc">
+              {{tc}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;&nbsp;&nbsp;
+        <button mat-raised-button (click)="submitFilter()">Filter</button>
+  </mat-grid-tile>
+</mat-grid-list>

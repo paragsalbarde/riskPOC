@@ -130,7 +130,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     transform: translate(20px,-32px);
 }
 .risk-score-sun {
-    font-size: 40px !important;
+    font-size: 20px !important;
     font-weight: 300;
     text-anchor: middle;
     /*-webkit-transform: translate(20px,-32px);
@@ -174,8 +174,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size:12px;
   }
   .d3Div {
-      align-items: center;
-      text-align: center;
+      align-items: left;
+      text-align: left;
+      margin-top: -120px;
   }
   /* Creates a small triangle extender for the tooltip */
   .d3-tip:after {
@@ -210,4 +211,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
   .hbarchart .legend {
     font-size: 14px !important;
+  }
+
+  #barChart1 {
+      margin-top: 90px;
   }

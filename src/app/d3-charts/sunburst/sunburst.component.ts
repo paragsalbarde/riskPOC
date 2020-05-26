@@ -2,6 +2,8 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NewDataService } from '../../shared/new-data-service.service';
 import { ChartType, MultiDataSet, Label} from 'chart.js';
 import * as d3 from 'd3';
+import * as $ from 'jquery';
+
 import { Observable } from 'rxjs';
 // npm install chart.piecelabel.js --save
 @Component({
@@ -18,11 +20,29 @@ export class SunburstComponent implements OnInit {
  constructor(private _getReport: NewDataService) { }
   
 ngOnInit() {  
+  this.drawSunburst();
+}
+
+ngOnChanges() {
+ this.drawSunburst();
+}
+
+labelVisible(d) {
+  return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
+}
+
+ labelTransform(d, radius) {
+   const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+   const y = (d.y0 + d.y1) / 2 * radius;
+   return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+}
+
+drawSunburst() {
   var self = this;
   const format = d3.format(",d");
   const width = 330;
   const radius = width / 6;
-
+  $("svg#partitionSVG").html("");
   const arc = d3.arc()
           .startAngle(d => d['x0'])
           .endAngle(d => d['x1'])
@@ -54,19 +74,19 @@ ngOnInit() {
             .style("width", "100%")
             .style("height", "auto")
             .style("font", "10px sans-serif");
+            
+       
 
     const g = svg.append("g")
             .attr("transform", `translate(${width / 2},${width / 2})`);
+
+            svg.exit().remove();
 
     const path = g.append("g")
             .selectAll("path")
             .data(root.descendants().slice(1))
             .join("path")
             .attr("fill", d => {
-              //console.log(d);
-                //while (d.depth > 1)
-                  //  d = d.parent;
-                    //console.log((d.data['name']));
                 return <any>color(d.data['name']);
             }).on('click', d => {
               const data = {
@@ -75,16 +95,14 @@ ngOnInit() {
               }
               self.chartDetails.emit(data);
           })
-            //.attr("fill-opacity", d => arcVisible(d['current']) ? (d.children ? 0.6 : 0.4) : 0)
           .attr("d", d => arc(d['current']));
 
     path.filter(d => <any>d.children)
             .style("cursor", "pointer")
-            //.on("click", clicked);
 
     path.append("title")
             .text(d => `${d.ancestors().map(d => (d.data['name'] !== 'Sunburst') ? d.data['name'] : "").reverse().join("\r\n")}\n\r${format(d.value)}`);
-
+            path.exit().remove()
     const label = g.append("g")
             .attr("pointer-events", "none")
             .attr("text-anchor", "middle")
@@ -93,9 +111,10 @@ ngOnInit() {
             .data(root.descendants().slice(1))
             .join("text")
             .attr("dy", "0.35em")
-            .attr("fill-opacity", d => +labelVisible(d['current']))
-            .attr("transform", d => labelTransform(d['current']))
-            .text(d => `${d.data['name']}(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`)
+            .attr("fill-opacity", d => +this.labelVisible(d['current']))
+            .attr("transform", d => this.labelTransform(d['current'], radius))
+            //.text(d => `${d.data['name']}(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`)
+            .text(d => `${d.data['count']}(${(d.data['count'] !== undefined) ? Math.ceil((d.data['count']/self.chartData['count'])*100) : ''}%)`)
            
 
     const parent = g.append("circle")
@@ -105,63 +124,62 @@ ngOnInit() {
             .attr("text-anchor", "middle")
             .attr("pointer-events", "all")
 
-            g.append("text")
+            /*g.append("text")
             .attr("style",'color:#000')
             .attr('class', 'risk-level-sun')
-            .text(d => `${self.chartSetting.avgRiskLevel} Risk`);
+            .text(d => `${self.chartSetting.avgRiskLevel} Risk`);*/
 
             g.append("text")
             .attr('class', 'risk-score-sun')
             .attr("style",'color:#000')
-            .text(d => `${self.chartSetting.avgRisk}`);
-            //.on("click", clicked);
+            .text(d => `${self.chartSetting.avgRiskLevel} Risk`);
+            this.drawLegend(color);
 
-    function clicked(p) {
-        parent.datum(p.parent || root);
+}
+drawLegend( color) {
+        // Draw legend
+        let objColor = [
+                {name : 'External', color : '#49d9eb'},
+                {name : 'Internal', color : '#00a5b6'},
+                {name : 'Low', color : '#95d7ff'},
+                {name : 'Medium', color : '#7bbfff'},
+                {name : 'High', color : '#ffa500'},
+                {name : 'Critical', color : '#ed332d'},
+                {name : 'Met', color : '#dedede'}
+        ];
 
-        root.each(d => d['target'] = {
-                x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
-                x1: Math.max(0, Math.min(1, (d.x1 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
-                y0: Math.max(0, d.y0 - p.depth),
-                y1: Math.max(0, d.y1 - p.depth)
-            });
-
-        const t = g.transition().duration(750);
-
-        // Transition the data on all arcs, even the ones that aren’t visible,
-        // so that if this transition is interrupted, entering arcs will start
-        // the next transition from the desired position.
-        path.transition(t)
-                .tween("data", d => {
-                    const i = d3.interpolate(d['current'], d['target']);
-                    return t => d['current'] = i(t);
-                })
-                .filter(<any>function (d) {
-                    return +this.getAttribute("fill-opacity") || arcVisible(d.target);
-                })
-                .attr("fill-opacity", d => arcVisible(d['target']) ? (d.children ? 0.6 : 0.4) : 0)
-                .attrTween("d", d => () => arc(d['current']));
-
-        label.filter(<any>function (d) {
-            return +this.getAttribute("fill-opacity") || labelVisible(d.target);
-        }).transition(t)
-                .attr("fill-opacity", d => +labelVisible(d['target']))
-                .attrTween("transform", d => () => labelTransform(d['current']));
-    }
-
-    function arcVisible(d) {
-        return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
-    }
-
-    function labelVisible(d) {
-        return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
-    }
-
-    function labelTransform(d) {
-        const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
-        const y = (d.y0 + d.y1) / 2 * radius;
-        return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
-    }
-  }
+   var legendRectSize = 18,
+        legendSpacing  = 4,
+        chartWidth     = 300,
+        gapBetweenGroups = 15,
+        spaceForLabels   = 150,
+        spaceForLegend   = 150;
+   var chart = d3.select(".sunChartLegend")
+   .attr("width", spaceForLabels + chartWidth + spaceForLegend)
+   .attr("height", 160);
+     var legend = chart.selectAll('.legend')
+     .data(objColor)
+     .enter()
+     .append('g')
+     .attr('transform', function (d, i) {
+         var height = legendRectSize + legendSpacing;
+         var offset = -gapBetweenGroups/2;
+         var horz = spaceForLabels + chartWidth + 40 - legendRectSize;
+         var vert = i * height - offset;
+         return 'translate(' + horz + ',' + vert + ')';
+     });
+ 
+     legend.append('rect')
+     .attr('width', legendRectSize)
+     .attr('height', legendRectSize)
+     .style('fill', <any>function (d, i) { return color(<any>d['name']); })
+     .style('stroke', <any>function (d, i) { return color(<any>d['name']); });
+ 
+     legend.append('text')
+     .attr('class', 'legend')
+     .attr('x', legendRectSize + legendSpacing)
+     .attr('y', legendRectSize - legendSpacing)
+     .text(function (d) { return d['name']; });
+   }
   
 }

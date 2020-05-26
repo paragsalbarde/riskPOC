@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BarchartComponent } from './barchart.component';
+import { UnitFilterComponent } from './unit-filter.component';
 
-describe('SunburstComponent', () => {
-  let component: BarchartComponent;
-  let fixture: ComponentFixture<BarchartComponent>;
+describe('ApiCountersComponent', () => {
+  let component: UnitFilterComponent;
+  let fixture: ComponentFixture<UnitFilterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BarchartComponent ]
+      declarations: [ UnitFilterComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BarchartComponent);
+    fixture = TestBed.createComponent(UnitFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

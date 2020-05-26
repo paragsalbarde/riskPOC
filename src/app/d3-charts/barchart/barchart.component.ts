@@ -16,11 +16,10 @@ export class BarchartComponent implements OnInit {
   constructor(private _getReport: NewDataService ) { }
 
   ngOnInit() {
-
     var self = this;
     var margin = {top: 10, right: 0, bottom: 30, left: 30},
-    width = 370 - margin.left - margin.right,
-    height = 330 - margin.top - margin.bottom;
+    width = 600 - margin.left - margin.right,
+    height = 350 - margin.top - margin.bottom;
 
     //var x0  = d3.scaleBand().rangeRound([0, width], .5);
     var x0  = d3.scaleBand().rangeRound([0, width]);
@@ -42,7 +41,7 @@ export class BarchartComponent implements OnInit {
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+    
     var categoriesNames = this.chartData.map(function(d) { return d.key; });
     var rateNames       = this.chartData[0].values.map(function(d) { return d.groupName; });
 

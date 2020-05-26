@@ -10,4 +10,5 @@
   #partitionSVG {
     height: 330px;
     width:330px;
+    margin-top: -170px !important;
   }

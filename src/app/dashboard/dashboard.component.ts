@@ -49,6 +49,7 @@ export class DashboardComponent {
       this.avgData(riskData);// avg Data
       let riskGroup = this.groupBy(riskData, 'apiType');
       this.horizontalBarData(riskGroup); // horizantal bar data
+      this.verticalBarData(riskGroup);
       this.donutChartData(riskData, riskGroup); // donut chart data
       riskData.forEach(element => {
         if(this.businessUnit.indexOf(element.businessUnit) === -1 && element.businessUnit !== "" ) {
@@ -160,11 +161,69 @@ export class DashboardComponent {
       })  
       barData.push(objData);
     });
-    this.barData = barData;
+    //this.barData = barData;
     //console.log(barData);
   }
 
-  
+  iterateVData(groupStatus,column) {
+    let penTestCount = 0;
+    //let veraCodeCount = 0;
+    //let ramlReviewCount = 0;
+    let totalCount = 0;
+    
+    groupStatus[column].map((data) => {
+      penTestCount  += (data['penTestStatus'] !== "") ? 1 : 0;
+      totalCount  += (data['srNo'] !== "") ? 1 : 0;
+      //veraCodeCount  += (data['veracodeStatus'] !== "") ? 1 : 0;
+      //ramlReviewCount  += (data['ramlReviewStatus'] !== "") ? 1 : 0;
+    });
+    
+    let arrData = [
+      {
+        'groupName' : 'Pen Test',
+        'groupValue' : penTestCount
+      },
+      {
+        'groupName' : 'Total',
+        'groupValue' : totalCount
+      }
+    ];
+
+    return arrData;
+  }
+  /*
+  * Vertical Bar data
+  */
+  verticalBarData(riskGroup) {
+    let vBarData = [];
+
+    let groupStatusExt = this.groupBy(riskGroup['External'], 'apiRiskClassificatin');
+    let groupStatusInt = this.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
+    //External
+    if(riskGroup['External'] !== undefined) {
+      Object.keys(groupStatusExt).map((column) => {
+        let objData = {};
+        let label = `Ext - ${column}`;
+        objData['key'] = label;
+        let arrData = this.iterateVData(groupStatusExt, column);
+        objData['values'] = arrData;
+        vBarData.push(objData);
+      });
+    }
+    //Internal
+    if(riskGroup['Internal'] !== undefined) {
+      Object.keys(groupStatusInt).map((column) => {
+        let objData = {};
+        let label = `Int - ${column}`;
+        objData['key'] = label;
+        let arrData = this.iterateVData(groupStatusExt, column);
+        objData['values'] = arrData;
+        vBarData.push(objData);
+      });
+    }
+    //console.log(vBarData);
+    this.barData = vBarData;
+  }
   /*
   * Horizontal Bar chart Data
   */

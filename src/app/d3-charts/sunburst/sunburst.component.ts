@@ -133,53 +133,8 @@ drawSunburst() {
             .attr('class', 'risk-score-sun')
             .attr("style",'color:#000')
             .text(d => `${self.chartSetting.avgRiskLevel} Risk`);
-            this.drawLegend(color);
 
 }
-drawLegend( color) {
-        // Draw legend
-        let objColor = [
-                {name : 'External', color : '#49d9eb'},
-                {name : 'Internal', color : '#00a5b6'},
-                {name : 'Low', color : '#95d7ff'},
-                {name : 'Medium', color : '#7bbfff'},
-                {name : 'High', color : '#ffa500'},
-                {name : 'Critical', color : '#ed332d'},
-                {name : 'Met', color : '#dedede'}
-        ];
 
-   var legendRectSize = 18,
-        legendSpacing  = 4,
-        chartWidth     = 300,
-        gapBetweenGroups = 15,
-        spaceForLabels   = 150,
-        spaceForLegend   = 150;
-   var chart = d3.select(".sunChartLegend")
-   .attr("width", spaceForLabels + chartWidth + spaceForLegend)
-   .attr("height", 160);
-     var legend = chart.selectAll('.legend')
-     .data(objColor)
-     .enter()
-     .append('g')
-     .attr('transform', function (d, i) {
-         var height = legendRectSize + legendSpacing;
-         var offset = -gapBetweenGroups/2;
-         var horz = spaceForLabels + chartWidth + 40 - legendRectSize;
-         var vert = i * height - offset;
-         return 'translate(' + horz + ',' + vert + ')';
-     });
- 
-     legend.append('rect')
-     .attr('width', legendRectSize)
-     .attr('height', legendRectSize)
-     .style('fill', <any>function (d, i) { return color(<any>d['name']); })
-     .style('stroke', <any>function (d, i) { return color(<any>d['name']); });
- 
-     legend.append('text')
-     .attr('class', 'legend')
-     .attr('x', legendRectSize + legendSpacing)
-     .attr('y', legendRectSize - legendSpacing)
-     .text(function (d) { return d['name']; });
-   }
   
 }

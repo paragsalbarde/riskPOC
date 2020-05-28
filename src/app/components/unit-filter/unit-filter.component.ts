@@ -30,5 +30,6 @@ export class UnitFilterComponent implements OnInit {
       bu : this.bu
     }
     this.onFilter.emit(obj);
-  }
+    console.log("Values Selectd: " + this.bu + "And" + this.tc)
+ }
 }

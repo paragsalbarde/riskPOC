@@ -7,12 +7,14 @@ import { ApiRiskReportDataService } from '../shared/api-risk-report-data.service
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ApiDetailsComponent } from './../modal/api-details/api-details.component';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+
   public showApiSummary = [];
   public donutData: any = [];
 
@@ -24,9 +26,9 @@ export class DashboardComponent {
   public globalRiskData:any = [];
   public horizantalChartData: any = {};
 
-  public businessUnit:any = ['All BU'];
+  public businessUnit:any = ['All TC'];
   public transactionCycle:any = ['All TC'];
-
+  
   public riskScoreVar: any
   public riskScoreLevel: any
 
@@ -37,15 +39,37 @@ export class DashboardComponent {
               private dialog: MatDialog) {}
   
   ngOnInit() {
+    this.testMethod();
+   // this._getReport.getReport().subscribe(res => {
+    //   let riskData = res['RiskScoreDetails'];
+    //   this.riskData = riskData;
+    //   this.globalRiskData = [...riskData];
+    //   this.getBarData(riskData);//bar data
+    //   //this.getTableData(riskData);//table data
+    //   this.avgData(riskData);// avg Data
+    //   let riskGroup = this.groupBy(riskData, 'apiType');
+    //   this.horizontalBarData(riskGroup); // horizantal bar data
+    //   this.donutChartData(riskData, riskGroup); // donut chart data
+    //   riskData.forEach(element => {
+    //     if(this.businessUnit.indexOf(element.businessUnit) === -1 && element.businessUnit !== "" ) {
+    //       this.businessUnit.push(element.businessUnit);
+    //     }
+    //     if(this.transactionCycle.indexOf(element.transactionCycle) === -1 && element.transactionCycle ) {
+    //       this.transactionCycle.push(element.transactionCycle);
+    //     }
+    //   });
+    // })
+
     
-    //this._riskReport.riskReport().subscribe(riskData => {
+  }
+
+  testMethod(){
     this._getReport.getReport().subscribe(res => {
-      
       let riskData = res['RiskScoreDetails'];
       this.riskData = riskData;
       this.globalRiskData = [...riskData];
       this.getBarData(riskData);//bar data
-      this.getTableData(riskData);//table data
+      //this.getTableData(riskData);//table data
       this.avgData(riskData);// avg Data
       let riskGroup = this.groupBy(riskData, 'apiType');
       this.horizontalBarData(riskGroup); // horizantal bar data
@@ -58,8 +82,10 @@ export class DashboardComponent {
           this.transactionCycle.push(element.transactionCycle);
         }
       });
+      let internalCriticalRisk = res['RiskScoreDetails'].filter(i => i.apiType === 'External' && i.apiRiskClassification === 'Critical' && i.businessUnit === this.businessUnit)
+        .map(i => i.apiName).length;
     })
-  }
+    }
   /*
   * Group data by columns
   */
@@ -130,14 +156,14 @@ export class DashboardComponent {
   /*
   * Table data
   */
-  getTableData(riskData) {
-    var objData = {};
-    let groupApiType = this.groupBy(riskData, 'apiType');
+  // getTableData(riskData) {
+  //   var objData = {};
+  //   let groupApiType = this.groupBy(riskData, 'apiType');
 
-    Object.keys(groupApiType).map((column) => {
-      groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
-    })    
-  }
+  //   Object.keys(groupApiType).map((column) => {
+  //     groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
+  //   })    
+  // }
   /*
   * Bar Data
   */
@@ -340,6 +366,8 @@ export class DashboardComponent {
   }
   // END: Function to show API risk details on in PopUp Table format
   onFilter(event) {
-    
+    this.testMethod();
+    console.log(this.businessUnit);
+    console.log(this.transactionCycle);
   }
 }

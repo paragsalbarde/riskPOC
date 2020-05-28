@@ -18,6 +18,6 @@ export class ReporttableComponent implements OnInit {
   constructor(private _getReport: ReportService ) { }
 
   ngOnInit() {
-    //console.log(this.tableData)
+    console.log(this.tableData)
   }
 }

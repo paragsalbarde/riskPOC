@@ -1,12 +1,13 @@
 <div class="grid-container">
-    
-  <unit-filter
-  [businessUnit]="businessUnit"
-  [transactionCycle]="transactionCycle"
-  (onFilter)="onFilter($event)"
-  ></unit-filter>
-  <app-api-counters></app-api-counters>
-  
+    <div class="buTcSelector">
+      <unit-filter
+          [businessUnit]="businessUnit"
+          [transactionCycle]="transactionCycle"
+          (onFilter)="onFilter($event)"
+          ></unit-filter>
+      <app-api-counters></app-api-counters>
+    </div>
+
   <mat-grid-list cols="12" rowHeight="400px">
     <!--1-->
     <mat-grid-tile [colspan]=6 [rowspan]=1>

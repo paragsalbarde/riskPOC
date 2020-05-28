@@ -23,7 +23,7 @@ export class TableMapComponent implements OnInit {
 
   ngOnInit() {
     this._getHolisticMap.getHolisticMap()
-    .subscribe(data => this.holisticMapData = data);
+                        .subscribe(data => this.holisticMapData = data);
 
     //START: Column Additions 
     this._getReport.getReport()

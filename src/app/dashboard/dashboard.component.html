@@ -5,7 +5,11 @@
   [transactionCycle]="transactionCycle"
   (onFilter)="onFilter($event)"
   ></unit-filter>
-  <app-api-counters></app-api-counters>
+  <app-api-counters
+  *ngIf="riskData.length > 0"
+  [riskData]="riskData"
+  [APISummaryMap]="APISummaryMap"
+  ></app-api-counters>
   
   <mat-grid-list cols="12" rowHeight="400px">
     <!--1-->
@@ -37,7 +41,6 @@
             [chartData]="donutData" 
             [chartSetting]="chartSetting"
             (chartDetails)="getChartDetails($event)"
-            (updateSunburst)="updateSunburst($event)"
             [chartID]="'container1'"></app-sunburst>
         </mat-card-content>
       </mat-card>
@@ -83,7 +86,11 @@
         <mat-grid-tile [colspan]=6 [rowspan]=1 class="testDataTable">
             <mat-card class="dashboard-card">
               <mat-card-content class="dashboard-card-content">
-                <app-table-map (chartDetails)="getChartDetails($event)"></app-table-map>
+                <app-table-map 
+                  *ngIf="holisticMapData.length > 0"
+                  (chartDetails)="getChartDetails($event)"
+                  [holisticMapData]="holisticMapData"
+                  [riskData]="riskData"></app-table-map>
               </mat-card-content>
             </mat-card>
         </mat-grid-tile>

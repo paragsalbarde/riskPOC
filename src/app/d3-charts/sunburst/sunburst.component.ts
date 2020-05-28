@@ -75,8 +75,6 @@ drawSunburst() {
             .style("height", "auto")
             .style("font", "10px sans-serif");
             
-       
-
     const g = svg.append("g")
             .attr("transform", `translate(${width / 2},${width / 2})`);
 
@@ -137,7 +135,17 @@ drawSunburst() {
 
 }
 drawLegend( color) {
-   // Draw legend
+        // Draw legend
+        let objColor = [
+                {name : 'External', color : '#49d9eb'},
+                {name : 'Internal', color : '#00a5b6'},
+                {name : 'Low', color : '#95d7ff'},
+                {name : 'Medium', color : '#7bbfff'},
+                {name : 'High', color : '#ffa500'},
+                {name : 'Critical', color : '#ed332d'},
+                {name : 'Met', color : '#dedede'}
+        ];
+
    var legendRectSize = 18,
         legendSpacing  = 4,
         chartWidth     = 300,
@@ -148,7 +156,7 @@ drawLegend( color) {
    .attr("width", spaceForLabels + chartWidth + spaceForLegend)
    .attr("height", 160);
      var legend = chart.selectAll('.legend')
-     .data(this.chartData.children)
+     .data(objColor)
      .enter()
      .append('g')
      .attr('transform', function (d, i) {

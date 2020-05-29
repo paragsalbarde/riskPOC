@@ -29,7 +29,7 @@ export class ApiCountersComponent implements OnInit, OnChanges {
   constructor(private _cs : CommonService) { }
 
   ngOnInit() {
-    
+    //this.summary = this.APISummaryMap[0];
   }
   ngOnChanges() {
     this.calcAPISummary();

@@ -88,8 +88,8 @@ export class TableMapComponent implements OnInit, OnChanges {
 
   ngOnInit() {
   
-   this.iterateTableData();
-   this.iterateSumData();
+   //this.iterateTableData();
+   //this.iterateSumData();
   }
   ngOnChanges() {
     this.iterateTableData();

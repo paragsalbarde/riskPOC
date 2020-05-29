@@ -22,14 +22,16 @@ export class ApiCountersComponent implements OnInit, OnChanges {
     "intApiPenTestPending": 0,
     "intApiVeracodeScanPending": 0,
     "totalVulnerabilities": 0,
-    "reportDate": "2020-05-22T10:31:57.964+0000",
+    "reportDate": "",
   }
   
   
   constructor(private _cs : CommonService) { }
 
   ngOnInit() {
+    //console.log(this.APISummaryMap)
     //this.summary = this.APISummaryMap[0];
+    this.summary.reportDate = this.APISummaryMap[0].reportDate;
   }
   ngOnChanges() {
     this.calcAPISummary();

@@ -20,70 +20,70 @@
     <tr class="mat-row">
       <th class="mat-cell" rowspan="4" (click)="clickPartition({type:'apiTable',apiType:'External'})">External</th>
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External','apiRiskClassificatin':'Critical'})">Critical</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'penTestStatus':'Pending'}})">{{  tableData.external.critical['PendingPenTesting'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.external.critical['PendingVeracodeScan'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.external.critical['PendingRamlReview'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.external.critical['PenTestSLABreach'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.external.critical['VeracodeSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'penTestStatus':'Pending'}})">{{  tableData.external.Critical['PendingPenTesting'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.external.Critical['PendingVeracodeScan'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.external.Critical['PendingRamlReview'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.external.Critical['PenTestSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Critical', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.external.Critical['VeracodeSLABreach'] }}</td>
     </tr>
     <tr class="mat-row">
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External','apiRiskClassificatin':'High'})">High</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'penTestStatus':'Pending'}})">{{ this.tableData.external.high['PendingPenTesting'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.external.high['PendingVeracodeScan'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.external.high['PendingRamlReview'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.external.high['PenTestSLABreach'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.external.high['VeracodeSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'penTestStatus':'Pending'}})">{{ this.tableData.external.High['PendingPenTesting'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.external.High['PendingVeracodeScan'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.external.High['PendingRamlReview'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.external.High['PenTestSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'High', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.external.High['VeracodeSLABreach'] }}</td>
     </tr>
     <tr class="mat-row">
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External','apiRiskClassificatin':'Medium'})">Medium</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'penTestStatus':'Pending'}})">{{ this.tableData.external.medium['PendingPenTesting'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.external.medium['PendingVeracodeScan'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.external.medium['PendingRamlReview'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.external.medium['PenTestSLABreach'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.external.medium['VeracodeSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'penTestStatus':'Pending'}})">{{ this.tableData.external.Medium['PendingPenTesting'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.external.Medium['PendingVeracodeScan'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.external.Medium['PendingRamlReview'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.external.Medium['PenTestSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Medium', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.external.Medium['VeracodeSLABreach'] }}</td>
     </tr>
     <tr class="mat-row">
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'External','apiRiskClassificatin':'Low'})">Low</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'penTestStatus':'Pending'}})">{{ this.tableData.external.low['PendingPenTesting'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.external.low['PendingVeracodeScan'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.external.low['PendingRamlReview'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.external.low['PenTestSLABreach'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.external.low['VeracodeSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'penTestStatus':'Pending'}})">{{ this.tableData.external.Low['PendingPenTesting'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.external.Low['PendingVeracodeScan'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.external.Low['PendingRamlReview'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.external.Low['PenTestSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'External', 'apiRiskClassificatin':'Low', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.external.Low['VeracodeSLABreach'] }}</td>
     </tr>
   </tbody>
   <tbody *ngFor="let data of holisticMapData">
     <tr class="mat-row">
       <th class="mat-cell" rowspan="4" (click)="clickPartition({type:'apiTable',apiType:'Internal'})">Internal</th>
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'Internal','apiRiskClassificatin':'Critical'})">Critical</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'penTestStatus':'Pending'}})">{{ this.tableData.internal.critical['PendingPenTesting'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.internal.critical['PendingVeracodeScan'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.internal.critical['PendingRamlReview'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.critical['PenTestSLABreach'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.critical['VeracodeSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'penTestStatus':'Pending'}})">{{ this.tableData.internal.Critical['PendingPenTesting'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.internal.Critical['PendingVeracodeScan'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.internal.Critical['PendingRamlReview'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.Critical['PenTestSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Critical', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.Critical['VeracodeSLABreach'] }}</td>
     </tr>
     <tr class="mat-row">
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'Internal','apiRiskClassificatin':'High'})">High</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'penTestStatus':'Pending'}})">{{ this.tableData.internal.high['PendingPenTesting'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.internal.high['PendingVeracodeScan'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.internal.high['PendingRamlReview'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.high['PenTestSLABreach'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.high['VeracodeSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'penTestStatus':'Pending'}})">{{ this.tableData.internal.High['PendingPenTesting'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.internal.High['PendingVeracodeScan'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.internal.High['PendingRamlReview'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.High['PenTestSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'High', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.High['VeracodeSLABreach'] }}</td>
     </tr>
     <tr class="mat-row">
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'Internal','apiRiskClassificatin':'Medium'})">Medium</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'penTestStatus':'Pending'}})">{{ this.tableData.internal.medium['PendingPenTesting'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.internal.medium['PendingVeracodeScan'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.internal.medium['PendingRamlReview'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.medium['PenTestSLABreach'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.medium['VeracodeSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'penTestStatus':'Pending'}})">{{ this.tableData.internal.Medium['PendingPenTesting'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.internal.Medium['PendingVeracodeScan'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.internal.Medium['PendingRamlReview'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.Medium['PenTestSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Medium', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.Medium['VeracodeSLABreach'] }}</td>
     </tr>
     <tr class="mat-row">
       <td class="mat-cell" (click)="clickPartition({type:'apiTable',apiType:'Internal','apiRiskClassificatin':'Low'})">Low</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'penTestStatus':'Pending'}})">{{ this.tableData.internal.low['PendingPenTesting'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.internal.low['PendingVeracodeScan'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.internal.low['PendingRamlReview'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.low['PenTestSLABreach'] }}</td>
-      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.low['VeracodeSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'penTestStatus':'Pending'}})">{{ this.tableData.internal.Low['PendingPenTesting'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'veracodeStatus':'Pending'}})">{{ this.tableData.internal.Low['PendingVeracodeScan'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'ramlReviewStatus':'Pending'}})">{{ this.tableData.internal.Low['PendingRamlReview'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'penTestSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.Low['PenTestSLABreach'] }}</td>
+      <td class="mat-cell mat-number" (click)="clickPartition({type:'apiTable',apiType:'Internal', 'apiRiskClassificatin':'Low', column : {'veracodeSlaBreach':'SLA Breached'}})">{{ this.tableData.internal.Low['VeracodeSLABreach'] }}</td>
     </tr>
   </tbody>
   <tfoot class="">

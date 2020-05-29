@@ -16,28 +16,28 @@ export class TableMapComponent implements OnInit, OnChanges {
   
   public tableData:any = {
     internal : {
-      critical : {
+      Critical : {
         PendingPenTesting: 0,
         PendingVeracodeScan: 0,
         PendingRamlReview: 0,
         PenTestSLABreach: 0,
         VeracodeSLABreach: 0,
       },
-      high : {
+      High : {
         PendingPenTesting: 0,
         PendingVeracodeScan: 0,
         PendingRamlReview: 0,
         PenTestSLABreach: 0,
         VeracodeSLABreach: 0,
       },
-      medium : {
+      Medium : {
         PendingPenTesting: 0,
         PendingVeracodeScan: 0,
         PendingRamlReview: 0,
         PenTestSLABreach: 0,
         VeracodeSLABreach: 0,
       },
-      low : {
+      Low : {
         PendingPenTesting: 0,
         PendingVeracodeScan: 0,
         PendingRamlReview: 0,
@@ -46,28 +46,28 @@ export class TableMapComponent implements OnInit, OnChanges {
       }
     },
     external : {
-      critical : {
+      Critical : {
         PendingPenTesting: 0,
         PendingVeracodeScan: 0,
         PendingRamlReview: 0,
         PenTestSLABreach: 0,
         VeracodeSLABreach: 0,
       },
-      high : {
+      High : {
         PendingPenTesting: 0,
         PendingVeracodeScan: 0,
         PendingRamlReview: 0,
         PenTestSLABreach: 0,
         VeracodeSLABreach: 0,
       },
-      medium : {
+      Medium : {
         PendingPenTesting: 0,
         PendingVeracodeScan: 0,
         PendingRamlReview: 0,
         PenTestSLABreach: 0,
         VeracodeSLABreach: 0,
       },
-      low : {
+      Low : {
         PendingPenTesting: 0,
         PendingVeracodeScan: 0,
         PendingRamlReview: 0,
@@ -87,69 +87,30 @@ export class TableMapComponent implements OnInit, OnChanges {
   constructor(private _cs: CommonService) { }
 
   ngOnInit() {
-  
-   //this.iterateTableData();
-   //this.iterateSumData();
   }
   ngOnChanges() {
     this.iterateTableData();
     this.iterateSumData();
   }
   iterateTableData() {
+    let arrStatus = ['Critical', 'High', 'Medium', 'Low'];
+    let arrType = ['internal', 'external'];
+
     let riskGroup = this._cs.groupBy(this.riskData, 'apiType');
     let groupStatusInt = this._cs.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
     let groupStatusExt = this._cs.groupBy(riskGroup['External'], 'apiRiskClassificatin');
-    //Internal 
-      //Internal//Critical
-      this.tableData.internal.critical['PendingPenTesting'] = (groupStatusInt !== undefined && groupStatusInt['Critical'] !== undefined) ?  groupStatusInt['Critical'].filter(i => i.penTestStatus === 'Pending').length : 0;
-      this.tableData.internal.critical['PendingVeracodeScan'] = (groupStatusInt !== undefined && groupStatusInt['Critical'] !== undefined) ? groupStatusInt['Critical'].filter(i => i.veracodeStatus === 'Pending').length : 0;
-      this.tableData.internal.critical['PendingRamlReview'] = (groupStatusInt !== undefined && groupStatusInt['Critical'] !== undefined) ? groupStatusInt['Critical'].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
-      this.tableData.internal.critical['PenTestSLABreach'] = (groupStatusInt !== undefined && groupStatusInt['Critical'] !== undefined) ? groupStatusInt['Critical'].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
-      this.tableData.internal.critical['VeracodeSLABreach'] = (groupStatusInt !== undefined && groupStatusInt['Critical'] !== undefined) ? groupStatusInt['Critical'].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
-      //Internal//High
-      this.tableData.internal.high['PendingPenTesting'] = (groupStatusInt !== undefined && groupStatusInt['High'] !== undefined) ? groupStatusInt['High'].filter(i => i.penTestStatus === 'Pending').length : 0;
-      this.tableData.internal.high['PendingVeracodeScan'] = (groupStatusInt !== undefined && groupStatusInt['High'] !== undefined) ? groupStatusInt['High'].filter(i => i.veracodeStatus === 'Pending').length : 0;
-      this.tableData.internal.high['PendingRamlReview'] = (groupStatusInt !== undefined && groupStatusInt['High'] !== undefined) ? groupStatusInt['High'].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
-      this.tableData.internal.high['PenTestSLABreach'] = (groupStatusInt !== undefined && groupStatusInt['High'] !== undefined) ? groupStatusInt['High'].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
-      this.tableData.internal.high['VeracodeSLABreach'] = (groupStatusInt !== undefined && groupStatusInt['High'] !== undefined) ? groupStatusInt['High'].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
-      //Internal//Medium
-      this.tableData.internal.medium['PendingPenTesting'] = (groupStatusInt !== undefined && groupStatusInt['Medium'] !== undefined) ? groupStatusInt['Medium'].filter(i => i.penTestStatus === 'Pending').length : 0;
-      this.tableData.internal.medium['PendingVeracodeScan'] = (groupStatusInt !== undefined && groupStatusInt['Medium'] !== undefined) ? groupStatusInt['Medium'].filter(i => i.veracodeStatus === 'Pending').length : 0;
-      this.tableData.internal.medium['PendingRamlReview'] = (groupStatusInt !== undefined && groupStatusInt['Medium'] !== undefined) ? groupStatusInt['Medium'].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
-      this.tableData.internal.medium['PenTestSLABreach'] = (groupStatusInt !== undefined && groupStatusInt['Medium'] !== undefined) ? groupStatusInt['Medium'].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
-      this.tableData.internal.medium['VeracodeSLABreach'] = (groupStatusInt !== undefined && groupStatusInt['Medium'] !== undefined) ? groupStatusInt['Medium'].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
-      //Internal//Low
-      this.tableData.internal.low['PendingPenTesting'] = (groupStatusInt !== undefined && groupStatusInt['Low'] !== undefined) ? groupStatusInt['Low'].filter(i => i.penTestStatus === 'Pending').length : 0;
-      this.tableData.internal.low['PendingVeracodeScan'] = (groupStatusInt !== undefined && groupStatusInt['Low'] !== undefined) ? groupStatusInt['Low'].filter(i => i.veracodeStatus === 'Pending').length : 0;
-      this.tableData.internal.low['PendingRamlReview'] = (groupStatusInt !== undefined && groupStatusInt['Low'] !== undefined) ? groupStatusInt['Low'].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
-      this.tableData.internal.low['PenTestSLABreach'] = (groupStatusInt !== undefined && groupStatusInt['Low'] !== undefined) ? groupStatusInt['Low'].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
-      this.tableData.internal.low['VeracodeSLABreach'] = (groupStatusInt !== undefined && groupStatusInt['Low'] !== undefined) ? groupStatusInt['Low'].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
-    //External
-      //External//Critical    
-      this.tableData.external.critical['PendingPenTesting'] = (groupStatusExt !== undefined && groupStatusExt['Critical'] !== undefined) ? groupStatusExt['Critical'].filter(i => i.penTestStatus === 'Pending').length : 0;
-      this.tableData.external.critical['PendingVeracodeScan'] = (groupStatusExt !== undefined && groupStatusExt['Critical'] !== undefined) ? groupStatusExt['Critical'].filter(i => i.veracodeStatus === 'Pending').length : 0;
-      this.tableData.external.critical['PendingRamlReview'] = (groupStatusExt !== undefined && groupStatusExt['Critical'] !== undefined) ? groupStatusExt['Critical'].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
-      this.tableData.external.critical['PenTestSLABreach'] = (groupStatusExt !== undefined && groupStatusExt['Critical'] !== undefined) ? groupStatusExt['Critical'].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
-      this.tableData.external.critical['VeracodeSLABreach'] = (groupStatusExt !== undefined && groupStatusExt['Critical'] !== undefined) ? groupStatusExt['Critical'].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
-      //External//High
-      this.tableData.external.high['PendingPenTesting'] = (groupStatusExt !== undefined && groupStatusExt['High'] !== undefined) ? groupStatusExt['High'].filter(i => i.penTestStatus === 'Pending').length : 0;
-      this.tableData.external.high['PendingVeracodeScan'] = (groupStatusExt !== undefined && groupStatusExt['High'] !== undefined) ? groupStatusExt['High'].filter(i => i.veracodeStatus === 'Pending').length : 0;
-      this.tableData.external.high['PendingRamlReview'] = (groupStatusExt !== undefined && groupStatusExt['High'] !== undefined) ? groupStatusExt['High'].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
-      this.tableData.external.high['PenTestSLABreach'] = (groupStatusExt !== undefined && groupStatusExt['High'] !== undefined) ? groupStatusExt['High'].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
-      this.tableData.external.high['VeracodeSLABreach'] = (groupStatusExt !== undefined && groupStatusExt['High'] !== undefined) ? groupStatusExt['High'].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
-      //External//Medium
-      this.tableData.external.medium['PendingPenTesting'] = (groupStatusExt !== undefined && groupStatusExt['Medium'] !== undefined) ? groupStatusExt['Medium'].filter(i => i.penTestStatus === 'Pending').length : 0;
-      this.tableData.external.medium['PendingVeracodeScan'] = (groupStatusExt !== undefined && groupStatusExt['Medium'] !== undefined) ? groupStatusExt['Medium'].filter(i => i.veracodeStatus === 'Pending').length : 0;
-      this.tableData.external.medium['PendingRamlReview'] = (groupStatusExt !== undefined && groupStatusExt['Medium'] !== undefined) ? groupStatusExt['Medium'].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
-      this.tableData.external.medium['PenTestSLABreach'] = (groupStatusExt !== undefined && groupStatusExt['Medium'] !== undefined) ? groupStatusExt['Medium'].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
-      this.tableData.external.medium['VeracodeSLABreach'] = (groupStatusExt !== undefined && groupStatusExt['Medium'] !== undefined) ? groupStatusExt['Medium'].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
-      //External//Low
-      this.tableData.external.low['PendingPenTesting'] = (groupStatusExt !== undefined && groupStatusExt['Low'] !== undefined) ? groupStatusExt['Low'].filter(i => i.penTestStatus === 'Pending').length : 0;
-      this.tableData.external.low['PendingVeracodeScan'] = (groupStatusExt !== undefined && groupStatusExt['Low'] !== undefined) ? groupStatusExt['Low'].filter(i => i.veracodeStatus === 'Pending').length : 0;
-      this.tableData.external.low['PendingRamlReview'] = (groupStatusExt !== undefined && groupStatusExt['Low'] !== undefined) ? groupStatusExt['Low'].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
-      this.tableData.external.low['PenTestSLABreach'] = (groupStatusExt !== undefined && groupStatusExt['Low'] !== undefined) ? groupStatusExt['Low'].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
-      this.tableData.external.low['VeracodeSLABreach'] = (groupStatusExt !== undefined && groupStatusExt['Low'] !== undefined) ? groupStatusExt['Low'].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
-      //console.log(this.tableData);
+    arrType.forEach(type => {
+      let objData = (type == 'internal') ? groupStatusInt : groupStatusExt;
+      arrStatus.forEach(status => {
+        //Internal_External
+        this.tableData[type][status]['PendingPenTesting'] = (objData !== undefined && objData[status] !== undefined) ?  objData[status].filter(i => i.penTestStatus === 'Pending').length : 0;
+        this.tableData[type][status]['PendingVeracodeScan'] = (objData !== undefined && objData[status] !== undefined) ? objData[status].filter(i => i.veracodeStatus === 'Pending').length : 0;
+        this.tableData[type][status]['PendingRamlReview'] = (objData !== undefined && objData[status] !== undefined) ? objData[status].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
+        this.tableData[type][status]['PenTestSLABreach'] = (objData !== undefined && objData[status] !== undefined) ? objData[status].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
+        this.tableData[type][status]['VeracodeSLABreach'] = (objData !== undefined && objData[status] !== undefined) ? objData[status].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
+      });
+    });
+    //console.log(this.tableData);
   }
   /*
   * Group data by columns

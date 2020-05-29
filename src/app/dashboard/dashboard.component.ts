@@ -163,7 +163,7 @@ export class DashboardComponent {
       })
       barData.push(objData);
     });
-    //this.barData = barData;
+    this.barData = barData;
     //console.log(barData);
   }
 

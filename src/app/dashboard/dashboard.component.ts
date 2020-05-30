@@ -222,7 +222,9 @@ export class DashboardComponent {
         vBarData.push(objData);
       });
     }
-    //console.log(vBarData);
+    if(vBarData.length == 0) {
+      vBarData.push({key:[], values:[]});
+    }
     this.barData = vBarData;
   }
   /*

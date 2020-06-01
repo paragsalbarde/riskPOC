@@ -401,12 +401,14 @@ export class DashboardComponent {
   }
   // END: Function to show API risk details on in PopUp Table format
   onFilter(event) {
-    this.apiReviewTableData();
-    console.log(event);
+    this.apiReviewTableData(event);
+    // console.log(event);
+    // this.selectedBU = event.bu;
+    // this.selectedTC = event.tc;
+  }
+  apiReviewTableData(event) {
     this.selectedBU = event.bu;
     this.selectedTC = event.tc;
-  }
-  apiReviewTableData() {
     this._getReport.getReport().subscribe(res => {
       let riskData = res['RiskScoreDetails'];
       //Row 1
@@ -539,18 +541,20 @@ export class DashboardComponent {
       let intLowVeracodeSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Low' && i.veracodeSlaBreach === "Pending"
         && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
 
-      let tableArrayData = [ extCriPendingPenTesting ,  extCriPendingVeracodeScan,  extCriPendingRamlReview,  extCriPenTestSLABreach,  extCriVeracodeSLABreach,
+      
+
+      let data = { extCriPendingPenTesting ,  extCriPendingVeracodeScan,  extCriPendingRamlReview,  extCriPenTestSLABreach,  extCriVeracodeSLABreach,
         extHighPendingPenTesting,  extHighPendingVeracodeScan,  extHighPendingRamlReview,  extHighPenTestSLABreach,  extHighVeracodeSLABreach,
         extMedPendingPenTesting,  extMedPendingVeracodeScan,  extMedPendingRamlReview,  extMedVeracodeSLABreach,  extMedPenTestSLABreach,
         extLowPendingPenTesting,  extLowPendingVeracodeScan,  extLowPendingRamlReview,  extLowPenTestSLABreach,  extLowVeracodeSLABreach,
         intCriPendingPenTesting ,  intCriPendingVeracodeScan,  intCriPendingRamlReview,  intCriPenTestSLABreach,  intCriVeracodeSLABreach,
         intHighPendingPenTesting,  intHighPendingVeracodeScan,  intHighPendingRamlReview,  intHighPenTestSLABreach,  intHighVeracodeSLABreach,
         intMedPendingPenTesting,  intMedPendingVeracodeScan,  intMedPendingRamlReview,  intMedVeracodeSLABreach,  intMedPenTestSLABreach,
-        intLowPendingPenTesting,  intLowPendingVeracodeScan,  intLowPendingRamlReview,  intLowPenTestSLABreach, intLowVeracodeSLABreach]
+        intLowPendingPenTesting,  intLowPendingVeracodeScan,  intLowPendingRamlReview,  intLowPenTestSLABreach, intLowVeracodeSLABreach}
 
       console.log("Selected BU: " + this.selectedBU);
       console.log("Selected TC: " + this.selectedTC);
-      console.log("Selected TC: " + tableArrayData);
+      console.log("Selected TC: " + data.extCriPendingPenTesting);
 
 
 

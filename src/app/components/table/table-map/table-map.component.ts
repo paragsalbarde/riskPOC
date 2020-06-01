@@ -22,8 +22,8 @@ export class TableMapComponent implements OnInit {
   constructor(private _getHolisticMap: NewDataService, private _getReport: NewDataService) { }
 
   ngOnInit() {
-    this._getHolisticMap.getHolisticMap()
-                        .subscribe(data => this.holisticMapData = data);
+    // this._getHolisticMap.getHolisticMap()
+    //                     .subscribe(data => this.holisticMapData = data);
 
     //START: Column Additions 
     this._getReport.getReport()

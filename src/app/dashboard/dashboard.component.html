@@ -50,10 +50,10 @@
         <mat-card-header>
           <mat-card-title>
             API Security Risk Overview
-             <!--<button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <!--<button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
-           <mat-menu #menu="matMenu" xPosition="before">
+            <mat-menu #menu="matMenu" xPosition="before">
               <button mat-menu-item>Expand</button>
               <button mat-menu-item>Remove</button>
             </mat-menu>-->
@@ -64,10 +64,10 @@
           <svg class="pieChartLegend"></svg>
           <div class="d3Div" id="pieChart1"></div>
           <app-piechart 
-          *ngIf="pieData.name !== undefined" 
-          [chartData]="pieData" 
-          (chartDetails)="getChartDetails($event)"
-          [chartID]="'pieChart1'">
+            *ngIf="pieData.name !== undefined" 
+            [chartData]="pieData" 
+            (chartDetails)="getChartDetails($event)"
+            [chartID]="'pieChart1'">
         </app-piechart>
         </mat-card-content>
       </mat-card>

@@ -2063,7 +2063,7 @@
             "riskScore": 20,
             "overallRiskClassification": "High",
             "transactionCycle": "TC13",
-            "businessUnit": ""
+            "businessUnit": "BUK"
         }
     ]
 }

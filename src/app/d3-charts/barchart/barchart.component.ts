@@ -107,8 +107,9 @@ export class BarchartComponent implements OnInit, OnChanges {
       .attr("y", function(d) { return y(d['groupValue']); })
       .attr("height", function(d) { return height - y(d['groupValue']); });
 
-      //Legend
-  var legend = svg.selectAll(".legend")
+  //Legend
+  /*var legend = svg.selectAll(".legend")
+  .append("g")
       .data(this.chartData[0].values.map(function(d) { return d.groupName; }).reverse())
       .enter().append("g")
       .attr("class", "legend")
@@ -127,6 +128,39 @@ export class BarchartComponent implements OnInit, OnChanges {
       .attr("dy", ".35em")
       .style("text-anchor", "end")
       .text(<any>function(d) {return d; });
+
+    legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");*/
+    //Draw color
+    this.drawLegend(color);
+  }
+
+  drawLegend(color) {
+    //Legend
+    var svg1 = d3.select('svg.'+this.chartID).append("svg")
+    .attr("width", 200)
+    .attr("height", 50)
+    .append("g");
+    var legend = svg1.selectAll(".legend")
+    //var legend = d3.select('svg.'+this.chartID).selectAll(".legend")
+    .append("g")
+    .data(this.chartData[0].values.map(function(d) { return d.groupName; }).reverse())
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d,i) { return "translate(0," + i * 20 + ")"; })
+    .style("opacity","0");
+
+    legend.append("rect")
+    .attr("x", 200 - 18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", function(d) { return color(<any>d); });
+
+    legend.append("text")
+    .attr("x", 200 - 24)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "end")
+    .text(<any>function(d) {return d; });
 
     legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
   }

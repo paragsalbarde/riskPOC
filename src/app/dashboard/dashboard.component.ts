@@ -173,7 +173,8 @@ export class DashboardComponent {
     let totalCount = 0;
 
     groupStatus[column].map((data) => {
-      penTestCount += (data['penTestStatus'] !== "") ? 1 : 0;
+      penTestCount += (data['penTestStatus'].toLowerCase() == "pending" || 
+                      data['penTestStatus'].toLowerCase() == "done") ? 1 : 0;
       totalCount += (data['srNo'] !== "") ? 1 : 0;
       //veraCodeCount  += (data['veracodeStatus'] !== "") ? 1 : 0;
       //ramlReviewCount  += (data['ramlReviewStatus'] !== "") ? 1 : 0;
@@ -293,10 +294,10 @@ export class DashboardComponent {
     let avgRiskCal = riskData.filter(i => i.apiType)
       .map(i => i.riskScore)
       .reduce((a, b) => a + b, 0) / riskScores.length;
-
+      
     let avgRisk = avgRiskCal.toFixed();
     let overAllRiskLevel
-    let avgRiskInt = parseInt(avgRisk)
+    let avgRiskInt = parseInt(avgRisk);
     if (avgRiskInt >= 1 && avgRiskInt <= 6) {
       overAllRiskLevel = "Low"
     } else if (avgRiskInt >= 7 && avgRiskInt < 12) {

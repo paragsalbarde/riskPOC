@@ -78,19 +78,24 @@
     <mat-expansion-panel (opened)="panelOpenState = true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          API Review Details
+          Vulnerabilities Details
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-grid-list cols="12" rowHeight="450px">
         <mat-grid-tile [colspan]=6 [rowspan]=1 class="testDataTable">
             <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>
+                      <b>Pen Test Volume</b>
+                    </mat-card-title>
+                  </mat-card-header>
               <mat-card-content class="dashboard-card-content">
-                <app-table-map 
-                  *ngIf="holisticMapData.length > 0"
-                  (chartDetails)="getChartDetails($event)"
-                  [holisticMapData]="holisticMapData"
-                  [riskData]="riskData"></app-table-map>
-              </mat-card-content>
+                <div class="d3Div" id="barChart1"></div>
+                <app-barchart 
+                  *ngIf="barData.length > 0"
+                  [chartData]="barData" 
+                  [chartID]="'barChart1'"></app-barchart>
+                </mat-card-content>
             </mat-card>
         </mat-grid-tile>
         <mat-grid-tile [colspan]=6 [rowspan]=1 class="testDataTable">
@@ -99,18 +104,13 @@
           *ngIf="horizantalChartData.labels !== undefined" 
           [chartData]="horizantalChartData"></app-horizontal-barchart>-->
           <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title>
-              <b>Pen Test Volume</b>
-            </mat-card-title>
-          </mat-card-header>
-        
-        <mat-card-content class="dashboard-card-content">
-            <div class="d3Div" id="barChart1"></div>
-            <app-barchart 
-              *ngIf="barData.length > 0"
-              [chartData]="barData" 
-              [chartID]="'barChart1'"></app-barchart>
+          
+            <mat-card-content class="dashboard-card-content">
+              <app-table-map 
+                *ngIf="holisticMapData.length > 0"
+                (chartDetails)="getChartDetails($event)"
+                [holisticMapData]="holisticMapData"
+                [riskData]="riskData"></app-table-map>
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>

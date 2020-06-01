@@ -42,7 +42,7 @@ export class BarchartComponent implements OnInit, OnChanges {
 
     // const color = d3.scaleOrdinal(d3.schemeCategory10);
     // const color = d3.scaleOrdinal(["#016da9","#7bbfff", "#62a8e9","#dedede", "#00a5b6"]);
-    const color = d3.scaleOrdinal([ "#aec7e8", "#1f77b4","#ff7f0e"]);
+    const color = d3.scaleOrdinal([ "#ffa500", "#1f77b4","#ff7f0e"]);
     d3.select('#'+this.chartID).html("");
     var svg = d3.select('#'+this.chartID).append("svg")
     .attr("width", width + margin.left + margin.right)

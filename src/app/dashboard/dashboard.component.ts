@@ -6,6 +6,9 @@ import { ApiRiskReportDataService } from '../shared/api-risk-report-data.service
 //import {MatDialog, MatDialogConfig} from "@angular/material";
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ApiDetailsComponent } from './../modal/api-details/api-details.component';
+import { holisticMap } from './../shared/services/schema/holisticTableMap';
+//Services
+import { CommonService } from './../shared/services/common.service';
 
 
 @Component({
@@ -26,33 +29,40 @@ export class DashboardComponent {
   public globalRiskData: any = [];
   public horizantalChartData: any = {};
 
-  public businessUnit: any = ['All TC'];
-  public transactionCycle: any = ['All TC'];
+  public holisticMapData:any = [];
+  public APISummaryMap:any = [];
 
-  public selectedBU;
-  public selectedTC;
+  public businessUnit:any = ['All BU'];
+  public transactionCycle:any = ['All TC'];
 
   public riskScoreVar: any
   public riskScoreLevel: any
 
-  @Output() updateSunburst = new EventEmitter();
-
-  constructor(private _riskReport: ApiRiskReportDataService,
-    private _getReport: NewDataService,
-    private dialog: MatDialog) { }
-
+  //@Output() updateSunburst = new EventEmitter();
+  
+ constructor(private _riskReport:ApiRiskReportDataService,
+              private _getReport : NewDataService,
+              private dialog: MatDialog,
+              private _cs: CommonService) {}
+  
   ngOnInit() {
 
     this._getReport.getReport().subscribe(res => {
+      //console.log(res);
+      this.holisticMapData = res['holisticTableMap'];
+      this.APISummaryMap = res['externalAPISummaryMap'];
+
       let riskData = res['RiskScoreDetails'];
       this.riskData = riskData;
       this.globalRiskData = [...riskData];
       this.getBarData(riskData);//bar data
       //this.getTableData(riskData);//table data
       this.avgData(riskData);// avg Data
-      let riskGroup = this.groupBy(riskData, 'apiType');
+      let riskGroup = this._cs.groupBy(riskData, 'apiType');
       this.horizontalBarData(riskGroup); // horizantal bar data
       this.donutChartData(riskData, riskGroup); // donut chart data
+      this.verticalBarData(riskGroup);// verical bar data
+      
       riskData.forEach(element => {
         if (this.businessUnit.indexOf(element.businessUnit) === -1 && element.businessUnit !== "") {
           this.businessUnit.push(element.businessUnit);
@@ -63,40 +73,29 @@ export class DashboardComponent {
       });
     })
   }
-  /*
-  * Group data by columns
-  */
-  groupBy(data, column) {
-    if (data !== undefined) {
-      let groupData = data.reduce((r, a) => {
-        r[a[column]] = [...r[a[column]] || [], a];
-        return r;
-      }, {});
-      return groupData;
-    }
-  }
+  
   /*
   * Donut chart data
   */
-  donutChartData(riskData, riskGroup) {
-    //Piechart data
-    let pieChartData = {};
-    pieChartData['name'] = "API Risk Overview";
-    pieChartData['count'] = riskData.length;
-    pieChartData['data'] = [];
-    //Donut chart data
-    let dountChartData = {};
-    dountChartData['name'] = 'Sunburst';//this.chartSetting.avgRiskLevel+"\r\n"+this.chartSetting.avgRisk;
-    //dountChartData['size'] = riskData.length;
-    dountChartData['count'] = riskData.length;
-    //
-    dountChartData['children'] = Object.keys(riskGroup).map((column) => {
-      // riskGroup[column].map((data) => {
-      let groupCritical = this.groupBy(riskGroup[column], 'overallRiskClassification');
+ donutChartData(riskData, riskGroup) {
+  //Piechart data
+  let pieChartData = {};
+  pieChartData['name'] = "API Risk Overview";
+  pieChartData['count'] = riskData.length;
+  pieChartData['data'] = [];
+  //Donut chart data
+  let dountChartData = {};
+  dountChartData['name'] = 'Sunburst';//this.chartSetting.avgRiskLevel+"\r\n"+this.chartSetting.avgRisk;
+  //dountChartData['size'] = riskData.length;
+  dountChartData['count'] = riskData.length;
+  //
+  dountChartData['children'] = Object.keys(riskGroup).map((column) => {
+  // riskGroup[column].map((data) => {
+      let  groupCritical = this._cs.groupBy(riskGroup[column], 'overallRiskClassification');
       let chartChildData = [];
       chartChildData['children'] = Object.keys(groupCritical).map((column1) => {
 
-        let groupBreach = this.groupBy(groupCritical[column1], 'penTestSlaBreach');
+        let  groupBreach = this._cs.groupBy(groupCritical[column1], 'penTestSlaBreach');
         let chart2ChildData = [];
         chart2ChildData['children'] = Object.keys(groupBreach).map((column2) => {
           return {
@@ -120,7 +119,7 @@ export class DashboardComponent {
     });
     this.donutData = dountChartData;
     //PieChart Data
-    let groupPieData = this.groupBy(riskData, 'overallRiskClassification');
+    let groupPieData = this._cs.groupBy(riskData, 'overallRiskClassification');
     Object.keys(groupPieData).map((column) => {
       let objPie = {};
       objPie['name'] = column;
@@ -135,10 +134,10 @@ export class DashboardComponent {
   */
   getTableData(riskData) {
     var objData = {};
-    let groupApiType = this.groupBy(riskData, 'apiType');
+    let groupApiType = this._cs.groupBy(riskData, 'apiType');
 
     Object.keys(groupApiType).map((column) => {
-      groupApiType[column] = this.groupBy(groupApiType[column], 'apiRiskClassificatin');
+      groupApiType[column] = this._cs.groupBy(groupApiType[column], 'apiRiskClassificatin');
     })    
   }
   /*
@@ -147,13 +146,13 @@ export class DashboardComponent {
   getBarData(riskData) {
 
     let barData = [];
-    let groupRisk = this.groupBy(riskData, 'apiRiskClassificatin');
+    let groupRisk = this._cs.groupBy(riskData, 'apiRiskClassificatin');
     Object.keys(groupRisk).map((column) => {
       let objData = {};
       objData['key'] = column;
       objData['values'] = [];
 
-      let groupApiType = this.groupBy(groupRisk[column], 'apiType');
+      let groupApiType = this._cs.groupBy(groupRisk[column], 'apiType');
       Object.keys(groupApiType).map((column1) => {
         // console.log(groupApiType);
         let objType = {};
@@ -163,7 +162,7 @@ export class DashboardComponent {
       })
       barData.push(objData);
     });
-    this.barData = barData;
+    //this.barData = barData;
     //console.log(barData);
   }
 
@@ -199,8 +198,8 @@ export class DashboardComponent {
   verticalBarData(riskGroup) {
     let vBarData = [];
 
-    let groupStatusExt = this.groupBy(riskGroup['External'], 'apiRiskClassificatin');
-    let groupStatusInt = this.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
+    let groupStatusExt = this._cs.groupBy(riskGroup['External'], 'apiRiskClassificatin');
+    let groupStatusInt = this._cs.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
     //External
     if (riskGroup['External'] !== undefined) {
       Object.keys(groupStatusExt).map((column) => {
@@ -223,7 +222,9 @@ export class DashboardComponent {
         vBarData.push(objData);
       });
     }
-    //console.log(vBarData);
+    if(vBarData.length == 0) {
+      vBarData.push({key:[], values:[]});
+    }
     this.barData = vBarData;
   }
   /*
@@ -238,9 +239,9 @@ export class DashboardComponent {
         { label: 'Raml Status', values: [] }
       ]
     }
-
-    let groupStatusExt = this.groupBy(riskGroup['External'], 'apiRiskClassificatin');
-    let groupStatusInt = this.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
+   
+    let groupStatusExt = this._cs.groupBy(riskGroup['External'], 'apiRiskClassificatin');
+    let groupStatusInt = this._cs.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
 
     //External
     if (riskGroup['External'] !== undefined) {
@@ -391,173 +392,42 @@ export class DashboardComponent {
       "intApiPenTestPending": 40,
       "intApiVeracodeScanPending": 30
     }
-
   }
+  
   /*
-  * Function to calculate tables counts
+  * Function to filter the Risk API data
   */
-  calcTableCounts(riskData) {
-
-  }
-  // END: Function to show API risk details on in PopUp Table format
   onFilter(event) {
-    this.apiReviewTableData(event);
-    // console.log(event);
-    // this.selectedBU = event.bu;
-    // this.selectedTC = event.tc;
-  }
-  apiReviewTableData(event) {
-    this.selectedBU = event.bu;
-    this.selectedTC = event.tc;
-    this._getReport.getReport().subscribe(res => {
-      let riskData = res['RiskScoreDetails'];
-      //Row 1
-      let extCriPendingPenTesting = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Critical' && i.penTestStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extCriPendingVeracodeScan = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Critical' && i.veracodeStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extCriPendingRamlReview = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Critical' && i.ramlReviewPending === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extCriPenTestSLABreach = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Critical' && i.penTestSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extCriVeracodeSLABreach = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Critical' && i.veracodeSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      //Row 2
-      let extHighPendingPenTesting = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'High' && i.penTestStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extHighPendingVeracodeScan = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'High' && i.veracodeStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extHighPendingRamlReview = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'High' && i.ramlReviewPending === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extHighPenTestSLABreach = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'High' && i.penTestSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extHighVeracodeSLABreach = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'High' && i.veracodeSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      //Row 3
-      let extMedPendingPenTesting = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Medium' && i.penTestStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extMedPendingVeracodeScan = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Medium' && i.veracodeStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extMedPendingRamlReview = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Medium' && i.ramlReviewPending === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extMedVeracodeSLABreach = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Medium' && i.penTestSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extMedPenTestSLABreach = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Medium' && i.veracodeSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-
-      //Row 4
-      let extLowPendingPenTesting = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Low' && i.penTestStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extLowPendingVeracodeScan = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Low' && i.veracodeStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extLowPendingRamlReview = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Low' && i.ramlReviewPending === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extLowPenTestSLABreach = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Low' && i.penTestSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let extLowVeracodeSLABreach = riskData.filter(i => i.apiType === 'External' && i.apiRiskClassificatin === 'Low' && i.veracodeSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      //Row 5
-      let intCriPendingPenTesting = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Critical' && i.penTestStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intCriPendingVeracodeScan = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Critical' && i.veracodeStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intCriPendingRamlReview = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Critical' && i.ramlReviewPending === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intCriPenTestSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Critical' && i.penTestSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intCriVeracodeSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Critical' && i.veracodeSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      //Row 6
-      let intHighPendingPenTesting = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'High' && i.penTestStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intHighPendingVeracodeScan = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'High' && i.veracodeStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intHighPendingRamlReview = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'High' && i.ramlReviewPending === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intHighPenTestSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'High' && i.penTestSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intHighVeracodeSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'High' && i.veracodeSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      //Row 7
-      let intMedPendingPenTesting = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Medium' && i.penTestStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intMedPendingVeracodeScan = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Medium' && i.veracodeStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intMedPendingRamlReview = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Medium' && i.ramlReviewPending === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intMedVeracodeSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Medium' && i.penTestSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intMedPenTestSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Medium' && i.veracodeSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-
-      //Row 8
-      let intLowPendingPenTesting = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Low' && i.penTestStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intLowPendingVeracodeScan = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Low' && i.veracodeStatus === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intLowPendingRamlReview = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Low' && i.ramlReviewPending === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intLowPenTestSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Low' && i.penTestSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
-      let intLowVeracodeSLABreach = riskData.filter(i => i.apiType === 'Internal' && i.apiRiskClassificatin === 'Low' && i.veracodeSlaBreach === "Pending"
-        && i.businessUnit === this.selectedBU && i.transactionCycle === this.selectedTC).length
-
+    //console.log(event);
+    this.riskData = [...this.globalRiskData];
+    //console.log(this.riskData);
+    let filterCriteria = {};
+    if(event.bu !== undefined && event.bu != "") {
+      if(event.bu == "All BU") {
+        filterCriteria['businessUnit'] = (businessUnit) => this.businessUnit.indexOf(businessUnit) > -1;
+      } else {
+        filterCriteria['businessUnit'] = (businessUnit) => businessUnit == event.bu;
+      }
+    }
+    if(event.tc !== undefined && event.tc !== "") {
+      if(event.tc == "All TC") {
+        filterCriteria['transactionCycle'] = (transactionCycle) => this.transactionCycle.indexOf(transactionCycle) > -1;
+      } else {
+        filterCriteria['transactionCycle'] = (transactionCycle) => transactionCycle == event.tc;
+      }
       
+    }
+    let riskData  = this.filterArray(this.riskData, filterCriteria);
+    this.riskData = riskData;
+    
+    this.getBarData(riskData);//bar data
+    this.getTableData(riskData);//table data
+    this.avgData(riskData);// avg Data
+    let riskGroup = this._cs.groupBy(riskData, 'apiType');
+    this.horizontalBarData(riskGroup); // horizantal bar data
+    this.verticalBarData(riskGroup);// verical bar data
+    this.donutChartData(riskData, riskGroup); // donut chart data
 
-      let data = { extCriPendingPenTesting ,  extCriPendingVeracodeScan,  extCriPendingRamlReview,  extCriPenTestSLABreach,  extCriVeracodeSLABreach,
-        extHighPendingPenTesting,  extHighPendingVeracodeScan,  extHighPendingRamlReview,  extHighPenTestSLABreach,  extHighVeracodeSLABreach,
-        extMedPendingPenTesting,  extMedPendingVeracodeScan,  extMedPendingRamlReview,  extMedVeracodeSLABreach,  extMedPenTestSLABreach,
-        extLowPendingPenTesting,  extLowPendingVeracodeScan,  extLowPendingRamlReview,  extLowPenTestSLABreach,  extLowVeracodeSLABreach,
-        intCriPendingPenTesting ,  intCriPendingVeracodeScan,  intCriPendingRamlReview,  intCriPenTestSLABreach,  intCriVeracodeSLABreach,
-        intHighPendingPenTesting,  intHighPendingVeracodeScan,  intHighPendingRamlReview,  intHighPenTestSLABreach,  intHighVeracodeSLABreach,
-        intMedPendingPenTesting,  intMedPendingVeracodeScan,  intMedPendingRamlReview,  intMedVeracodeSLABreach,  intMedPenTestSLABreach,
-        intLowPendingPenTesting,  intLowPendingVeracodeScan,  intLowPendingRamlReview,  intLowPenTestSLABreach, intLowVeracodeSLABreach}
-
-      console.log("Selected BU: " + this.selectedBU);
-      console.log("Selected TC: " + this.selectedTC);
-      console.log("Selected TC: " + data.extCriPendingPenTesting);
-
-
-
-    })
+    //this.updateSunburst.emit(this.donutData);
   }
 }

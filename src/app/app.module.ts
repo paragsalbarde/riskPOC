@@ -24,6 +24,7 @@ import { MatGridListModule,
 import { ApiRiskReportDataService } from './shared/api-risk-report-data.service';
 import { NewDataService } from './shared/new-data-service.service';
 import { ReportService } from './shared/services/report.service';
+import { CommonService } from './shared/services/common.service';
 //Components
 import { AppComponent } from './app.component';
 import { ApiAppNavComponent } from './components/api-app-nav/api-app-nav.component';
@@ -81,7 +82,7 @@ import { ReporttableComponent } from './components/table/report-table/report-tab
     //MatSelectBase,
     //MatSelect
   ],
-  providers: [ApiRiskReportDataService, NewDataService, ReportService],
+  providers: [ApiRiskReportDataService, NewDataService, ReportService, CommonService],
   bootstrap: [AppComponent],
   entryComponents: [ApiDetailsComponent]
 })

@@ -16,9 +16,10 @@ export class BarchartComponent implements OnInit, OnChanges {
   constructor(private _getReport: NewDataService ) { }
 
   ngOnInit() {
-    this.drawBarChart();
+    //this.drawBarChart();
   }
   ngOnChanges() {
+    //console.log(this.chartData);
     this.drawBarChart();
   }
 

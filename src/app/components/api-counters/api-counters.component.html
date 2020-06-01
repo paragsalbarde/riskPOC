@@ -1,4 +1,5 @@
-<mat-grid-list class="counterGrid"cols="4" rowHeight="125px" *ngFor="let summary of showApiSummary">
+<mat-grid-list class="counterGrid"cols="4" rowHeight="125px">
+  <!--*ngFor="let summary of APISummaryMap"-->
   <mat-grid-tile [colspan]=4>
     <mat-card class="dashboard-card counter-card">
       <mat-card-content class="dashboard-card-content">
@@ -6,7 +7,7 @@
           <div class="counterDiv">
             <div class="counterHeader">
               <div class="dateDiv">
-                <mat-icon>insert_invitation</mat-icon><strong>{{ apiReportDate |  date:'dd/MM/yyyy'}}</strong>
+                <mat-icon>insert_invitation</mat-icon><strong>{{ summary.reportDate |  date:'dd/MM/yyyy'}}</strong>
               </div>
               <h4>Total Vulnerabilities</h4>
               <h2>{{ summary.totalVulnerabilities }}</h2>
@@ -19,7 +20,7 @@
             <div class="counters">
               <div class="counter">
                 <label for="">Internal</label>
-                <h2>{{ summary.extApiPenTestPending }}</h2>
+                <h2>{{ summary.intApiPenTestPending }}</h2>
               </div>
               <div class="counter">
                 <label for="">External</label>
@@ -34,7 +35,7 @@
             <div class="counters">
               <div class="counter">
                 <label for="">Internal</label>
-                <h2>{{ summary.extApiVeracodeScanPending }}</h2>
+                <h2>{{ summary.intApiVeracodeScanPending }}</h2>
               </div>
               <div class="counter">
                 <label for="">External</label>

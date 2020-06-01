@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NewDataService } from './../../../shared/new-data-service.service';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
+import { CommonService } from './../../../shared/services/common.service';
 
 import {MatTableModule} from '@angular/material/table';
 
@@ -8,94 +8,135 @@ import {MatTableModule} from '@angular/material/table';
   templateUrl: './table-map.component.html',
   styleUrls: ['./table-map.component.css']
 })
-export class TableMapComponent implements OnInit {
-  resonse: any = [];
-  public holisticMapData = [];
-  public add_PendingPenTesting;
-  public add_PendingVeracodeScan;
-  public add_penTestSlaBreach;
-  public add_veracodeSlaBreach;
-  public add_ramlReviewStatus;
+export class TableMapComponent implements OnInit, OnChanges {
 
+  @Input() riskData;
+  @Input() holisticMapData;
   @Output() chartDetails = new EventEmitter();
   
-  constructor(private _getHolisticMap: NewDataService, private _getReport: NewDataService) { }
+  public tableData:any = {
+    internal : {
+      Critical : {
+        PendingPenTesting: 0,
+        PendingVeracodeScan: 0,
+        PendingRamlReview: 0,
+        PenTestSLABreach: 0,
+        VeracodeSLABreach: 0,
+      },
+      High : {
+        PendingPenTesting: 0,
+        PendingVeracodeScan: 0,
+        PendingRamlReview: 0,
+        PenTestSLABreach: 0,
+        VeracodeSLABreach: 0,
+      },
+      Medium : {
+        PendingPenTesting: 0,
+        PendingVeracodeScan: 0,
+        PendingRamlReview: 0,
+        PenTestSLABreach: 0,
+        VeracodeSLABreach: 0,
+      },
+      Low : {
+        PendingPenTesting: 0,
+        PendingVeracodeScan: 0,
+        PendingRamlReview: 0,
+        PenTestSLABreach: 0,
+        VeracodeSLABreach: 0,
+      }
+    },
+    external : {
+      Critical : {
+        PendingPenTesting: 0,
+        PendingVeracodeScan: 0,
+        PendingRamlReview: 0,
+        PenTestSLABreach: 0,
+        VeracodeSLABreach: 0,
+      },
+      High : {
+        PendingPenTesting: 0,
+        PendingVeracodeScan: 0,
+        PendingRamlReview: 0,
+        PenTestSLABreach: 0,
+        VeracodeSLABreach: 0,
+      },
+      Medium : {
+        PendingPenTesting: 0,
+        PendingVeracodeScan: 0,
+        PendingRamlReview: 0,
+        PenTestSLABreach: 0,
+        VeracodeSLABreach: 0,
+      },
+      Low : {
+        PendingPenTesting: 0,
+        PendingVeracodeScan: 0,
+        PendingRamlReview: 0,
+        PenTestSLABreach: 0,
+        VeracodeSLABreach: 0,
+      }
+    },
+    sum : {
+      add_PendingPenTesting:0, 
+      add_PendingVeracodeScan:0,
+      add_penTestSlaBreach:0,
+      add_veracodeSlaBreach:0,
+      add_ramlReviewStatus:0,
+    }
+  };
+  
+  constructor(private _cs: CommonService) { }
 
   ngOnInit() {
-    // this._getHolisticMap.getHolisticMap()
-    //                     .subscribe(data => this.holisticMapData = data);
+  }
+  ngOnChanges() {
+    this.iterateTableData();
+    this.iterateSumData();
+  }
+  iterateTableData() {
+    let arrStatus = ['Critical', 'High', 'Medium', 'Low'];
+    let arrType = ['internal', 'external'];
 
-    //START: Column Additions 
-    this._getReport.getReport()
-    .subscribe(data => {
-        this.add_PendingPenTesting = data['RiskScoreDetails'].filter(i => i.penTestStatus === 'Pending')
-                          .map(i => i.apiName).length;
-        this.add_PendingVeracodeScan = data['RiskScoreDetails'].filter(i => i.veracodeStatus === 'Pending')
-                          .map(i => i.apiName).length;
-        this.add_ramlReviewStatus = data['RiskScoreDetails'].filter(i => i.ramlReviewStatus === 'Pending')
-                          .map(i => i.apiName).length;
-        this.add_penTestSlaBreach = data['RiskScoreDetails'].filter(i => i.penTestSlaBreach === 'SLA Breached')
-                          .map(i => i.apiName).length;
-        this.add_veracodeSlaBreach = data['RiskScoreDetails'].filter(i => i.veracodeSlaBreach === 'SLA Breached')
-                          .map(i => i.apiName).length;
+    let riskGroup = this._cs.groupBy(this.riskData, 'apiType');
+    let groupStatusInt = this._cs.groupBy(riskGroup['Internal'], 'apiRiskClassificatin');
+    let groupStatusExt = this._cs.groupBy(riskGroup['External'], 'apiRiskClassificatin');
+    arrType.forEach(type => {
+      let objData = (type == 'internal') ? groupStatusInt : groupStatusExt;
+      arrStatus.forEach(status => {
+        //Internal_External
+        this.tableData[type][status]['PendingPenTesting'] = (objData !== undefined && objData[status] !== undefined) ?  objData[status].filter(i => i.penTestStatus === 'Pending').length : 0;
+        this.tableData[type][status]['PendingVeracodeScan'] = (objData !== undefined && objData[status] !== undefined) ? objData[status].filter(i => i.veracodeStatus === 'Pending').length : 0;
+        this.tableData[type][status]['PendingRamlReview'] = (objData !== undefined && objData[status] !== undefined) ? objData[status].filter(i => i.ramlReviewStatus === 'Pending').length : 0;
+        this.tableData[type][status]['PenTestSLABreach'] = (objData !== undefined && objData[status] !== undefined) ? objData[status].filter(i => i.penTestSlaBreach === 'SLA Breached').length : 0;
+        this.tableData[type][status]['VeracodeSLABreach'] = (objData !== undefined && objData[status] !== undefined) ? objData[status].filter(i => i.veracodeSlaBreach === 'SLA Breached').length : 0;
+      });
     });
-    //END
-
-}
-clickPartition(data) {
-    //console.log(data);
-    this.chartDetails.emit(data);
+    //console.log(this.tableData);
+  }
+  /*
+  * Group data by columns
+  */
+ groupBy(data, column) {
+  if(data !== undefined) {
+    let groupData = data.reduce((r, a) => {
+      r[a[column]] = [...r[a[column]] || [], a];
+      return r;
+    }, {});
+    return groupData;
   }
 }
-
-// 1st Col
-// extCriPendingPenTesting
-// intMedPendingPenTesting
-// extLowPendingPenTesting
-// intLowPendingPenTesting
-// intCriPendingPenTesting
-// intHighPendingPenTesting
-// extMedPendingPenTesting
-// extHighPendingPenTesting
-
-// 2nd Col
-// intMedPendingVeracodeScan 
-// extMedPendingVeracodeScan 
-// intHighPendingVeracodeScan
-// extCriPendingVeracodeScan
-// intLowPendingVeracodeScan
-// intCriPendingVeracodeScan
-// extLowPendingVeracodeScan
-// extHighPendingVeracodeScan
-
-
-// 3rd Col
-// intLowPenTestSLABreach 
-// extCriPenTestSLABreach 
-// intHighPenTestSLABreach 
-// extMedPenTestSLABreach
-// extLowPenTestSLABreach 
-// extHighPenTestSLABreach 
-// intCriPenTestSLABreach 
-// intMedPenTestSLABreach
-
-// 4th Col
-// intMedVeracodeSLABreach
-// extCriVeracodeSLABreach 
-// extMedVeracodeSLABreach
-// intLowVeracodeSLABreach 
-// extLowVeracodeSLABreach 
-// intHighVeracodeSLABreach 
-// extHighVeracodeSLABreach 
-// intCriVeracodeSLABreach 
-
-// 5th Col
-// intHighPendingRamlReview
-// extLowPendingRamlReview
-// extHighPendingRamlReview
-// extCriPendingRamlReview
-// intCriPendingRamlReview
-// intMedPendingRamlReview 
-// extMedPendingRamlReview 
-// intLowPendingRamlReview
-
+  iterateSumData() {
+    this.tableData.sum.add_PendingPenTesting = this.riskData.filter(i => i.penTestStatus === 'Pending')
+    .map(i => i.apiName).length;
+    this.tableData.sum.add_PendingVeracodeScan = this.riskData.filter(i => i.veracodeStatus === 'Pending')
+        .map(i => i.apiName).length;
+    this.tableData.sum.add_ramlReviewStatus = this.riskData.filter(i => i.ramlReviewStatus === 'Pending')
+        .map(i => i.apiName).length;
+    this.tableData.sum.add_penTestSlaBreach = this.riskData.filter(i => i.penTestSlaBreach === 'SLA Breached')
+        .map(i => i.apiName).length;
+    this.tableData.sum.add_veracodeSlaBreach = this.riskData.filter(i => i.veracodeSlaBreach === 'SLA Breached')
+        .map(i => i.apiName).length;
+  }
+  clickPartition(data) {
+      this.chartDetails.emit(data);
+  }
+}

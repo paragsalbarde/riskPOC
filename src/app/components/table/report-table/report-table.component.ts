@@ -1,5 +1,4 @@
 import { Component, OnInit, OnChanges, ViewChild, ElementRef, Input, ViewEncapsulation } from '@angular/core';
-import { ReportService } from './../../../shared/services/report.service';
 
 @Component({
   selector: 'report-table',
@@ -8,16 +7,10 @@ import { ReportService } from './../../../shared/services/report.service';
 })
 export class ReporttableComponent implements OnInit {
   @Input() tableData;
-    resonse: any = [];
-    public holisticMapData = [];
-    public add_PendingPenTesting;
-    public add_PendingVeracodeScan;
-    public add_penTestSlaBreach;
-    public add_veracodeSlaBreach;
-    public add_ramlReviewStatus 
-  constructor(private _getReport: ReportService ) { }
+   
+  constructor( ) { }
 
   ngOnInit() {
-    console.log(this.tableData)
+    //console.log(this.tableData)
   }
 }

@@ -294,7 +294,7 @@ export class DashboardComponent {
     let avgRiskCal = riskData.filter(i => i.apiType)
       .map(i => i.riskScore)
       .reduce((a, b) => a + b, 0) / riskScores.length;
-      
+
     let avgRisk = avgRiskCal.toFixed();
     let overAllRiskLevel
     let avgRiskInt = parseInt(avgRisk);

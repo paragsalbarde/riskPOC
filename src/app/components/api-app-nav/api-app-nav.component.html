@@ -1,7 +1,11 @@
 <mat-sidenav-container class="sidenav-container"  [hasBackdrop]="false">
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <span>API Risk Report Dashboard</span>
+      <a class="header" [routerLink]="['']">API Risk Report Dashboard</a>
+      <div class="tab">
+        <button class="tablinks" [routerLink]="['home']">Home</button>
+        <button class="tablinks" [routerLink]="['report']">Report</button>
+      </div>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="contentArea">

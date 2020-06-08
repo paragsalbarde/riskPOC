@@ -1,0 +1,19 @@
+<div class="grid-container">
+  <unit-filter
+  [businessUnit]="businessUnit"
+  [transactionCycle]="transactionCycle"
+  (onFilter)="onFilter($event)"
+  ></unit-filter>
+  <!--<app-api-counters
+  *ngIf="riskData.length > 0"
+  [riskData]="riskData"
+  [APISummaryMap]="APISummaryMap"
+  ></app-api-counters>-->
+  
+  <mat-grid-list cols="12" rowHeight="400px">
+    <!--1-->
+    <material-table 
+    *ngIf="riskData.length > 0"
+    [tableData]="riskData"></material-table>
+  </mat-grid-list>
+</div>

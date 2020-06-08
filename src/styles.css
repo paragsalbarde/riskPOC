@@ -219,3 +219,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .barChart1 {
       margin-left: 345px;
   }
+  .mat-tab-label {
+    height: 40 !important;
+    min-width: 120px !important;
+  }
+  .mat-form-field-wrapper {
+      margin-left: 30px;
+  }

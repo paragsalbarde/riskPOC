@@ -32,8 +32,10 @@ export class ApiCountersComponent implements OnInit, OnChanges {
     //console.log(this.APISummaryMap)
     //this.summary = this.APISummaryMap[0];
     this.summary.reportDate = this.APISummaryMap[0].reportDate;
+    
   }
   ngOnChanges() {
+    
     this.calcAPISummary();
   }
 

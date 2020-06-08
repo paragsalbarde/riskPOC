@@ -1,0 +1,89 @@
+
+
+<div class="mat-elevation-z8">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+      </mat-form-field>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="apiType">
+        <th mat-header-cell *matHeaderCellDef> API Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.apiType}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="apiRiskClassificatin">
+        <th mat-header-cell *matHeaderCellDef> API Risk Classification </th>
+        <td mat-cell *matCellDef="let element"> {{element.apiRiskClassificatin}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="apiName">
+        <th mat-header-cell *matHeaderCellDef> API Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.apiName}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="apiVersion">
+        <th mat-header-cell *matHeaderCellDef> API Version </th>
+        <td mat-cell *matCellDef="let element"> {{element.apiVersion}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="transactionCycle">
+          <th mat-header-cell *matHeaderCellDef> Transaction Cycle </th>
+          <td mat-cell *matCellDef="let element"> {{element.transactionCycle}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="penTestSlaBreach">
+          <th mat-header-cell *matHeaderCellDef> Pen Test Sla Breach </th>
+          <td mat-cell *matCellDef="let element"> {{element.penTestSlaBreach}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="penTestStatus">
+          <th mat-header-cell *matHeaderCellDef> Pen Test Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.penTestStatus}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="penTestDate">
+          <th mat-header-cell *matHeaderCellDef> Pen Test Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.penTestDate}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="ramlReviewPending">
+          <th mat-header-cell *matHeaderCellDef> Raml Review Pending </th>
+          <td mat-cell *matCellDef="let element"> {{element.ramlReviewPending}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="ramlReviewStatus">
+          <th mat-header-cell *matHeaderCellDef> Raml Review Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.ramlReviewStatus}} </td>
+      </ng-container>
+        
+      <ng-container matColumnDef="ramlReviewDate">
+          <th mat-header-cell *matHeaderCellDef> Raml Review Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.ramlReviewDate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="veracodeSlaBreach">
+            <th mat-header-cell *matHeaderCellDef> Veracode Sla Breach </th>
+            <td mat-cell *matCellDef="let element"> {{element.veracodeSlaBreach}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="veracodeStatus">
+            <th mat-header-cell *matHeaderCellDef> Veracode Status</th>
+            <td mat-cell *matCellDef="let element"> {{element.veracodeStatus}} </td>
+        </ng-container>
+        
+      <ng-container matColumnDef="overallRiskClassification">
+          <th mat-header-cell *matHeaderCellDef> Overall Risk </th>
+          <td mat-cell *matCellDef="let element"> {{element.overallRiskClassification}} </td>
+      </ng-container>
+        
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator 
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20]"
+     showFirstLastButtons></mat-paginator>
+  </div>
+      

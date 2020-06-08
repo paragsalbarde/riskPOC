@@ -11,6 +11,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AllMatComponentsModule } from './all-mat-components.module';
 import { MatGridListModule, 
         MatFormFieldModule,
+        MatInputModule,
         MatCardModule,
         MatMenuModule,
         MatIconModule,
@@ -19,7 +20,9 @@ import { MatGridListModule,
         MatPaginatorModule,
         //MatSelectBase,
         //MatSelect,
-        MatSortModule } from '@angular/material';
+        MatSortModule, 
+        MatTab,
+        MatTabsModule} from '@angular/material';
 //Services
 import { ApiRiskReportDataService } from './shared/api-risk-report-data.service';
 import { NewDataService } from './shared/new-data-service.service';
@@ -30,6 +33,7 @@ import { AppComponent } from './app.component';
 import { ApiAppNavComponent } from './components/api-app-nav/api-app-nav.component';
 import { ApiCountersComponent } from './components/api-counters/api-counters.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ReportDashboardComponent } from './report-dashboard/report-dashboard.component';
 import { ApiDetailsComponent } from './modal/api-details/api-details.component';
 import { UnitFilterComponent } from './components/unit-filter/unit-filter.component';
 //Charts
@@ -40,6 +44,7 @@ import { HbarchartComponent } from './d3-charts/hbarchart/hbarchart.component';
 import { BarchartComponent } from './d3-charts/barchart/barchart.component';
 import { PiechartComponent } from './d3-charts/piechart/piechart.component';
 //Tables
+import { MaterialTableComponent } from './components/table/material-table/material-table.component';
 import { TableMapComponent } from './components/table/table-map/table-map.component';
 import { ReporttableComponent } from './components/table/report-table/report-table.component';
 
@@ -58,7 +63,9 @@ import { ReporttableComponent } from './components/table/report-table/report-tab
     HbarchartComponent,
     HorizontalBarchartComponent,
     SunburstComponent,
-    UnitFilterComponent
+    UnitFilterComponent,
+    ReportDashboardComponent,
+    MaterialTableComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +85,9 @@ import { ReporttableComponent } from './components/table/report-table/report-tab
     MatSortModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule,
+    MatInputModule
     //MatSelectBase,
     //MatSelect
   ],

@@ -379,21 +379,6 @@ export class DashboardComponent {
       });
     });
   }
-  /*
-  * Function to calculate counts
-  */
-  calcCounts(riskData) {
-    let objCounts = {
-      "extApiVeracodeScanPending": 0,
-      "reportDate": "2020-05-22T10:31:57.964+0000",
-      "extApiRamlReviewPending": 0,
-      "extApiPenTestPending": 0,
-      "totalVulnerabilities": 50,
-      "intApiRamlReviewPending": 20,
-      "intApiPenTestPending": 40,
-      "intApiVeracodeScanPending": 30
-    }
-  }
   
   /*
   * Function to filter the Risk API data
@@ -418,7 +403,7 @@ export class DashboardComponent {
       }
       
     }
-    let riskData  = this.filterArray(this.riskData, filterCriteria);
+    let riskData  = this._cs.filterArray(this.riskData, filterCriteria);
     this.riskData = riskData;
     
     this.getBarData(riskData);//bar data

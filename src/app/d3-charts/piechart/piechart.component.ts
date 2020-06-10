@@ -19,8 +19,7 @@ export class PiechartComponent implements OnInit, AfterViewInit, OnChanges {
   constructor(private _getReport: NewDataService ) { }
   ngAfterViewInit() {
    
-  
-}
+  }
   ngOnInit() {
      this.drawPiechart();
   }
